@@ -1,0 +1,804 @@
+<!doctype html>
+
+
+
+  
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="Ajax," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="ZHB-CSDN" type="application/atom+xml" />
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.0" />
+
+
+
+
+
+
+<meta name="description" content="什么是AJAX？AJAX的意思就是异步的JavaScript和XML。简而言之，它是使用XMLHttpRequest对象与服务器端通信的脚本语言。它可以发送及接收各种格式的信息，包括JSON、XML、HTML和文本文件。AJAX最为吸引人的就是它的“异步”特性，这意味着AJAX可以无需刷新页面而与服务器端进行通信。允许你根据用户事件来更新部分页面内容。 可以考虑的两个特性： 向服务器端发送请求，而">
+<meta name="keywords" content="Ajax">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Ajax快速入门">
+<meta property="og:url" content="https://zhang-hongbin.github.io/2017/01/27/Ajax快速入门/index.html">
+<meta property="og:site_name" content="ZHB-CSDN">
+<meta property="og:description" content="什么是AJAX？AJAX的意思就是异步的JavaScript和XML。简而言之，它是使用XMLHttpRequest对象与服务器端通信的脚本语言。它可以发送及接收各种格式的信息，包括JSON、XML、HTML和文本文件。AJAX最为吸引人的就是它的“异步”特性，这意味着AJAX可以无需刷新页面而与服务器端进行通信。允许你根据用户事件来更新部分页面内容。 可以考虑的两个特性： 向服务器端发送请求，而">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2017-09-04T08:33:42.158Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Ajax快速入门">
+<meta name="twitter:description" content="什么是AJAX？AJAX的意思就是异步的JavaScript和XML。简而言之，它是使用XMLHttpRequest对象与服务器端通信的脚本语言。它可以发送及接收各种格式的信息，包括JSON、XML、HTML和文本文件。AJAX最为吸引人的就是它的“异步”特性，这意味着AJAX可以无需刷新页面而与服务器端进行通信。允许你根据用户事件来更新部分页面内容。 可以考虑的两个特性： 向服务器端发送请求，而">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://zhang-hongbin.github.io/2017/01/27/Ajax快速入门/"/>
+
+
+
+
+
+  <title> Ajax快速入门 | ZHB-CSDN </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">ZHB-CSDN</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">Be here now</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            主頁
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分類
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            檔案
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            標簽
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="https://zhang-hongbin.github.io/2017/01/27/Ajax快速入门/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Zhang Hongbin">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="http://oo590vn4k.bkt.clouddn.com/111.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="ZHB-CSDN">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                Ajax快速入门
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-01-27T14:00:05+08:00">
+                2017-01-27
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/九、Ajax/" itemprop="url" rel="index">
+                    <span itemprop="name">九、Ajax</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="什么是AJAX？"><a href="#什么是AJAX？" class="headerlink" title="什么是AJAX？"></a>什么是AJAX？</h2><p>AJAX的意思就是异步的JavaScript和XML。简而言之，它是使用XMLHttpRequest对象与服务器端通信的脚本语言。它可以发送及接收各种格式的信息，包括JSON、XML、HTML和文本文件。AJAX最为吸引人的就是它的“异步”特性，这意味着AJAX可以无需刷新页面而与服务器端进行通信。允许你根据用户事件来更新部分页面内容。</p>
+<p>可以考虑的两个特性：</p>
+<p>向服务器端发送请求，而不用重新加载页面。<br>从服务器端接收数据并处理。</p>
+<h2 id="第一步：如何发送一个HTTP请求"><a href="#第一步：如何发送一个HTTP请求" class="headerlink" title="第一步：如何发送一个HTTP请求"></a>第一步：如何发送一个HTTP请求</h2><p>需要通过XMLHttpRequest实现使用JavaScript向服务器端发送一个HTTP请求。而Internet Explorer（IE）中引入一个名为XMLHTTP的ActiveX对象实现与XMLHttpRequest相同的功能，Mozilla、Safari和其他浏览器则使用XMLHttpRequest。</p>
+<p>如果要兼容各个浏览器的话，可以这样来做：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> httpRequest;</span><br><span class="line"><span class="keyword">if</span> (<span class="built_in">window</span>.XMLHttpRequest) &#123; <span class="comment">// Mozilla, Safari, IE7+ ...</span></span><br><span class="line">httpRequest = <span class="keyword">new</span> XMLHttpRequest();</span><br><span class="line">&#125; <span class="keyword">else</span> <span class="keyword">if</span> (<span class="built_in">window</span>.ActiveXObject) &#123; <span class="comment">// IE 6 and older</span></span><br><span class="line">httpRequest = <span class="keyword">new</span> ActiveXObject(<span class="string">"Microsoft.XMLHTTP"</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>注意：出于演示目的，上面创建XMLHTTP实例是简化了的代码。关于更加真实的例子，请参阅本文的第三步。</p>
+<p>接下来，当接收到服务器端响应时，需要告诉HTTP请求对象使用JavaScript函数来处理响应。将XMLHttpRequest对象的onreadystatechange属性设置为该函数的名称，当请求的状态变化时，该函数会被调用。</p>
+<pre><code>httpRequest.onreadystatechange = nameOfTheFunction;
+</code></pre><p>注意：该函数名没有传递参数的括号和参数，这表示只是分配了一个函数的引用，而不是真正调用该函数。当然，也可以动态定义一个匿名函数，这样可以实时地处理响应。</p>
+<pre><code>httpRequest.onreadystatechange = function(){
+// process the server response
+};
+</code></pre><p>在处理完服务器端的响应之后，我们就可以调用XMLHttpRequest对象的open()和send()方法向服务器端发送请求了。</p>
+<pre><code>httpRequest.open(&apos;GET&apos;, &apos;http://www.example.org/some.file&apos;, true);
+httpRequest.send(null);
+</code></pre><p>open()方法的第一个参数：HTTP请求方法 - GET、POST、HEAD及任何服务器端支持的方法。根据HTTP标准保持大写，否则一些浏览器（例如火狐）可能无法处理请求。关于HTTP请求方法的更多信息，你可以查看W3C规范</p>
+<p>open()方法的第二个参数：请求的URL。出于安全考虑，不能调用第三方域的页面内容。当调用open()方法时，一定确认使用相同域名内的页面，否则会得到“permission denied”的错误提示。常见的错误是使用domain.tld访问网站，却使用<a href="http://www.domain.tld来请求页面。如果真的需要发送一个请求到另一个域的话，可以查看HTTP访问控制" target="_blank" rel="noopener">www.domain.tld来请求页面。如果真的需要发送一个请求到另一个域的话，可以查看HTTP访问控制</a></p>
+<p>open()方法的第三个参数：可选，是否是异步请求。如果是true（默认值），表示是异步请求。</p>
+<p>send()方法的参数表示当请求为POST时，向服务器端发送请求的数据内容。如果发送的是表单数据格式的话，服务器端可以向字符串一样地解析。</p>
+<pre><code>&quot;name=value&amp;anothername=&quot;+encodeURIComponent(myVar)+&quot;&amp;so=on&quot;
+</code></pre><p>向服务器端发送的数据格式也可以是JSON、SOAP等格式。</p>
+<p>注意：如果使用POST方式发送数据的话，在调用send()方法前，需要设置请求的MIME类型。：</p>
+<pre><code>httpRequest.setRequestHeader(&apos;Content-Type&apos;, &apos;application/x-www-form-urlencoded&apos;);
+</code></pre><h2 id="第二步：处理服务器端的响应"><a href="#第二步：处理服务器端的响应" class="headerlink" title="第二步：处理服务器端的响应"></a>第二步：处理服务器端的响应</h2><p>当发送请求时，已经定义了一个函数来处理响应。</p>
+<pre><code>httpRequest.onreadystatechange = nameOfTheFunction;
+</code></pre><p>这个函数可以做什么呢？首先，该函数需要检查请求的状态。如果状态值为4的话，这表示接收到完成的服务器端响应，可以继续处理。</p>
+<pre><code>if (httpRequest.readyState === 4) {
+// everything is good, the response is received
+} else {
+// still not ready
+}
+</code></pre><p>readyState的值列表如下：</p>
+<p>0 - 未初始化<br>1 - 正在加载<br>2 - 加载完毕<br>3 - 交互中<br>4 - 完成</p>
+<p>接下来需要检查HTTP服务器端响应的状态代码，W3C网站 列出了所有的状态代码。下面的例子中，通过是否为200 OK的状态码来判断AJAX调用是否是成功的。</p>
+<p>if (httpRequest.status === 200) {<br>// perfect!<br>} else {<br>// there was a problem with the request,<br>// for example the response may contain a 404 (Not Found)<br>// or 500 (Internal Server Error) response code<br>}</p>
+<p>在检查了请求的状态和响应的状态码后，就可以接收服务器端发送的数据并处理。有两种选项访问这些数据：</p>
+<p>httpRequest.responseText - 将服务器端响应作为文本字符串返回<br>httpRequest.responseXML - 将响应作为一个XMLDocument对象返回，该对象可以使用JavaScript DOM函数进行遍历。</p>
+<p>注意，上述步骤只有异步请求（open()方法的第三个参数设置为true）时才是有效的。如果使用同步请求的话，是不需要指定函数的。在调用send()方法后就可以访问到服务器端返回的数据，因为脚本会停止并等待服务器端的响应。</p>
+<h2 id="第三步：一个简单的例子"><a href="#第三步：一个简单的例子" class="headerlink" title="第三步：一个简单的例子"></a>第三步：一个简单的例子</h2><p>下面来做一个简单的HTTP请求。JavaScript将请求一个包含“I’m a test.”文本的“test.html”HTML文档，然后使用alert()方法打印test.html文件的内容。<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line">&lt;span id=<span class="string">"ajaxButton"</span> style=<span class="string">"cursor: pointer; text-decoration: underline"</span>&gt;</span><br><span class="line">Make a request</span><br><span class="line">&lt;<span class="regexp">/span&gt;</span></span><br><span class="line"><span class="regexp"></span></span><br><span class="line"><span class="regexp">&lt;script type="text/</span>javascript<span class="string">"&gt;</span></span><br><span class="line"><span class="string">(function() &#123;</span></span><br><span class="line"><span class="string">var httpRequest;</span></span><br><span class="line"><span class="string">document.getElementById("</span>ajaxButton<span class="string">").onclick = function() &#123; makeRequest('test.html'); &#125;;</span></span><br><span class="line"><span class="string">function makeRequest(url) &#123;</span></span><br><span class="line"><span class="string">if (window.XMLHttpRequest) &#123; // Mozilla, Safari, ...</span></span><br><span class="line"><span class="string">httpRequest = new XMLHttpRequest();</span></span><br><span class="line"><span class="string">&#125; else if (window.ActiveXObject) &#123; // IE</span></span><br><span class="line"><span class="string">try &#123;</span></span><br><span class="line"><span class="string">httpRequest = new ActiveXObject("</span>Msxml2.XMLHTTP<span class="string">");</span></span><br><span class="line"><span class="string">&#125;</span></span><br><span class="line"><span class="string">catch (e) &#123;</span></span><br><span class="line"><span class="string">try &#123;</span></span><br><span class="line"><span class="string">httpRequest = new ActiveXObject("</span>Microsoft.XMLHTTP<span class="string">");</span></span><br><span class="line"><span class="string">&#125;</span></span><br><span class="line"><span class="string">catch (e) &#123;&#125;</span></span><br><span class="line"><span class="string">&#125;</span></span><br><span class="line"><span class="string">&#125;</span></span><br><span class="line"><span class="string">if (!httpRequest) &#123;</span></span><br><span class="line"><span class="string">alert('Giving up :( Cannot create an XMLHTTP instance');</span></span><br><span class="line"><span class="string">return false;</span></span><br><span class="line"><span class="string">&#125;</span></span><br><span class="line"><span class="string">httpRequest.onreadystatechange = alertContents;</span></span><br><span class="line"><span class="string">httpRequest.open('GET', url);</span></span><br><span class="line"><span class="string">httpRequest.send();</span></span><br><span class="line"><span class="string">&#125;</span></span><br><span class="line"><span class="string">function alertContents() &#123;</span></span><br><span class="line"><span class="string">if (httpRequest.readyState === 4) &#123;</span></span><br><span class="line"><span class="string">if (httpRequest.status === 200) &#123;</span></span><br><span class="line"><span class="string">alert(httpRequest.responseText);</span></span><br><span class="line"><span class="string">&#125; else &#123;</span></span><br><span class="line"><span class="string">alert('There was a problem with the request.');</span></span><br><span class="line"><span class="string">&#125;</span></span><br><span class="line"><span class="string">&#125;</span></span><br><span class="line"><span class="string">&#125;</span></span><br><span class="line"><span class="string">&#125;)();</span></span><br><span class="line"><span class="string">&lt;/script&gt;</span></span><br></pre></td></tr></table></figure></p>
+<p>在这个例子中：</p>
+<p>在浏览器中用户单击“Make a request”链接；<br>事件处理器调用makeRequest()方法，通过向该函数传递的参数，请求一个处在同一目录中的“test.html”HTML文件；<br>请求后，（onreadystatechange）执行 alertContents()方法；<br>alertContents()方法用于检查如果正确地接收到响应，利用alert()方法打印“test.html”文件包含的内容。</p>
+<p>注意：如果你发送一个请求后返回的是一段XML代码，而不是一个静态的XML文件的话，在Internet Explorer中必须设置一些响应头。如果没有设置响应头“Content-Type: application/xml”的话，当试图访问XML元素时IE将抛出一个”Object Expected”的JavaScript错误。</p>
+<p>注意：如果没有设置头“Cache-Control: no-cache”的话，浏览器将缓存响应并不会重新提交请求。可以添加像时间戳或一个随机数的不同GET请求参数（参考 bypassing the cache）。</p>
+<p>注意：如果httpRequest变量是全局的，makeRequest()方法因为冲突可能会被重写。将httpRequest变量定义在一个闭包中的话，可以避免AJAX函数的冲突。</p>
+<p>注意：如果出现通信错误（如服务器端被关闭），当试图访问状态字段时在onreadystatechange的方法中将会抛出一个异常。确保if语句声明在try..catch语句中。</p>
+<p>function alertContents() {<br>try {<br>if (httpRequest.readyState === 4) {<br>if (httpRequest.status === 200) {<br>alert(httpRequest.responseText);<br>} else {<br>alert(‘There was a problem with the request.’);<br>}<br>}<br>}<br>catch( e ) {<br>alert(‘Caught Exception: ‘ + e.description);<br>}<br>}</p>
+<h2 id="第四步：使用XML进行响应"><a href="#第四步：使用XML进行响应" class="headerlink" title="第四步：使用XML进行响应"></a>第四步：使用XML进行响应</h2><p>在前面的例子中，当接收到响应后使用XMLHttpRequest对象的responseText属性访问“test.html”文件包含的内容。现在尝试一下responseXML属性。</p>
+<p>首先，创建一个用于请求的名为“test.xml”的有效XML文档，代码如下：</p>
+<p>&lt;?xml version=”1.0” ?&gt;</p>
+<root><br>I’m a test.<br></root>
+
+<p>在脚本中，只需要修改请求行：</p>
+<p>onclick=”makeRequest(‘test.xml’)”&gt;</p>
+<p>然后在alertContents()方法中，需要使用如下代码替换alert(httpRequest.responseText);这一行代码：</p>
+<p>var xmldoc = httpRequest.responseXML;<br>var root_node = xmldoc.getElementsByTagName(‘root’).item(0);<br>alert(root_node.firstChild.data);</p>
+<p>这段代码需要由responseXML给予的XMLDocument对象，然后使用DOM方法来访问XML文档中的数据。</p>
+<h2 id="第五步：处理数据"><a href="#第五步：处理数据" class="headerlink" title="第五步：处理数据"></a>第五步：处理数据</h2><p>最后，向服务器端发送一些数据并接收响应。这次JavaScript脚本请求一个动态页面“test.php”，该页面将根据发送的数据返回一个“computedString”-“Hello, [user data]!”，并使用alert()方法进行打印。</p>
+<p>首先，向HTML页面中添加一个文本框，用户可以通过该文本框输入他们的名字：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&lt;label&gt;Your name:</span><br><span class="line">&lt;input type=<span class="string">"text"</span> id=<span class="string">"ajaxTextbox"</span> /&gt;</span><br><span class="line">&lt;<span class="regexp">/label&gt;</span></span><br><span class="line"><span class="regexp">&lt;span id="ajaxButton" style="cursor: pointer; text-decoration: underline"&gt;</span></span><br><span class="line"><span class="regexp">Make a request</span></span><br><span class="line"><span class="regexp">&lt;/</span>span&gt;</span><br></pre></td></tr></table></figure></p>
+<p>还需要添加一行事件处理器用于从文本框获取用户的数据，并将该数据随着URL传递给makeRequest()方法：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">document</span>.getElementById(<span class="string">"ajaxButton"</span>).onclick = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line"><span class="keyword">var</span> userName = <span class="built_in">document</span>.getElementById(<span class="string">"ajaxTextbox"</span>).value;</span><br><span class="line">makeRequest(<span class="string">'test.php'</span>,userName);</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></p>
+<p>修改makeRequest()方法用于接收用户数据并发送给服务器端。将请求方式从GET修改为POST，用户数据作为参数传递给httpRequest.send()方法：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">function makeRequest(url, userName) &#123;</span><br><span class="line">...</span><br><span class="line">httpRequest.onreadystatechange = alertContents;</span><br><span class="line">httpRequest.open(&apos;POST&apos;, url);</span><br><span class="line">httpRequest.setRequestHeader(&apos;Content-Type&apos;, &apos;application/x-www-form-urlencoded&apos;);</span><br><span class="line">httpRequest.send(&apos;userName=&apos; + encodeURIComponent(userName));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>alertContents()方法可以向第三步一样利用alert()方法打印服务器端返回的数据。假设服务器端返回的是computedString和用户数据的话，如果用户在文本框中输入“Jane”服务器端响应的内容会像是这样：</p>
+<p>{“userData”:”Jane”,”computedString”:”Hi, Jane!”}</p>
+<p>在alertContents()方法中使用这些数据，不仅可以使用alert()方法打印responseText的内容，还可以将其解析并打印computedString属性内容：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">function alertContents() &#123;</span><br><span class="line">if (httpRequest.readyState === 4) &#123;</span><br><span class="line">if (httpRequest.status === 200) &#123;</span><br><span class="line">var response = JSON.parse(httpRequest.responseText);</span><br><span class="line">alert(response.computedString);</span><br><span class="line">&#125; else &#123;</span><br><span class="line">alert(&apos;There was a problem with the request.&apos;);</span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>原文地址：<br><a href="https://developer.mozilla.org/en-US/docs/AJAX/Getting_Started" target="_blank" rel="noopener">https://developer.mozilla.org/en-US/docs/AJAX/Getting_Started</a><br>本文来源：<br><a href="http://www.longestory.com/Ajax/ajax-getting-started.html" target="_blank" rel="noopener">http://www.longestory.com/Ajax/ajax-getting-started.html</a></p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Ajax/" rel="tag"><i class="fa fa-tag"></i> Ajax</a>
+          
+        </div>
+      
+
+      
+        
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/01/27/10-分钟搞定-Ajax-Ajax-入门指南/" rel="next" title="10 分钟搞定 Ajax - Ajax 入门指南">
+                <i class="fa fa-chevron-left"></i> 10 分钟搞定 Ajax - Ajax 入门指南
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/03/01/SVM入门（一）：SVM的八股简介/" rel="prev" title="SVM入门（一）：SVM的八股简介">
+                SVM入门（一）：SVM的八股简介 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="http://oo590vn4k.bkt.clouddn.com/111.png"
+               alt="Zhang Hongbin" />
+          <p class="site-author-name" itemprop="name">Zhang Hongbin</p>
+           
+              <p class="site-description motion-element" itemprop="description"></p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives">
+                <span class="site-state-item-count">86</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">23</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">85</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+          <div class="feed-link motion-element">
+            <a href="/atom.xml" rel="alternate">
+              <i class="fa fa-rss"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#什么是AJAX？"><span class="nav-number">1.</span> <span class="nav-text">什么是AJAX？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#第一步：如何发送一个HTTP请求"><span class="nav-number">2.</span> <span class="nav-text">第一步：如何发送一个HTTP请求</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#第二步：处理服务器端的响应"><span class="nav-number">3.</span> <span class="nav-text">第二步：处理服务器端的响应</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#第三步：一个简单的例子"><span class="nav-number">4.</span> <span class="nav-text">第三步：一个简单的例子</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#第四步：使用XML进行响应"><span class="nav-number">5.</span> <span class="nav-text">第四步：使用XML进行响应</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#第五步：处理数据"><span class="nav-number">6.</span> <span class="nav-text">第五步：处理数据</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Zhang Hongbin</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+  
+  <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.0"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.0"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.0"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+<script type="text/javascript"
+color="0,0,255" opacity='0.7' zIndex="-2" count="99" src="//cdn.bootcss.com/canvas-nest.js/1.0.0/canvas-nest.min.js"></script>
+
+</body>
+</html>

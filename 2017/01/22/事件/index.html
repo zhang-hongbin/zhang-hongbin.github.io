@@ -1,0 +1,949 @@
+<!doctype html>
+
+
+
+  
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="style,cssText," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="ZHB-CSDN" type="application/atom+xml" />
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.0" />
+
+
+
+
+
+
+<meta name="description" content="大纲 事件流 事件注册 事件对象 事件分类 事件代理   事件流w3c标准的事件对ie低版本没有捕获过程 有些事件不包括全部过程页面的load事件没有冒泡  capture phase 事件捕获   target phase 事件触发   bubble phase 事件冒泡     事件注册与触发 事件注册  取消时间注册  事件触发    事件注册eventTarget.addEventList">
+<meta name="keywords" content="style,cssText">
+<meta property="og:type" content="article">
+<meta property="og:title" content="事件">
+<meta property="og:url" content="https://zhang-hongbin.github.io/2017/01/22/事件/index.html">
+<meta property="og:site_name" content="ZHB-CSDN">
+<meta property="og:description" content="大纲 事件流 事件注册 事件对象 事件分类 事件代理   事件流w3c标准的事件对ie低版本没有捕获过程 有些事件不包括全部过程页面的load事件没有冒泡  capture phase 事件捕获   target phase 事件触发   bubble phase 事件冒泡     事件注册与触发 事件注册  取消时间注册  事件触发    事件注册eventTarget.addEventList">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://oo590vn4k.bkt.clouddn.com/20170122-1.png">
+<meta property="og:image" content="http://oo590vn4k.bkt.clouddn.com/20170122-2.png">
+<meta property="og:image" content="http://oo590vn4k.bkt.clouddn.com/20170122-3.png">
+<meta property="og:image" content="http://oo590vn4k.bkt.clouddn.com/20170122-4.png">
+<meta property="og:image" content="http://oo590vn4k.bkt.clouddn.com/20170122-5.png">
+<meta property="og:image" content="http://oo590vn4k.bkt.clouddn.com/20170122-6.png">
+<meta property="og:image" content="http://oo590vn4k.bkt.clouddn.com/20170122-7.png">
+<meta property="og:image" content="http://oo590vn4k.bkt.clouddn.com/20170122-8.png">
+<meta property="og:image" content="http://oo590vn4k.bkt.clouddn.com/20170122-9.png">
+<meta property="og:image" content="http://oo590vn4k.bkt.clouddn.com/20170122-10.png">
+<meta property="og:image" content="http://oo590vn4k.bkt.clouddn.com/20170122-11.png">
+<meta property="og:image" content="http://oo590vn4k.bkt.clouddn.com/20170122-12.png">
+<meta property="og:image" content="http://oo590vn4k.bkt.clouddn.com/20170122-13.png">
+<meta property="og:image" content="http://oo590vn4k.bkt.clouddn.com/20170122-14.png">
+<meta property="og:image" content="http://oo590vn4k.bkt.clouddn.com/20170122-15.png">
+<meta property="og:image" content="http://oo590vn4k.bkt.clouddn.com/20170122-16.png">
+<meta property="og:updated_time" content="2017-04-22T13:38:32.998Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="事件">
+<meta name="twitter:description" content="大纲 事件流 事件注册 事件对象 事件分类 事件代理   事件流w3c标准的事件对ie低版本没有捕获过程 有些事件不包括全部过程页面的load事件没有冒泡  capture phase 事件捕获   target phase 事件触发   bubble phase 事件冒泡     事件注册与触发 事件注册  取消时间注册  事件触发    事件注册eventTarget.addEventList">
+<meta name="twitter:image" content="http://oo590vn4k.bkt.clouddn.com/20170122-1.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://zhang-hongbin.github.io/2017/01/22/事件/"/>
+
+
+
+
+
+  <title> 事件 | ZHB-CSDN </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">ZHB-CSDN</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">Be here now</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            主頁
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分類
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            檔案
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            標簽
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="https://zhang-hongbin.github.io/2017/01/22/事件/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Zhang Hongbin">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="http://oo590vn4k.bkt.clouddn.com/111.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="ZHB-CSDN">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                事件
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-01-22T15:55:05+08:00">
+                2017-01-22
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/DOM编程艺术/" itemprop="url" rel="index">
+                    <span itemprop="name">DOM编程艺术</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="大纲"><a href="#大纲" class="headerlink" title="大纲"></a>大纲</h2><ul>
+<li>事件流</li>
+<li>事件注册</li>
+<li>事件对象</li>
+<li>事件分类</li>
+<li>事件代理</li>
+</ul>
+<hr>
+<h2 id="事件流"><a href="#事件流" class="headerlink" title="事件流"></a>事件流</h2><p>w3c标准的事件对ie低版本没有捕获过程<br> 有些事件不包括全部过程页面的load事件没有冒泡</p>
+<ul>
+<li>capture phase<ul>
+<li>事件捕获</li>
+</ul>
+</li>
+<li>target phase<ul>
+<li>事件触发</li>
+</ul>
+</li>
+<li>bubble phase<ul>
+<li>事件冒泡</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h2 id="事件注册与触发"><a href="#事件注册与触发" class="headerlink" title="事件注册与触发"></a>事件注册与触发</h2><ul>
+<li><p>事件注册</p>
+</li>
+<li><p>取消时间注册</p>
+</li>
+<li><p>事件触发</p>
+</li>
+</ul>
+<blockquote>
+<h3 id="事件注册"><a href="#事件注册" class="headerlink" title="事件注册"></a>事件注册</h3><pre><code>eventTarget.addEventListener(type,listener[,useCapture])
+</code></pre><p>其中useCapture表示是否启用事件捕获，默认为false。即使用时间冒泡。<br><img src="http://oo590vn4k.bkt.clouddn.com/20170122-1.png" alt=""></p>
+<ul>
+<li>DOM 0级事件<ul>
+<li>只能注册一个回调函数</li>
+</ul>
+</li>
+<li>DOM 2级事件 <ul>
+<li>可以注册多个回调函数  </li>
+</ul>
+</li>
+</ul>
+</blockquote>
+<blockquote>
+<h3 id="取消事件注册"><a href="#取消事件注册" class="headerlink" title="取消事件注册"></a>取消事件注册</h3><pre><code>eventTarget.removeEventListener(type,listener[,useCapture])
+</code></pre><p>其中useCapture表示是否启用事件捕获，默认为false。即使用时间冒泡。<br><img src="http://oo590vn4k.bkt.clouddn.com/20170122-2.png" alt=""></p>
+</blockquote>
+<blockquote>
+<h3 id="事件触发"><a href="#事件触发" class="headerlink" title="事件触发"></a>事件触发</h3><pre><code>eventTarget.dispatchEvent(type)
+</code></pre><p><img src="http://oo590vn4k.bkt.clouddn.com/20170122-3.png" alt="">    </p>
+</blockquote>
+<blockquote>
+<h3 id="浏览器兼容性-IE6-7-8"><a href="#浏览器兼容性-IE6-7-8" class="headerlink" title="浏览器兼容性(IE6,7,8)"></a>浏览器兼容性(IE6,7,8)</h3><ul>
+<li>事件注册于取消<ul>
+<li>attchEvent/detachEvent</li>
+</ul>
+</li>
+<li>事件触发<ul>
+<li>fireEvent(e)</li>
+</ul>
+</li>
+<li>no capture<br><img src="http://oo590vn4k.bkt.clouddn.com/20170122-4.png" alt=""></li>
+</ul>
+</blockquote>
+<h2 id="事件对象"><a href="#事件对象" class="headerlink" title="事件对象"></a>事件对象</h2><p> 事件的回调函数中传入的形参就是该事件的事件对象<br> <img src="http://oo590vn4k.bkt.clouddn.com/20170122-5.png" alt=""></p>
+<blockquote>
+<h3 id="事件对象的属性和方法"><a href="#事件对象的属性和方法" class="headerlink" title="事件对象的属性和方法"></a>事件对象的属性和方法</h3><ul>
+<li>属性<ul>
+<li>type</li>
+<li>target(srcElement)</li>
+<li>currentTarget</li>
+</ul>
+</li>
+<li>方法<ul>
+<li>stopPropagation</li>
+<li>preventDefault</li>
+<li>stopImmediatePropagation</li>
+</ul>
+</li>
+</ul>
+</blockquote>
+<blockquote>
+<h3 id="阻止事件传播"><a href="#阻止事件传播" class="headerlink" title="阻止事件传播"></a>阻止事件传播</h3><ul>
+<li>event.stopPropagation() //（W3C）<ul>
+<li>阻止事件冒泡</li>
+</ul>
+</li>
+<li>event.cancelBubble = true //（IE）<ul>
+<li>在IE低版本中阻止事件的冒泡</li>
+</ul>
+</li>
+<li>event.stopImmediatePropagation() //（W3C）<ul>
+<li>阻止事件冒泡，同时将阻止后续注册的事件触发</li>
+</ul>
+</li>
+</ul>
+</blockquote>
+<blockquote>
+<h3 id="阻止默认行为"><a href="#阻止默认行为" class="headerlink" title="阻止默认行为"></a>阻止默认行为</h3><ul>
+<li>event.preventDefault() //（W3C）</li>
+<li>event.returnValue = false //（IE）</li>
+</ul>
+</blockquote>
+<h2 id="事件分类"><a href="#事件分类" class="headerlink" title="事件分类"></a>事件分类</h2><p> <img src="http://oo590vn4k.bkt.clouddn.com/20170122-6.png" alt=""></p>
+<center>其中继承的事件可以拥有父类的事件属性和方法</center>
+
+<blockquote>
+<h3 id="MouseEvent"><a href="#MouseEvent" class="headerlink" title="MouseEvent"></a>MouseEvent</h3><h4 id="事件"><a href="#事件" class="headerlink" title="事件"></a>事件</h4><p><img src="http://oo590vn4k.bkt.clouddn.com/20170122-7.png" alt=""></p>
+<p>对比<code>mouseover</code>和<code>mouseenter</code></p>
+<ul>
+<li>mouseover在鼠标进入其嵌套元素时会触发</li>
+<li>mouseenter在鼠标进入其嵌套元素时不会触发</li>
+</ul>
+<p>对比<code>mouseout</code>和<code>mouseleave</code></p>
+<ul>
+<li>mouseleave在鼠标离开元素及其其嵌套元素时才会触发</li>
+<li>mouseout在鼠标进入元素的嵌套元素时会触发<h3 id="属性"><a href="#属性" class="headerlink" title="属性"></a>属性</h3></li>
+<li>clientX,clientY</li>
+<li>screenX,screenY</li>
+<li>ctrlKey,shiftKey,altKey,metaKey</li>
+<li>button(0,1,2)<br><img src="http://oo590vn4k.bkt.clouddn.com/20170122-8.png" alt=""><h3 id="MouseEvent顺序"><a href="#MouseEvent顺序" class="headerlink" title="MouseEvent顺序"></a>MouseEvent顺序</h3><img src="http://oo590vn4k.bkt.clouddn.com/20170122-9.png" alt=""></li>
+</ul>
+</blockquote>
+<blockquote>
+<h3 id="WheelEvent"><a href="#WheelEvent" class="headerlink" title="WheelEvent"></a>WheelEvent</h3><p>继承自MouseEvent,MouseEvent的全部属性和方法全都继承<br><img src="http://oo590vn4k.bkt.clouddn.com/20170122-10.png" alt=""></p>
+<ul>
+<li>deltaMode</li>
+<li>deltaX</li>
+<li>deltaY</li>
+<li>deltaZ</li>
+</ul>
+</blockquote>
+<blockquote>
+<h3 id="FocusEvent"><a href="#FocusEvent" class="headerlink" title="FocusEvent"></a>FocusEvent</h3><p><img src="http://oo590vn4k.bkt.clouddn.com/20170122-11.png" alt=""></p>
+<h4 id="属性-1"><a href="#属性-1" class="headerlink" title="属性"></a>属性</h4><ul>
+<li>relatedTarget<ul>
+<li>当元素失去焦点时，获得焦点的元素是relatedTarget</li>
+<li>当元素获得焦点时，失去焦点的元素是relatedTarget</li>
+</ul>
+</li>
+</ul>
+</blockquote>
+<blockquote>
+<h3 id="InputEvent"><a href="#InputEvent" class="headerlink" title="InputEvent"></a>InputEvent</h3><p><img src="http://oo590vn4k.bkt.clouddn.com/20170122-12.png" alt=""></p>
+<p><strong>IE的版本里hack</strong> : <code>onpropertychange()</code></p>
+</blockquote>
+<blockquote>
+<h3 id="KeyboardEvent"><a href="#KeyboardEvent" class="headerlink" title="KeyboardEvent"></a>KeyboardEvent</h3><p><img src="http://oo590vn4k.bkt.clouddn.com/20170122-13.png" alt=""><br>属性</p>
+<ul>
+<li>key</li>
+<li>code</li>
+<li>ctrlKey,shiftKey,altKey,metaKey</li>
+<li>repeat</li>
+<li>keyCode</li>
+<li>charCode</li>
+<li>which</li>
+</ul>
+</blockquote>
+<blockquote>
+<h3 id="Event"><a href="#Event" class="headerlink" title="Event"></a>Event</h3><p><img src="http://oo590vn4k.bkt.clouddn.com/20170122-14.png" alt=""></p>
+</blockquote>
+<blockquote>
+<h3 id="window-Event"><a href="#window-Event" class="headerlink" title="window - Event"></a>window - Event</h3><ul>
+<li>load</li>
+<li>unload</li>
+<li>error</li>
+<li>abort</li>
+</ul>
+</blockquote>
+<blockquote>
+<h3 id="Image-Event"><a href="#Image-Event" class="headerlink" title="Image - Event"></a>Image - Event</h3><ul>
+<li>load</li>
+<li>error</li>
+<li>abort<br><img src="http://oo590vn4k.bkt.clouddn.com/20170122-15.png" alt=""></li>
+</ul>
+</blockquote>
+<blockquote>
+<h3 id="UIEvent"><a href="#UIEvent" class="headerlink" title="UIEvent"></a>UIEvent</h3><ul>
+<li><p>resize</p>
+</li>
+<li><p>scroll<br><img src="http://oo590vn4k.bkt.clouddn.com/20170122-16.png" alt=""></p>
+</li>
+</ul>
+</blockquote>
+<h2 id="事件代理"><a href="#事件代理" class="headerlink" title="事件代理"></a>事件代理</h2><ul>
+<li>将事件注册到元素的父节点上</li>
+</ul>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/style/" rel="tag"><i class="fa fa-tag"></i> style</a>
+          
+            <a href="/tags/cssText/" rel="tag"><i class="fa fa-tag"></i> cssText</a>
+          
+        </div>
+      
+
+      
+        
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/01/21/样式操作/" rel="next" title="样式操作">
+                <i class="fa fa-chevron-left"></i> 样式操作
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/01/23/音频与视频/" rel="prev" title="音频与视频">
+                音频与视频 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="http://oo590vn4k.bkt.clouddn.com/111.png"
+               alt="Zhang Hongbin" />
+          <p class="site-author-name" itemprop="name">Zhang Hongbin</p>
+           
+              <p class="site-description motion-element" itemprop="description"></p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives">
+                <span class="site-state-item-count">86</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">23</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">85</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+          <div class="feed-link motion-element">
+            <a href="/atom.xml" rel="alternate">
+              <i class="fa fa-rss"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#大纲"><span class="nav-number">1.</span> <span class="nav-text">大纲</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#事件流"><span class="nav-number">2.</span> <span class="nav-text">事件流</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#事件注册与触发"><span class="nav-number">3.</span> <span class="nav-text">事件注册与触发</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#事件注册"><span class="nav-number">3.1.</span> <span class="nav-text">事件注册</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#取消事件注册"><span class="nav-number">3.2.</span> <span class="nav-text">取消事件注册</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#事件触发"><span class="nav-number">3.3.</span> <span class="nav-text">事件触发</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#浏览器兼容性-IE6-7-8"><span class="nav-number">3.4.</span> <span class="nav-text">浏览器兼容性(IE6,7,8)</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#事件对象"><span class="nav-number">4.</span> <span class="nav-text">事件对象</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#事件对象的属性和方法"><span class="nav-number">4.1.</span> <span class="nav-text">事件对象的属性和方法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#阻止事件传播"><span class="nav-number">4.2.</span> <span class="nav-text">阻止事件传播</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#阻止默认行为"><span class="nav-number">4.3.</span> <span class="nav-text">阻止默认行为</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#事件分类"><span class="nav-number">5.</span> <span class="nav-text">事件分类</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#MouseEvent"><span class="nav-number">5.1.</span> <span class="nav-text">MouseEvent</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#事件"><span class="nav-number">5.1.1.</span> <span class="nav-text">事件</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#属性"><span class="nav-number">5.2.</span> <span class="nav-text">属性</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#MouseEvent顺序"><span class="nav-number">5.3.</span> <span class="nav-text">MouseEvent顺序</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#WheelEvent"><span class="nav-number">5.4.</span> <span class="nav-text">WheelEvent</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#FocusEvent"><span class="nav-number">5.5.</span> <span class="nav-text">FocusEvent</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#属性-1"><span class="nav-number">5.5.1.</span> <span class="nav-text">属性</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#InputEvent"><span class="nav-number">5.6.</span> <span class="nav-text">InputEvent</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#KeyboardEvent"><span class="nav-number">5.7.</span> <span class="nav-text">KeyboardEvent</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Event"><span class="nav-number">5.8.</span> <span class="nav-text">Event</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#window-Event"><span class="nav-number">5.9.</span> <span class="nav-text">window - Event</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Image-Event"><span class="nav-number">5.10.</span> <span class="nav-text">Image - Event</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#UIEvent"><span class="nav-number">5.11.</span> <span class="nav-text">UIEvent</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#事件代理"><span class="nav-number">6.</span> <span class="nav-text">事件代理</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Zhang Hongbin</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+  
+  <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.0"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.0"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.0"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+<script type="text/javascript"
+color="0,0,255" opacity='0.7' zIndex="-2" count="99" src="//cdn.bootcss.com/canvas-nest.js/1.0.0/canvas-nest.min.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,761 @@
+<!doctype html>
+
+
+
+  
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="原型," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="ZHB-CSDN" type="application/atom+xml" />
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.0" />
+
+
+
+
+
+
+<meta name="description" content="四. __proto__JS 在创建对象（不论是普通对象还是函数对象）的时候，都有一个叫做__proto______ 的内置属性，用于指向创建它的构造函数的原型对象。对象 person1 有一个 __proto__属性，创建它的构造函数是 Person，构造函数的原型对象是 Person.prototype ，所以：1person1.__proto__ == Person.prototype 请看">
+<meta name="keywords" content="原型">
+<meta property="og:type" content="article">
+<meta property="og:title" content="最详尽的 JS 原型与原型链终极详解，没有「可能是」。（二）">
+<meta property="og:url" content="https://zhang-hongbin.github.io/2017/07/01/最详尽的-JS-原型与原型链终极详解，没有「可能是」。（二）/index.html">
+<meta property="og:site_name" content="ZHB-CSDN">
+<meta property="og:description" content="四. __proto__JS 在创建对象（不论是普通对象还是函数对象）的时候，都有一个叫做__proto______ 的内置属性，用于指向创建它的构造函数的原型对象。对象 person1 有一个 __proto__属性，创建它的构造函数是 Person，构造函数的原型对象是 Person.prototype ，所以：1person1.__proto__ == Person.prototype 请看">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://oo590vn4k.bkt.clouddn.com/2017070101.jpg">
+<meta property="og:image" content="http://oo590vn4k.bkt.clouddn.com/2017070102.jpg">
+<meta property="og:updated_time" content="2017-09-02T11:01:30.177Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="最详尽的 JS 原型与原型链终极详解，没有「可能是」。（二）">
+<meta name="twitter:description" content="四. __proto__JS 在创建对象（不论是普通对象还是函数对象）的时候，都有一个叫做__proto______ 的内置属性，用于指向创建它的构造函数的原型对象。对象 person1 有一个 __proto__属性，创建它的构造函数是 Person，构造函数的原型对象是 Person.prototype ，所以：1person1.__proto__ == Person.prototype 请看">
+<meta name="twitter:image" content="http://oo590vn4k.bkt.clouddn.com/2017070101.jpg">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://zhang-hongbin.github.io/2017/07/01/最详尽的-JS-原型与原型链终极详解，没有「可能是」。（二）/"/>
+
+
+
+
+
+  <title> 最详尽的 JS 原型与原型链终极详解，没有「可能是」。（二） | ZHB-CSDN </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">ZHB-CSDN</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">Be here now</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            主頁
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分類
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            檔案
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            標簽
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="https://zhang-hongbin.github.io/2017/07/01/最详尽的-JS-原型与原型链终极详解，没有「可能是」。（二）/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Zhang Hongbin">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="http://oo590vn4k.bkt.clouddn.com/111.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="ZHB-CSDN">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                最详尽的 JS 原型与原型链终极详解，没有「可能是」。（二）
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-07-01T12:33:12+08:00">
+                2017-07-01
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/二、原型和原型链/" itemprop="url" rel="index">
+                    <span itemprop="name">二、原型和原型链</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="四-proto"><a href="#四-proto" class="headerlink" title="四. __proto__"></a>四. <strong>__</strong>proto__</h2><p>JS 在创建对象（不论是普通对象还是函数对象）的时候，都有一个叫做<font color="purple"><strong>__</strong>proto______</font> 的内置属性，用于指向创建它的构造函数的原型对象。<br>对象 person1 有一个<font color="purple"> <strong>__</strong>proto__</font>属性，创建它的构造函数是 Person，构造函数的原型对象是 Person.prototype ，所以：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">person1.__proto__ == Person.prototype</span><br></pre></td></tr></table></figure></p>
+<p>请看下图：<br><img src="http://oo590vn4k.bkt.clouddn.com/2017070101.jpg"></p>
+<center><u>《JavaScript 高级程序设计》的图 6-1 </u></center><br>根据上面这个连接图，我们能得到：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Person.prototype.constructor == Person;</span><br><span class="line">person1.__proto__ == Person.prototype;</span><br><span class="line">person1.constructor == Person;</span><br></pre></td></tr></table></figure><br><br><b>不过，要明确的真正重要的一点就是，这个连接存在于实例（<font color="purple">person1</font>）与构造函数（<font color="purple">Person</font>）的原型对象（<font color="purple">Person.prototype</font>）之间，而不是存在于实例（<font color="purple">person1</font>）与构造函数（<font color="purple">Person</font>）之间。</b><br><br>注意：因为绝大部分浏览器都支持<strong>proto</strong>属性，所以它才被加入了 ES6 里（ES5 部分浏览器也支持，但还不是标准）。<br><br><a id="more"></a><br><br><h2> 五. 构造器 </h2><br><br>熟悉 Javascript 的童鞋都知道，我们可以这样创建一个对象：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> obj = &#123;&#125;</span><br></pre></td></tr></table></figure><br><br>它等同于下面这样：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> obj = <span class="keyword">new</span> <span class="built_in">Object</span>()</span><br></pre></td></tr></table></figure><br><br>obj 是构造函数（Object）的一个实例。所以：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">obj.constructor === <span class="built_in">Object</span></span><br><span class="line">obj.__proto__ === <span class="built_in">Object</span>.prototype</span><br></pre></td></tr></table></figure><br><br>新对象 obj 是使用 new 操作符后跟一个<b>构造函数</b>来创建的。构造函数（Object）本身就是一个函数（就是上面说的函数对象），它和上面的构造函数 Person 差不多。只不过该函数是出于创建新对象的目的而定义的。所以不要被 Object 吓倒。<br><hr><br>同理，可以创建对象的构造器不仅仅有 Object，也可以是 Array，Date，Function等。<br>所以我们也可以构造函数来创建 Array、 Date、Function<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> b = <span class="keyword">new</span> <span class="built_in">Array</span>();</span><br><span class="line">b.constructor === <span class="built_in">Array</span>;</span><br><span class="line">b.__proto__ === <span class="built_in">Array</span>.prototype;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> c = <span class="keyword">new</span> <span class="built_in">Date</span>(); </span><br><span class="line">c.constructor === <span class="built_in">Date</span>;</span><br><span class="line">c.__proto__ === <span class="built_in">Date</span>.prototype;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> d = <span class="keyword">new</span> <span class="built_in">Function</span>();</span><br><span class="line">d.constructor === <span class="built_in">Function</span>;</span><br><span class="line">d.__proto__ === <span class="built_in">Function</span>.prototype;</span><br></pre></td></tr></table></figure><br><br>这些构造器都是函数对象：<br><img src="http://oo590vn4k.bkt.clouddn.com/2017070102.jpg"><br><br><center><u><font color="grey">函数对象</font></u></center>
+
+
+<h2 id="六-原型链"><a href="#六-原型链" class="headerlink" title="六. 原型链"></a>六. 原型链</h2><p>小测试来检验一下你理解的怎么样：</p>
+<font color="purple">person1.<strong>__</strong>proto______</font> 是什么？<br><font color="purple">Person.<strong>__</strong>proto______</font> 是什么？<br><font color="purple">Person.prototype.<strong>__</strong>proto______</font> 是什么？<br><font color="purple">Object.<strong>__</strong>proto______</font> 是什么？<br><font color="purple">Object.prototype______proto______</font> 是什么？<br>答案：<br>第一题：<br>因为 <font color="purple">person1.<strong>__</strong>proto______ === person1 的构造函数.prototype</font><br>因为 <font color="purple">person1的构造函数 === Person</font><br>所以 <font color="purple">person1.<strong>__</strong>proto______ === Person.prototype</font>
+
+<p>第二题：<br>因为 <font color="purple">Person.<strong>__</strong>proto______ === Person的构造函数.prototype</font><br>因为 <font color="purple">Person的构造函数 === Function</font><br>所以 <font color="purple">Person.<strong>__</strong>proto______ === Function.prototype</font></p>
+<p>第三题：</p>
+<font color="purple">Person.prototype</font> 是一个普通对象，我们无需关注它有哪些属性，只要记住它是一个普通对象。<br>因为一个普通对象的构造函数 === Object<br>所以 <font color="purple">Person.prototype.<strong>__</strong>proto______ === Object.prototype</font>
+
+<p>第四题，参照第二题，因为 Person 和 Object 一样都是构造函数</p>
+<p>第五题：</p>
+<font color="purple">Object.prototype</font> 对象也有proto属性，但它比较特殊，为 null 。因为 null 处于原型链的顶端，这个只能记住。<br><font color="purple">Object.prototype.<strong>__</strong>proto______ === null</font>
+
+<p>好了，如果以上你都能明白，那就可以继续深入学习第三篇教程了：<br><a href="http://www.zhanghongbin.top/2017/07/02/%E6%9C%80%E8%AF%A6%E5%B0%BD%E7%9A%84-JS-%E5%8E%9F%E5%9E%8B%E4%B8%8E%E5%8E%9F%E5%9E%8B%E9%93%BE%E7%BB%88%E6%9E%81%E8%AF%A6%E8%A7%A3%EF%BC%8C%E6%B2%A1%E6%9C%89%E3%80%8C%E5%8F%AF%E8%83%BD%E6%98%AF%E3%80%8D%E3%80%82%EF%BC%88%E4%B8%89%EF%BC%89/" target="_self">第三篇，点击进入</a></p>
+<p>作者：Yi罐可乐<br>链接：<a href="http://www.jianshu.com/p/652991a67186" target="_blank" rel="noopener">http://www.jianshu.com/p/652991a67186</a><br>來源：简书<br>著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。</p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/原型/" rel="tag"><i class="fa fa-tag"></i> 原型</a>
+          
+        </div>
+      
+
+      
+        
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/06/29/原生JS-forEach-和map-遍历的区别以及兼容写法/" rel="next" title="原生JS forEach()和map()遍历的区别以及兼容写法">
+                <i class="fa fa-chevron-left"></i> 原生JS forEach()和map()遍历的区别以及兼容写法
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/07/01/六、DOM操作/" rel="prev" title="六、DOM操作">
+                六、DOM操作 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="http://oo590vn4k.bkt.clouddn.com/111.png"
+               alt="Zhang Hongbin" />
+          <p class="site-author-name" itemprop="name">Zhang Hongbin</p>
+           
+              <p class="site-description motion-element" itemprop="description"></p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives">
+                <span class="site-state-item-count">86</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">23</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">85</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+          <div class="feed-link motion-element">
+            <a href="/atom.xml" rel="alternate">
+              <i class="fa fa-rss"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#四-proto"><span class="nav-number">1.</span> <span class="nav-text">四. __proto__</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-number">2.</span> <span class="nav-text"> 五. 构造器 </span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#六-原型链"><span class="nav-number">3.</span> <span class="nav-text">六. 原型链</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Zhang Hongbin</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+  
+  <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.0"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.0"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.0"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+<script type="text/javascript"
+color="0,0,255" opacity='0.7' zIndex="-2" count="99" src="//cdn.bootcss.com/canvas-nest.js/1.0.0/canvas-nest.min.js"></script>
+
+</body>
+</html>

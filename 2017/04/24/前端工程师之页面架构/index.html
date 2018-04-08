@@ -1,0 +1,1065 @@
+<!doctype html>
+
+
+
+  
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="页面架构,前端开发," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="ZHB-CSDN" type="application/atom+xml" />
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.0" />
+
+
+
+
+
+
+<meta name="description" content="目录 CSS Reset的意义以及如何正确设置 常见布局的解决方案 响应式布局 页面优化的意义及常见方法 如何规范和模块化的编码">
+<meta name="keywords" content="页面架构,前端开发">
+<meta property="og:type" content="article">
+<meta property="og:title" content="前端工程师之页面架构">
+<meta property="og:url" content="https://zhang-hongbin.github.io/2017/04/24/前端工程师之页面架构/index.html">
+<meta property="og:site_name" content="ZHB-CSDN">
+<meta property="og:description" content="目录 CSS Reset的意义以及如何正确设置 常见布局的解决方案 响应式布局 页面优化的意义及常见方法 如何规范和模块化的编码">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1031000-95f5566fb824c0e5.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:updated_time" content="2017-08-26T05:30:01.439Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="前端工程师之页面架构">
+<meta name="twitter:description" content="目录 CSS Reset的意义以及如何正确设置 常见布局的解决方案 响应式布局 页面优化的意义及常见方法 如何规范和模块化的编码">
+<meta name="twitter:image" content="http://upload-images.jianshu.io/upload_images/1031000-95f5566fb824c0e5.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://zhang-hongbin.github.io/2017/04/24/前端工程师之页面架构/"/>
+
+
+
+
+
+  <title> 前端工程师之页面架构 | ZHB-CSDN </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">ZHB-CSDN</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">Be here now</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            主頁
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分類
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            檔案
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            標簽
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="https://zhang-hongbin.github.io/2017/04/24/前端工程师之页面架构/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Zhang Hongbin">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="http://oo590vn4k.bkt.clouddn.com/111.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="ZHB-CSDN">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                前端工程师之页面架构
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-04-24T12:33:12+08:00">
+                2017-04-24
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/前端工程师之路/" itemprop="url" rel="index">
+                    <span itemprop="name">前端工程师之路</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="目录"><a href="#目录" class="headerlink" title="目录"></a>目录</h2><ul>
+<li>CSS Reset的意义以及如何正确设置</li>
+<li>常见布局的解决方案</li>
+<li>响应式布局</li>
+<li>页面优化的意义及常见方法</li>
+<li>如何规范和模块化的编码</li>
+</ul>
+<a id="more"></a>
+<h2 id="CSS-Reset"><a href="#CSS-Reset" class="headerlink" title="CSS Reset"></a>CSS Reset</h2><h3 id="原因？"><a href="#原因？" class="headerlink" title="原因？"></a>原因？</h3><p>浏览器会对标签进行默认设置，通过标签进行设置，是全局性的。浏览器之间的设置可能不一样。对我们来说，很多默认样式都没有用，不能满足要求，还需要额外去覆盖。</p>
+<h3 id="如何设置？"><a href="#如何设置？" class="headerlink" title="如何设置？"></a>如何设置？</h3><ul>
+<li>覆盖，清除；</li>
+<li>注意新标签在低版本浏览器里面的兼容性；</li>
+<li>全局性的样式定义；</li>
+<li>设置后引入。</li>
+</ul>
+<h3 id="什么是Reset？"><a href="#什么是Reset？" class="headerlink" title="什么是Reset？"></a>什么是Reset？</h3><ul>
+<li>清除默认样式，不同项目可能需要不同的Reset；</li>
+<li>全局性的样式设定。</li>
+</ul>
+<h3 id="Reset-First，"><a href="#Reset-First，" class="headerlink" title="Reset First，"></a>Reset First，</h3><ul>
+<li>项目初期就应该缺点；</li>
+<li>引入时应该放在第一位；</li>
+<li>没有标准答案，不同产品需求不同，符合自己产品的Reset才是最好的Reset。<h3 id="网易推荐的Reset-规范："><a href="#网易推荐的Reset-规范：" class="headerlink" title="网易推荐的Reset 规范："></a>网易推荐的Reset 规范：</h3><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">html,body,h1,h2,h3,h4,h5,h6,div,dl,dt,dd,ul,ol,li,p,blockquote,pre,hr,figure,table,caption,th,td,form,fieldset,legend,input,button,textarea,menu&#123;<span class="attr">margin</span>:<span class="number">0</span>;padding:<span class="number">0</span>;&#125;</span><br><span class="line">header,footer,section,article,aside,nav,hgroup,address,figure,figcaption,menu,details&#123;<span class="attr">display</span>:block;&#125;</span><br><span class="line">table&#123;border-collapse:collapse;border-spacing:<span class="number">0</span>;&#125;</span><br><span class="line">caption,th&#123;text-align:left;font-weight:normal;&#125;</span><br><span class="line">html,body,fieldset,img,iframe,abbr&#123;<span class="attr">border</span>:<span class="number">0</span>;&#125;</span><br><span class="line">i,cite,em,<span class="keyword">var</span>,address,dfn&#123;font-style:normal;&#125;</span><br><span class="line">[hidefocus],summary&#123;<span class="attr">outline</span>:<span class="number">0</span>;&#125;</span><br><span class="line">li&#123;list-style:none;&#125;</span><br><span class="line">h1,h2,h3,h4,h5,h6,small&#123;font-size:<span class="number">100</span>%;&#125;</span><br><span class="line">sup,sub&#123;font-size:<span class="number">83</span>%;&#125;</span><br><span class="line">pre,code,kbd,samp&#123;font-family:inherit;&#125;</span><br><span class="line">q:before,<span class="attr">q</span>:after&#123;<span class="attr">content</span>:none;&#125;</span><br><span class="line">textarea&#123;<span class="attr">overflow</span>:auto;resize:none;&#125;</span><br><span class="line">label,summary&#123;<span class="attr">cursor</span>:<span class="keyword">default</span>;&#125;</span><br><span class="line">a,button&#123;<span class="attr">cursor</span>:pointer;&#125;</span><br><span class="line">h1,h2,h3,h4,h5,h6,em,strong,b&#123;font-weight:normal;&#125;</span><br><span class="line">del,ins,u,s,a,<span class="attr">a</span>:hover&#123;text-decoration:none;&#125;</span><br><span class="line">body,textarea,input,button,select,keygen,legend&#123;font:30px/1.5 'microsoft yahei';color:#333;outline:0;&#125;</span><br><span class="line">body&#123;background:#fff;&#125;</span><br><span class="line">a,a:hover&#123;color:#333;&#125;</span><br><span class="line">.parent&#123;background:#ddd;&#125;</span><br><span class="line">.child&#123;background:#666;color:#fff;&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h2 id="布局解决方案"><a href="#布局解决方案" class="headerlink" title="布局解决方案"></a>布局解决方案</h2><h3 id="居中布局"><a href="#居中布局" class="headerlink" title="居中布局"></a>居中布局</h3><h4 id="水平居中"><a href="#水平居中" class="headerlink" title="水平居中"></a>水平居中</h4><p>背景html代码：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;div <span class="class"><span class="keyword">class</span></span>=<span class="string">"parent"</span>&gt;</span><br><span class="line">    &lt;div <span class="class"><span class="keyword">class</span></span>=<span class="string">"child"</span>&gt;DEMO&lt;<span class="regexp">/div&gt;</span></span><br><span class="line"><span class="regexp">&lt;/</span>div&gt;</span><br></pre></td></tr></table></figure></p>
+<ol>
+<li><p><code>inline-block+text-align</code>;</p>
+<blockquote>
+<p>子元素设置display：inline-block:宽度根据内容变化<br>text-align:对inline元素起作用；<br>缺点在于影响所有元素；<br>兼容性非常好；<br>display:inline,zoom:1兼容ie6 7</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">.parent&#123;</span><br><span class="line">        text-align: center;</span><br><span class="line">    &#125;</span><br><span class="line">    .child&#123;</span><br><span class="line">        display: inline-block;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+</blockquote>
+</li>
+<li><p><code>table + margin</code></p>
+<blockquote>
+<p>子元素设置display:table,table非常像block，但是宽度会随着内容变化；<br>子元素设置margin：0 auto；<br>优点在于只设置child，不影响父元素；</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">.child&#123;</span><br><span class="line">    display: table;</span><br><span class="line">    margin: 0 auto;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</blockquote>
+</li>
+<li><p><code>absolute +transform</code></p>
+<blockquote>
+<p>子元素设置position：absolute；<br>父元素设置position：relative；<br>absolute默认没有宽度，宽度由父元素决定；<br>子元素：left：50%；<br>子元素：transform:translateX(-50%);(百分比为自身的宽度)；<br>优点在于脱离文档流，不影响别的元素，缺点在于兼容性；</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">.parent&#123;</span><br><span class="line">    position: relative;</span><br><span class="line">&#125;</span><br><span class="line">.child&#123;</span><br><span class="line">    position: absolute;</span><br><span class="line">    left: 50%;</span><br><span class="line">    transform: translateX(-50%);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</blockquote>
+</li>
+<li><p><code>flex + justify-content</code></p>
+<blockquote>
+<p>父元素：display：flex；justify-content：center；<br>或者子元素：margin：0 auto；<br>优点在于只需要设置父元素，缺点在于兼容性；</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">.parent&#123;</span><br><span class="line"> display: flex;</span><br><span class="line"> justify-content: center;</span><br><span class="line">&#125;</span><br><span class="line">.child&#123;</span><br><span class="line"> margin: 0 auto;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</blockquote>
+</li>
+</ol>
+<h4 id="垂直居中"><a href="#垂直居中" class="headerlink" title="垂直居中"></a>垂直居中</h4><ol>
+<li><p><code>table-cell + vertical-align</code></p>
+<blockquote>
+<p>display:table-cell;转换为单元格；<br>兼容性好：可以兼容到ie8；</p>
+ <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">.child&#123;width:100%;&#125;</span><br><span class="line">.parent&#123;</span><br><span class="line">   display: table-cell;</span><br><span class="line">   vertical-align: middle;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</blockquote>
+</li>
+<li><p><code>absolute+transform</code></p>
+<blockquote>
+<p>优点是子元素不会干扰其它元素，缺点在于兼容性；</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">.parent&#123;</span><br><span class="line"> position: relative;</span><br><span class="line">&#125;</span><br><span class="line">.child&#123;</span><br><span class="line"> position: absolute;</span><br><span class="line"> top: 50%;</span><br><span class="line"> transform: translateY(-50%);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</blockquote>
+</li>
+<li><p><code>flex + align-items</code></p>
+<blockquote>
+<p>只需要设置parent的属性，缺点在于兼容性；</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">.parent&#123;</span><br><span class="line">    display: flex;</span><br><span class="line">    align-items: center;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</blockquote>
+</li>
+</ol>
+<h4 id="水平垂直都居中"><a href="#水平垂直都居中" class="headerlink" title="水平垂直都居中"></a>水平垂直都居中</h4><ol>
+<li><p><code>inline-block + text-align + table-cell + vertical-align</code>;</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">.parent&#123;</span><br><span class="line">    text-align: center;</span><br><span class="line">    display: table-cell;</span><br><span class="line">    vertical-align: middle;</span><br><span class="line">&#125;</span><br><span class="line">.child&#123;</span><br><span class="line">    display: inline-block;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><code>absolute + transform</code>;</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">.parent&#123;</span><br><span class="line">    position: relative;</span><br><span class="line">&#125;</span><br><span class="line">.child&#123;</span><br><span class="line">    position: absolute;</span><br><span class="line">    left: 50%;</span><br><span class="line">    top: 50%;</span><br><span class="line">    transform: translate(-50%,-50%);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><code>flex + justify-content + align-items</code>;</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">.parent&#123;</span><br><span class="line">    display: flex;</span><br><span class="line">    justify-content: center;</span><br><span class="line">    align-items: center;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<h3 id="多列布局"><a href="#多列布局" class="headerlink" title="多列布局"></a>多列布局</h3><ol>
+<li>定宽+自适应</li>
+<li>float:+margin-left;容易理解兼容性有一点问题，ie6里面，3像素bug；<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">	.parent&#123;</span><br><span class="line"></span><br><span class="line">	&#125;</span><br><span class="line">.left&#123;</span><br><span class="line">    float: left;</span><br><span class="line">    width: 100px;</span><br><span class="line">&#125;</span><br><span class="line">.right&#123;</span><br><span class="line">    margin-left: 120px;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<ul>
+<li>改进：左右皆浮动；position：relative；层级提高；  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">.parent&#123;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line">.left&#123;</span><br><span class="line">   	float: left; width: 100px;</span><br><span class="line">   	position: relative;</span><br><span class="line">&#125;</span><br><span class="line">.right-fix&#123;</span><br><span class="line">   	float: right; width: 100%;</span><br><span class="line">   	margin-left: -100px;</span><br><span class="line">&#125;</span><br><span class="line">.right&#123;</span><br><span class="line">   	margin-left: 120px;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>overflow-hidden;触发bfc模式，和外界隔离；ie6下不支持；<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">&#125;</span><br><span class="line">.left&#123;</span><br><span class="line">    float: left;</span><br><span class="line">    width: 100px;</span><br><span class="line">    margin-right: 20px;</span><br><span class="line">&#125;</span><br><span class="line">.right&#123;</span><br><span class="line">    overflow: hidden;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<ul>
+<li><p>display：table；子元素：table-cell，定长为总宽度；父元素，table-layout；不支持margin，支持padding；</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">.parent&#123;</span><br><span class="line">    display: table; width: 100%;</span><br><span class="line">    table-layout: fixed;//固定表格布局，相对自动表格布局，提高了浏览器运行效率</span><br><span class="line">&#125;</span><br><span class="line">.left,.right&#123;</span><br><span class="line">    display: table-cell;</span><br><span class="line">&#125;</span><br><span class="line">.left&#123;</span><br><span class="line">    width: 100px;</span><br><span class="line">    padding-right: 20px;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>父元素：display：flex：子元素flex：1</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">.parent&#123;</span><br><span class="line">        display: flex;</span><br><span class="line">    &#125;</span><br><span class="line">    .left&#123;</span><br><span class="line">        width: 100px;</span><br><span class="line">        margin-right: 20px;</span><br><span class="line">    &#125;</span><br><span class="line">    .right&#123;</span><br><span class="line">        flex: 1;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<ol start="3">
+<li><p>定宽+定宽+自适应</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">.parent&#123;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line">.left,.center&#123;</span><br><span class="line">    float: left;</span><br><span class="line">    width: 100px;</span><br><span class="line">    margin-right: 20px;</span><br><span class="line">&#125;</span><br><span class="line">.right&#123;</span><br><span class="line">    overflow: hidden;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>不定宽+自适应</p>
+</li>
+<li><p>float + overflow,在ie6存在兼容性问题；<br>可任意改变左列宽度，右边不受影响：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">.parent&#123;</span><br><span class="line"></span><br><span class="line">  &#125;</span><br><span class="line">  .left&#123;</span><br><span class="line">      float: left;</span><br><span class="line">      margin-right: 20px;</span><br><span class="line">  &#125;</span><br><span class="line">  .right&#123;</span><br><span class="line">      overflow: hidden;</span><br><span class="line">  &#125;</span><br><span class="line">  .left p&#123;width: 200px;&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>table：通过内容撑开，width：0.1%，ie6 7 不兼容；<br>table宽度由内容决定</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">.parent&#123;</span><br><span class="line">  display: table; width: 100%;</span><br><span class="line">&#125;</span><br><span class="line">.left,.right&#123;</span><br><span class="line">  display: table-cell;</span><br><span class="line">&#125;</span><br><span class="line">.left&#123;</span><br><span class="line">  width: 0.1%;</span><br><span class="line">  padding-right: 20px;</span><br><span class="line">&#125;</span><br><span class="line">.left p&#123;</span><br><span class="line">  width:200px;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>flex：兼容性问题，ie10 以上；</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">.parent&#123;</span><br><span class="line">    display: flex;</span><br><span class="line">&#125;</span><br><span class="line">.left&#123;</span><br><span class="line">    margin-right: 20px;</span><br><span class="line">&#125;</span><br><span class="line">.right&#123;</span><br><span class="line">    flex: 1;</span><br><span class="line">&#125;</span><br><span class="line">.left p&#123;width: 200px;&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>不定宽+不定宽+自适应</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">.parent&#123;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line">.left,.center&#123;</span><br><span class="line">    float: l###eft;</span><br><span class="line">    margin-right: 20px;</span><br><span class="line">&#125;</span><br><span class="line">.right&#123;</span><br><span class="line">    overflow: hidden;</span><br><span class="line">&#125;</span><br><span class="line">.left p,.center p&#123;</span><br><span class="line">    width: 100px;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<h3 id="等分布局"><a href="#等分布局" class="headerlink" title="等分布局"></a>等分布局</h3><h4 id="利用float："><a href="#利用float：" class="headerlink" title="利用float："></a>利用float：</h4><p>父容器增加一定宽度<br>关键为设置：box-sizing：border-box;<br>优点在于兼容性好，ie 6 7浮点兼容性问题；结构和样式有一定耦合性，这也是不足之处，改变结构需要改变样式；</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">.parent&#123;</span><br><span class="line">    margin-left: -20px;</span><br><span class="line">&#125;</span><br><span class="line">.column&#123;</span><br><span class="line">    float: left;</span><br><span class="line">    width: 25%;</span><br><span class="line">    padding-left: 20px;</span><br><span class="line">    box-sizing: border-box;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="利用table："><a href="#利用table：" class="headerlink" title="利用table："></a>利用table：</h4><p>在外侧嵌套一个盒子，扩展其宽度，然后设置平分；<br>table-layout:fixed;布局优先，加速布局，单元格没有设置宽度则平分；<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">.parent-fix&#123;</span><br><span class="line">    margin-left: -20px;</span><br><span class="line">&#125;</span><br><span class="line">.parent&#123;</span><br><span class="line">    display: table;</span><br><span class="line">    width:100%;</span><br><span class="line">    table-layout: fixed;</span><br><span class="line">&#125;</span><br><span class="line">.column&#123;</span><br><span class="line">    display: table-cell;</span><br><span class="line">    padding-left: 20px;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h4 id="利用flex："><a href="#利用flex：" class="headerlink" title="利用flex："></a>利用flex：</h4><p>item的flex都设置为1；<br>分布的是剩余空间；跟数量没有关系；缺点在于兼容性；<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">.parent&#123;</span><br><span class="line">    display: flex;</span><br><span class="line">&#125;</span><br><span class="line">.column&#123;</span><br><span class="line">    flex: 1;</span><br><span class="line">&#125;</span><br><span class="line">//选择前面还有一个column的元素</span><br><span class="line">.column+.column&#123;</span><br><span class="line">    margin-left:20px;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h3 id="等高布局"><a href="#等高布局" class="headerlink" title="等高布局"></a>等高布局</h3><p><strong>table</strong><br>天然等高；</p>
+<p><strong>flex</strong><br>天然等高；<br><strong>float</strong><br>伪等高：</p>
+<h3 id="全局布局"><a href="#全局布局" class="headerlink" title="全局布局"></a>全局布局</h3><p>position方案：<br>absolute;</p>
+<p>Flex方案：<br>不设定高度宽度则为全部自适应布局；</p>
+<h3 id="响应式布局"><a href="#响应式布局" class="headerlink" title="响应式布局"></a>响应式布局</h3><p>缺点在于，资源上有所冗余；<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;meta name=viewport content=&quot;width=device-width, initial-scale=1&quot;&gt;</span><br></pre></td></tr></table></figure></p>
+<p>响应式一般采取自适应模式<br><img src="http://upload-images.jianshu.io/upload_images/1031000-95f5566fb824c0e5.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
+<center>响应式布局</center>
+
+<p>语法：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">@media screen and (max-width:320px)&#123;</span><br><span class="line">//视窗，并且最大屏幕320px;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>功能：<br>改变布局，控制显示与隐藏；<br>相当于覆盖前面的设置；</p>
+<h2 id="页面优化"><a href="#页面优化" class="headerlink" title="页面优化"></a>页面优化</h2><h3 id="为什么要优化？"><a href="#为什么要优化？" class="headerlink" title="为什么要优化？"></a>为什么要优化？</h3><ul>
+<li>提升网页响应速度；</li>
+<li>对搜索引擎，屏幕阅读器友好；</li>
+<li>提高可读性，可维护性；<h3 id="如何优化？"><a href="#如何优化？" class="headerlink" title="如何优化？"></a>如何优化？</h3></li>
+<li>减少请求<ul>
+<li>图片合并（雪碧图）；</li>
+<li>CSS文件合并，少量css样式内联；</li>
+<li>避免使用import的方式引入css文件（每次单独引入一个）</li>
+</ul>
+</li>
+<li>减少文件大小<ul>
+<li>选择合适的图片格式<ul>
+<li>PNG（小图标）</li>
+<li>jpg（大图，色彩丰富）</li>
+</ul>
+</li>
+<li>压缩工具</li>
+<li>css值缩写来减少css文件大小；<code>margin,padding,border,font,border-radius,background</code></li>
+<li>省略值为0的单位；</li>
+<li>颜色值最短表示；</li>
+<li>css选择器合并</li>
+<li>文件压缩</li>
+</ul>
+</li>
+<li>页面性能<ul>
+<li>加载顺序<ul>
+<li>css放在head，先解析css，可以直接把样式应用在dom树上，否则容易看到没有样式的页面；</li>
+<li>js放在页面底部，很多加载逻辑需要页面加载完毕才能使用，js的加载需要时间；</li>
+</ul>
+</li>
+<li>减少标签数量；</li>
+<li>选择器长度：尽可能短；</li>
+<li>避免消耗性能的属性：expression，filter,border-radius,gradients;(在移动端尤其需要谨慎)</li>
+<li>图片设置宽高，防止回流重绘；</li>
+<li>所有表现用css实现；</li>
+</ul>
+</li>
+<li>可读性，可维护性<ul>
+<li>规范，页面开发之前指定规范，在多人协作时更加方便；</li>
+<li>语义化，对seo和屏幕阅读器更加友好；</li>
+<li>尽量避免Hack；hack尽量统一；</li>
+<li>模块化：</li>
+<li>注释：</li>
+</ul>
+</li>
+</ul>
+<h2 id="规范和模块化"><a href="#规范和模块化" class="headerlink" title="规范和模块化"></a>规范和模块化</h2><h3 id="规范"><a href="#规范" class="headerlink" title="规范"></a>规范</h3><p>规范不佳，维护难；<br>团队应该有自己的规范；</p>
+<ul>
+<li>文件规范<ul>
+<li>文件分类<ul>
+<li>通用类<br><code>- base lib ui</code></li>
+</ul>
+</li>
+<li>业务类<ul>
+<li>album ..</li>
+</ul>
+</li>
+<li>文件引入<ul>
+<li>行内元素 不推荐 但是偶尔需要用</li>
+<li>外联引入<link></li>
+<li>内联引入<style></li>
+<li>不推荐import；</li>
+</ul>
+</li>
+<li>文件本身<ul>
+<li>文件名 小写字母 下划线，中划线等</li>
+<li>编码：utf-8;</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>注释规范<ul>
+<li>块状注释<ul>
+<li>统一缩进</li>
+<li>在被注释对象之上</li>
+</ul>
+</li>
+<li>单行注释<ul>
+<li>文字两端需要空格（避免中文字编码引起的注释失效）</li>
+</ul>
+</li>
+<li>行内注释<ul>
+<li>文字两端加空格</li>
+<li>放在；后面</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>命名规范<ul>
+<li>分类命名<ul>
+<li>避免样式污染，布局类的样式g-，文章样式m-;</li>
+</ul>
+</li>
+<li>命名格式<ul>
+<li>建议小写</li>
+<li>长度：符合可读性的适当长度；</li>
+</ul>
+</li>
+<li>语义化命名<ul>
+<li>以内容语义命名（导航？菜单？主体？），不推荐以位置命名；</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>书写规范<ul>
+<li>单行与多行<ul>
+<li>各有利弊<ul>
+<li>单行：节省空间，但是不利于观看，水平滚动；</li>
+<li>多行：看起来清晰，导致css文件比较长，垂直滚动；</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>空格与分号<ul>
+<li>空格<ul>
+<li>缩进（必须有）2个或者4个</li>
+<li>规则内的空格（按需）</li>
+</ul>
+</li>
+<li>分号<ul>
+<li>保留最后一个属性值得分号；</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>属性顺序<ul>
+<li>根据属性的重要性来安排书写<ul>
+<li>显示属性（display,visibility,position,float,clear,list-style,top）</li>
+<li>自身属性（width,height,margin,padding,border,overflow,min-width）</li>
+<li>文本属性（font,text-align,text-decoration,vertical-align,white-space,color,background）</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>hack方式<ul>
+<li>统一各个浏览器的Hack方式IE6：_;IE7:*;</li>
+<li>统一属性值<ul>
+<li>color(16进制)；</li>
+<li>单引号，双引号；</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>其它规范<ul>
+<li>文档<ul>
+<li>文档声明，h5声明，且在首行</li>
+<li>闭合：闭合标签一定要闭合</li>
+<li>属性：约定双引号，单引号；</li>
+<li>层级：用缩进体现层级，正确嵌套，嵌套不宜过深；</li>
+<li>注释：可以有一个注释头，一个注释结尾；</li>
+<li>大小写 标签属性一般均小写（除docutype）</li>
+</ul>
+</li>
+<li>图片规范<ul>
+<li>语义</li>
+<li>长度</li>
+</ul>
+</li>
+<li>保留源文件</li>
+<li>图片合并<ul>
+<li>尽可能使用sprite技术；</li>
+<li>尽可能拼合；</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="模块化"><a href="#模块化" class="headerlink" title="模块化"></a>模块化</h3><h4 id="什么是模块化？"><a href="#什么是模块化？" class="headerlink" title="什么是模块化？"></a>什么是模块化？</h4><ul>
+<li>一些列关联的结构组成的整体</li>
+<li>带有一定的语义，而非表现</li>
+<li><p>翻页，轮播等</p>
+<h4 id="怎么做？"><a href="#怎么做？" class="headerlink" title="怎么做？"></a>怎么做？</h4></li>
+<li><p>为模块分类命名（如m-,md-）</p>
+</li>
+<li>以一个主选择器开头（模块根节点）</li>
+<li>使用以根节点选择器开头的后代选择器（模块根节点）</li>
+<li><p>模块扩展 m-nav(m-nav-1)</p>
+<h4 id="为什么要模块化"><a href="#为什么要模块化" class="headerlink" title="为什么要模块化"></a>为什么要模块化</h4></li>
+<li><p>防止样式污染</p>
+</li>
+<li>更加便于阅读</li>
+<li>利于多人协调开发</li>
+<li>便于扩展和重用</li>
+<li>可读性，可维护性好</li>
+</ul>
+</style></li></ul></li></ul></li></ul>
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/页面架构/" rel="tag"><i class="fa fa-tag"></i> 页面架构</a>
+          
+            <a href="/tags/前端开发/" rel="tag"><i class="fa fa-tag"></i> 前端开发</a>
+          
+        </div>
+      
+
+      
+        
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/04/19/新手入门指导：Vue-2-0-的建议学习顺序/" rel="next" title="新手入门指导：Vue 2.0 的建议学习顺序">
+                <i class="fa fa-chevron-left"></i> 新手入门指导：Vue 2.0 的建议学习顺序
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/06/05/时间复杂度和空间复杂度详解/" rel="prev" title="时间复杂度和空间复杂度详解">
+                时间复杂度和空间复杂度详解 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="http://oo590vn4k.bkt.clouddn.com/111.png"
+               alt="Zhang Hongbin" />
+          <p class="site-author-name" itemprop="name">Zhang Hongbin</p>
+           
+              <p class="site-description motion-element" itemprop="description"></p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives">
+                <span class="site-state-item-count">86</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">23</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">85</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+          <div class="feed-link motion-element">
+            <a href="/atom.xml" rel="alternate">
+              <i class="fa fa-rss"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#目录"><span class="nav-number">1.</span> <span class="nav-text">目录</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#CSS-Reset"><span class="nav-number">2.</span> <span class="nav-text">CSS Reset</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#原因？"><span class="nav-number">2.1.</span> <span class="nav-text">原因？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#如何设置？"><span class="nav-number">2.2.</span> <span class="nav-text">如何设置？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#什么是Reset？"><span class="nav-number">2.3.</span> <span class="nav-text">什么是Reset？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Reset-First，"><span class="nav-number">2.4.</span> <span class="nav-text">Reset First，</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#网易推荐的Reset-规范："><span class="nav-number">2.5.</span> <span class="nav-text">网易推荐的Reset 规范：</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#布局解决方案"><span class="nav-number">3.</span> <span class="nav-text">布局解决方案</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#居中布局"><span class="nav-number">3.1.</span> <span class="nav-text">居中布局</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#水平居中"><span class="nav-number">3.1.1.</span> <span class="nav-text">水平居中</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#垂直居中"><span class="nav-number">3.1.2.</span> <span class="nav-text">垂直居中</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#水平垂直都居中"><span class="nav-number">3.1.3.</span> <span class="nav-text">水平垂直都居中</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#多列布局"><span class="nav-number">3.2.</span> <span class="nav-text">多列布局</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#等分布局"><span class="nav-number">3.3.</span> <span class="nav-text">等分布局</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#利用float："><span class="nav-number">3.3.1.</span> <span class="nav-text">利用float：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#利用table："><span class="nav-number">3.3.2.</span> <span class="nav-text">利用table：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#利用flex："><span class="nav-number">3.3.3.</span> <span class="nav-text">利用flex：</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#等高布局"><span class="nav-number">3.4.</span> <span class="nav-text">等高布局</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#全局布局"><span class="nav-number">3.5.</span> <span class="nav-text">全局布局</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#响应式布局"><span class="nav-number">3.6.</span> <span class="nav-text">响应式布局</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#页面优化"><span class="nav-number">4.</span> <span class="nav-text">页面优化</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#为什么要优化？"><span class="nav-number">4.1.</span> <span class="nav-text">为什么要优化？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#如何优化？"><span class="nav-number">4.2.</span> <span class="nav-text">如何优化？</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#规范和模块化"><span class="nav-number">5.</span> <span class="nav-text">规范和模块化</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#规范"><span class="nav-number">5.1.</span> <span class="nav-text">规范</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Zhang Hongbin</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+  
+  <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.0"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.0"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.0"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+<script type="text/javascript"
+color="0,0,255" opacity='0.7' zIndex="-2" count="99" src="//cdn.bootcss.com/canvas-nest.js/1.0.0/canvas-nest.min.js"></script>
+
+</body>
+</html>

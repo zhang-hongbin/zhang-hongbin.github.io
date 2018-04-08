@@ -1,0 +1,824 @@
+<!doctype html>
+
+
+
+  
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="DOM树,渲染,reflow,repaint," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="ZHB-CSDN" type="application/atom+xml" />
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.0" />
+
+
+
+
+
+
+<meta name="description" content="最近在学习性能优化，学习了雅虎军规  ，可是觉着有点云里雾里的，因为里面有些东西虽然自己也一直在使用，但是感觉不太明白所以然，比如减少DNS查询，css和js文件的顺序。所以就花了时间去了解浏览器的工作，有一篇经典的文章《how browsers work》 ，讲的很详细，也有中文译本 。不过就是文章有点太长，也讲了一堆东西，还是自己总结一下。  为什么要了解浏览器加载、解析、渲染这个过程？  好">
+<meta name="keywords" content="DOM树,渲染,reflow,repaint">
+<meta property="og:type" content="article">
+<meta property="og:title" content="浏览器加载、解析、渲染的过程">
+<meta property="og:url" content="https://zhang-hongbin.github.io/2017/07/10/浏览器加载、解析、渲染的过程/index.html">
+<meta property="og:site_name" content="ZHB-CSDN">
+<meta property="og:description" content="最近在学习性能优化，学习了雅虎军规  ，可是觉着有点云里雾里的，因为里面有些东西虽然自己也一直在使用，但是感觉不太明白所以然，比如减少DNS查询，css和js文件的顺序。所以就花了时间去了解浏览器的工作，有一篇经典的文章《how browsers work》 ，讲的很详细，也有中文译本 。不过就是文章有点太长，也讲了一堆东西，还是自己总结一下。  为什么要了解浏览器加载、解析、渲染这个过程？  好">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://oo590vn4k.bkt.clouddn.com/2017071001.jpg">
+<meta property="og:image" content="http://oo590vn4k.bkt.clouddn.com/2017071002.jpg">
+<meta property="og:image" content="http://oo590vn4k.bkt.clouddn.com/2017071005.jpg">
+<meta property="og:image" content="http://oo590vn4k.bkt.clouddn.com/2017071003.jpg">
+<meta property="og:image" content="http://oo590vn4k.bkt.clouddn.com/2017071004.jpg">
+<meta property="og:updated_time" content="2017-09-08T06:45:14.232Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="浏览器加载、解析、渲染的过程">
+<meta name="twitter:description" content="最近在学习性能优化，学习了雅虎军规  ，可是觉着有点云里雾里的，因为里面有些东西虽然自己也一直在使用，但是感觉不太明白所以然，比如减少DNS查询，css和js文件的顺序。所以就花了时间去了解浏览器的工作，有一篇经典的文章《how browsers work》 ，讲的很详细，也有中文译本 。不过就是文章有点太长，也讲了一堆东西，还是自己总结一下。  为什么要了解浏览器加载、解析、渲染这个过程？  好">
+<meta name="twitter:image" content="http://oo590vn4k.bkt.clouddn.com/2017071001.jpg">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://zhang-hongbin.github.io/2017/07/10/浏览器加载、解析、渲染的过程/"/>
+
+
+
+
+
+  <title> 浏览器加载、解析、渲染的过程 | ZHB-CSDN </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">ZHB-CSDN</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">Be here now</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            主頁
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分類
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            檔案
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            標簽
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="https://zhang-hongbin.github.io/2017/07/10/浏览器加载、解析、渲染的过程/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Zhang Hongbin">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="http://oo590vn4k.bkt.clouddn.com/111.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="ZHB-CSDN">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                浏览器加载、解析、渲染的过程
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-07-10T19:46:46+08:00">
+                2017-07-10
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/十二、运行环境/" itemprop="url" rel="index">
+                    <span itemprop="name">十二、运行环境</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>最近在学习性能优化，学习了<a href="http://www.cnblogs.com/smjack/archive/2009/02/24/1396895.html" target="_blank" rel="noopener">雅虎军规 </a> ，可是觉着有点云里雾里的，因为里面有些东西虽然自己也一直在使用，但是感觉不太明白所以然，比如减少DNS查询，css和<a href="http://lib.csdn.net/base/javascript" style="color:#FF0000" target="_blank" rel="noopener">js</a>文件的顺序。所以就花了时间去了解浏览器的工作，有一篇经典的文章<a href="http://taligarsiel.com/Projects/howbrowserswork1.htm" target="_blank" rel="noopener">《how browsers work》</a> ，讲的很详细，也有<a href="http://kb.cnblogs.com/page/129756/" target="_blank" rel="noopener">中文译本</a> 。不过就是文章有点太长，也讲了一堆东西，还是自己总结一下。</p>
+<p><br></p>
+<font size="5"><b>为什么要了解浏览器加载、解析、渲染这个过程？</b></font>
+
+<p>好，我们先说一下，为什么要了解这些呢？如果想写出一个最佳实践的页面，就要好好了解。</p>
+<ul>
+<li>了解浏览器如何进行加载，可以在引用外部样式文件，外部js时，将他们放到合适的位置，使浏览器以最快的速度将文件加载完毕。</li>
+<li>了解浏览器如何进行解析，可以在构建DOM结构，组织css选择器时，选择最优的写法，提高浏览器的解析速率。</li>
+<li>了解浏览器如何进行渲染，明白渲染的过程，在设置元素属性，编写js文件时，可以减少”reflow“”repaint“的消耗。</li>
+</ul>
+<p>正文开始</p>
+<h2 id="一、浏览器的主要功能"><a href="#一、浏览器的主要功能" class="headerlink" title="一、浏览器的主要功能"></a>一、浏览器的主要功能</h2><p>　　<b>浏览器的主要功能</b>是将用户选择的web资源呈现出来，它需要从服务器请求资源，并将其显示在浏览器窗口中，资源的格式通常是HTML，也包括PDF、image及其他格式。用户用URI（Uniform Resource Identifier统一资源标识符）来指定所请求资源的位置，通过DNS查询，将网址转换为IP地址。整个浏览器工作的流程，<a href="http://blog.csdn.net/xiaozhuxmen/article/details/51934706" target="_blank" rel="noopener">之前博客中</a>有论述：<br>　　1、输入网址。<br>　　2、浏览器查找域名的IP地址。<br>　　3. 浏览器给web服务器发送一个HTTP请求<br>　　4. 网站服务的永久重定向响应<br>　　5. 浏览器跟踪重定向地址 现在，浏览器知道了要访问的正确地址，所以它会发送另一个获取请求。<br>　　6. 服务器“处理”请求，服务器接收到获取请求，然后处理并返回一个响应。<br>　　7. 服务器发回一个HTML响应<br>　　8. 浏览器开始显示HTML<br>　　9. 浏览器发送请求，以获取嵌入在HTML中的对象。在浏览器显示HTML时，它会注意到需要获取其他地址内容的标签。这时，浏览器会发送一个获取请求来重新获得这些文件。这些文件就包括CSS/JS/图片等资源，这些资源的地址都要经历一个和HTML读取类似的过程。所以浏览器会在DNS中查找这些域名，发送请求，重定向等等…</p>
+<p><b>那么，一个页面，究竟是如何从我们输入一个网址到最后完整的呈现在我们面前的呢？还需要了解一下浏览器是如何渲染的：</b></p>
+<h2 id="二、浏览器的渲染"><a href="#二、浏览器的渲染" class="headerlink" title="二、浏览器的渲染"></a>二、浏览器的渲染</h2><p>下面是渲染引擎在取得内容之后的基本流程：<br><code><br>　解析html以构建dom树 -&gt; 构建render树 -&gt; 布局render树 -&gt; 绘制render树<br></code></p>
+<a id="more"></a> 
+<p>先来看个图：<br><img src="http://oo590vn4k.bkt.clouddn.com/2017071001.jpg"></p>
+<p>所以，浏览器会解析三个东西：<br>（1） HTML/SVG/XHTML，解析这三种文件会产生一个 DOM Tree。<br>（2） CSS，解析 CSS 会产生 CSS 规则树。<br>（3） <a href="http://lib.csdn.net/base/javascript" style="color:#FF0000" target="_blank" rel="noopener">JavaScript</a>脚本，主要是通过 DOM API 和 CSSOM API 来操作 DOM Tree 和 CSS Rule Tree.</p>
+<p>我今天又纠结了一上午，到底是怎么解析怎么渲染的，我的疑问在于，浏览器到底是先解析生成了DOM树，然后再加载CSS JS文件进行渲染，还是在生成DOM的过程中，遇到了 link script 然后就加载CSS JS，边加载边渲染。我有这种疑问的原因在于，看网上的帖子，说的根本不一样好嘛！ 比如这篇 我想说，这个写的让我直接懵逼，真的是直接懵逼啊，学习的过程中，总会遇到困难，但这次，让我真的好难啊。不过正因为不懂才继续查资料继续学习嘛 ==！我又查了一上午，自己测试测试测试，然后觉着，我好像是明白点了。真的推荐大家去认真看《how browsers work》这篇文章，学习不懂得知识的时候，还是要从比较权威的资料看起比较好，也不要像我今天这样，无头苍蝇乱查。</p>
+<p>那么就来说一下图中的过程，我是按照自己的理解来说，如果有误，欢迎指正。</p>
+<p><code><br>    当浏览器获得一个html文件时，会“自上而下”加载，并在加载过程中进行解析渲染。<br>    解析： </code></p>
+<pre><code>1. 浏览器会将HTML解析成一个DOM树，DOM 树的构建过程是一个深度遍历过程：当前节点的所有子节点都构建好后才会去构建当前节点的下一个兄弟节点。 
+2. 将CSS解析成 CSS Rule Tree 。 
+3. 根据DOM树和CSSOM来构造 Rendering Tree。注意：Rendering Tree 渲染树并不等同于 DOM 树，因为一些像 Header 或 display:none 的东西就没必要放在渲染树中了。
+</code></pre><p></p>
+<p><img src="http://oo590vn4k.bkt.clouddn.com/2017071002.jpg"></p>
+<pre><code>4.有了Render Tree，浏览器已经能知道网页中有哪些节点、各个节点的CSS定义以及他们的从属关系。下一步操作称之为Layout，顾名思义就是计算出每个节点在屏幕中的位置。 
+5.再下一步就是绘制，即遍历render树，并使用UI后端层绘制每个节点。
+</code></pre><p>&lt;br/ &gt;</p>
+<big><big><big><strong>重点来了：</strong></big></big></big>
+
+<p>　　上述这个过程是逐步完成的，为了更好的用户体验，渲染引擎将会尽可能早的将内容呈现到屏幕上，并不会等到所有的html都解析完成之后再去构建和布局render树。它是解析完一部分内容就显示一部分内容，同时，可能还在通过网络下载其余内容。（这段话是《how browsers work》里面讲的，让我茅塞顿开）</p>
+<h3 id="几个概念："><a href="#几个概念：" class="headerlink" title="几个概念："></a>几个概念：</h3><p>（1）Reflow（回流）：浏览器要花时间去渲染，当它发现了某个部分发生了变化影响了布局，那就需要倒回去重新渲染。</p>
+<p>（2）Repaint（重绘）：如果只是改变了某个元素的背景颜色，文字颜色等，不影响元素周围或内部布局的属性，将只会引起浏览器的repaint，重画某一部分。 </p>
+<p>Reflow要比Repaint更花费时间，也就更影响性能。所以在写代码的时候，要尽量避免过多的Reflow。</p>
+<h4 id="reflow的原因："><a href="#reflow的原因：" class="headerlink" title="reflow的原因："></a>reflow的原因：</h4><p>（1）页面初始化的时候；<br>（2）操作DOM时；<br>（3）某些元素的尺寸变了；<br>（4）如果 CSS 的属性发生变化了。</p>
+<h4 id="减少-reflow-repaint"><a href="#减少-reflow-repaint" class="headerlink" title="减少 reflow/repaint"></a>减少 reflow/repaint</h4><p>　（1）不要一条一条地修改 DOM 的样式。与其这样，还不如预先定义好 css 的 class，然后修改 DOM 的 className。</p>
+<p>　（2）不要把 DOM 结点的属性值放在一个循环里当成循环里的变量。 </p>
+<p>　（3）为动画的 HTML 元件使用 fixed 或 absoult 的 position，那么修改他们的 CSS 是不会 reflow 的。</p>
+<p>　（4）千万不要使用 table 布局。因为可能很小的一个小改动会造成整个 table 的重新布局。</p>
+<p>我应该是已经把网上所有的关于浏览器加载 解析 渲染过程的文章都看全了，其中写的比较好的一个版本是下面这个：</p>
+<p>&lt;br/ &gt;</p>
+<div style="background:lightgrey;"><br><div style="padding-left:20px;background:RGB(249,249,249);"><br><b><a href="http://blog.csdn.net/xifeijian/article/details/10813339" target="_blank" rel="noopener">HTML页面加载和解析流程</a> </b><br>1. 用户输入网址（假设是个html页面，并且是第一次访问），浏览器向服务器发出请求，服务器返回html文件；<br>2. 浏览器开始载入html代码，发现＜head＞标签内有一个＜link＞标签引用外部CSS文件；<br>3. 浏览器又发出CSS文件的请求，服务器返回这个CSS文件；<br>4. 浏览器继续载入html中＜body＞部分的代码，并且CSS文件已经拿到手了，可以开始渲染页面了；<br>5. 浏览器在代码中发现一个＜img＞标签引用了一张图片，向服务器发出请求。此时浏览器不会等到图片下载完，而是继续渲染后面的代码；<br>6. 服务器返回图片文件，由于图片占用了一定面积，影响了后面段落的排布，因此浏览器需要回过头来重新渲染这部分代码；<br>7. 浏览器发现了一个包含一行javascript代码的＜script＞标签，赶快运行它；<br>8. Javascript脚本执行了这条语句，它命令浏览器隐藏掉代码中的某个＜div＞ （style.display=”none”）。突然少了这么一个元素，浏览器不得不重新渲染这部分代码；<br>9. 终于等到了＜/html＞的到来，浏览器泪流满面……<br>10. 等等，还没完，用户点了一下界面中的“换肤”按钮，Javascript让浏览器换了一下＜link＞标签的CSS路径；<br>11. 浏览器召集了在座的各位＜div＞＜span＞＜ul＞＜li＞们，“大伙儿收拾收拾行李，咱得重新来过……”，浏览器向服务器请求了新的CSS文件，重新渲染页面。<br></div><br></div>
+
+
+<h2 id="与讨论主题相关的其他思考"><a href="#与讨论主题相关的其他思考" class="headerlink" title="与讨论主题相关的其他思考"></a>与讨论主题相关的其他思考</h2><h3 id="编写CSS时应该注意："><a href="#编写CSS时应该注意：" class="headerlink" title="编写CSS时应该注意："></a>编写CSS时应该注意：</h3><p>CSS选择符是从右到左进行匹配的。从右到左！所以，#nav li 我们以为这是一条很简单的规则，秒秒钟就能匹配到想要的元素，但是，但是，但是，是从右往左匹配啊，所以，会去找所有的li，然后再去确定它的父元素是不是#nav。，因此，写css的时候需要注意：</p>
+<ol>
+<li>dom深度尽量浅。</li>
+<li>减少inline javascript、css的数量。</li>
+<li>使用现代合法的css属性。</li>
+<li>不要为id选择器指定类名或是标签，因为id可以唯一确定一个元素。</li>
+<li>避免后代选择符，尽量使用子选择符。原因：子元素匹配符的概率要大于后代元素匹配符。后代选择符;#tp p{} 子选择符：#tp&gt;p{}</li>
+<li>避免使用通配符，举一个例子，.mod .hd *{font-size:14px;} 根据匹配顺序,将首先匹配通配符,也就是说先匹配出通配符,然后匹配.hd（就是要对dom树上的所有节点进行遍历他的父级元素）,然后匹配.mod,这样的性能耗费可想而知.</li>
+</ol>
+<h3 id="关于script标签的位置"><a href="#关于script标签的位置" class="headerlink" title="关于script标签的位置"></a>关于script标签的位置</h3><p><b>现在，我们大都会将script标签放在body结束标签之前，那原因是什么呢？</b>我今天也做了一个测试。</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE html&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">"utf-8"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">title</span>&gt;</span>测试js代码位置<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">script</span> <span class="attr">type</span>=<span class="string">"text/javascript"</span>&gt;</span><span class="undefined"></span></span><br><span class="line"><span class="javascript">        <span class="keyword">var</span> item = <span class="built_in">document</span>.getElementById(<span class="string">"item"</span>);</span></span><br><span class="line"><span class="undefined">        cosole.log(item);</span></span><br><span class="line"><span class="undefined">    </span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">"item"</span> <span class="attr">width</span>=<span class="string">"100px"</span> <span class="attr">height</span>=<span class="string">"100px"</span>&gt;</span></span><br><span class="line">        你好</span><br><span class="line">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>上述代码中有一段js代码，要在控制台打印一个元素，我把script标签放在head里，控制台里打印出来的是null。 </p>
+<p><img src="http://oo590vn4k.bkt.clouddn.com/2017071005.jpg"></p>
+<p>我又把js代码放在body结束标签之前，打印出来的就是div元素了 </p>
+<p><img src="http://oo590vn4k.bkt.clouddn.com/2017071003.jpg"></p>
+<p>所以，通过这个简单的例子我们可以看到，js代码在加载完后，是立即执行的。<br>我又做了一个测试，在js代码里面写了一个死循环，把它放在head标签中，</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE html&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">"utf-8"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">title</span>&gt;</span>测试js代码位置<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">script</span> <span class="attr">type</span>=<span class="string">"text/javascript"</span>&gt;</span><span class="undefined"></span></span><br><span class="line"><span class="javascript">        <span class="keyword">var</span> item = <span class="built_in">document</span>.getElementById(<span class="string">"item"</span>);</span></span><br><span class="line"><span class="javascript">        <span class="keyword">while</span>(<span class="literal">true</span>)&#123;</span></span><br><span class="line"><span class="javascript">            <span class="built_in">console</span>.log(<span class="number">1</span>);</span></span><br><span class="line"><span class="undefined">        &#125;</span></span><br><span class="line"><span class="undefined">    </span><span class="tag">&lt;/<span class="name">script</span>&gt;</span>   </span><br><span class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">"item"</span> <span class="attr">width</span>=<span class="string">"100px"</span> <span class="attr">height</span>=<span class="string">"100px"</span>&gt;</span></span><br><span class="line">        你好</span><br><span class="line">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span>  </span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>页面是这样的：<br><img src="http://oo590vn4k.bkt.clouddn.com/2017071004.jpg"></p>
+<p>一直在执行那个打印1的死循环，后面的body都没有加载渲染出来。所以，这个小例子，我们可以看出，js的下载和执行会阻塞Dom树的构建。</p>
+<p><b>所以，Javascript的加载和执行的特点： </b><br>（1）载入后马上执行；<br>（2）执行时会阻塞页面后续的内容（包括页面的渲染、其它资源的下载）。原因：因为浏览器需要一个稳定的DOM树结构，而JS中很有可能有 代码直接改变了DOM树结构，比如使用 document.write 或 appendChild,甚至是直接使用的location.href进行跳转，浏览器为了防止出现JS修 改DOM树，需要重新构建DOM树的情况，所以 就会阻塞其他的下载和呈现。</p>
+<h3 id="减少-JavaScript-对性能的影响的方法："><a href="#减少-JavaScript-对性能的影响的方法：" class="headerlink" title="减少 JavaScript 对性能的影响的方法："></a>减少 JavaScript 对性能的影响的方法：</h3><ol>
+<li>将所有的script标签放到页面底部，也就是body闭合标签之前，这能确保在脚本执行前页面已经完成了DOM树渲染。</li>
+<li>尽可能地合并脚本。页面中的script标签越少，加载也就越快，响应也越迅速。无论是外链脚本还是内嵌脚本都是如此。</li>
+<li>采用无阻塞下载 JavaScript 脚本的方法：<br>（1）使用script标签的 defer 属性（仅适用于 IE 和 Firefox 3.5 以上版本）；<br>（2）使用动态创建的script元素来下载并执行代码；</li>
+</ol>
+<p>好了，写到这里吧，我想静静。</p>
+<hr>
+<p>转自：<a href="http://blog.csdn.net/xiaozhuxmen/article/details/52014901" target="_blank" rel="noopener">http://blog.csdn.net/xiaozhuxmen/article/details/52014901</a><br>作者：季诗筱</p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/DOM树/" rel="tag"><i class="fa fa-tag"></i> DOM树</a>
+          
+            <a href="/tags/渲染/" rel="tag"><i class="fa fa-tag"></i> 渲染</a>
+          
+            <a href="/tags/reflow/" rel="tag"><i class="fa fa-tag"></i> reflow</a>
+          
+            <a href="/tags/repaint/" rel="tag"><i class="fa fa-tag"></i> repaint</a>
+          
+        </div>
+      
+
+      
+        
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/07/08/十二、运行环境/" rel="next" title="十二、运行环境">
+                <i class="fa fa-chevron-left"></i> 十二、运行环境
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/08/10/React学习指导/" rel="prev" title="React学习指导">
+                React学习指导 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="http://oo590vn4k.bkt.clouddn.com/111.png"
+               alt="Zhang Hongbin" />
+          <p class="site-author-name" itemprop="name">Zhang Hongbin</p>
+           
+              <p class="site-description motion-element" itemprop="description"></p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives">
+                <span class="site-state-item-count">86</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">23</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">85</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+          <div class="feed-link motion-element">
+            <a href="/atom.xml" rel="alternate">
+              <i class="fa fa-rss"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#一、浏览器的主要功能"><span class="nav-number">1.</span> <span class="nav-text">一、浏览器的主要功能</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#二、浏览器的渲染"><span class="nav-number">2.</span> <span class="nav-text">二、浏览器的渲染</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#几个概念："><span class="nav-number">2.1.</span> <span class="nav-text">几个概念：</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#reflow的原因："><span class="nav-number">2.1.1.</span> <span class="nav-text">reflow的原因：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#减少-reflow-repaint"><span class="nav-number">2.1.2.</span> <span class="nav-text">减少 reflow/repaint</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#与讨论主题相关的其他思考"><span class="nav-number">3.</span> <span class="nav-text">与讨论主题相关的其他思考</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#编写CSS时应该注意："><span class="nav-number">3.1.</span> <span class="nav-text">编写CSS时应该注意：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#关于script标签的位置"><span class="nav-number">3.2.</span> <span class="nav-text">关于script标签的位置</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#减少-JavaScript-对性能的影响的方法："><span class="nav-number">3.3.</span> <span class="nav-text">减少 JavaScript 对性能的影响的方法：</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Zhang Hongbin</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+  
+  <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.0"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.0"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.0"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+<script type="text/javascript"
+color="0,0,255" opacity='0.7' zIndex="-2" count="99" src="//cdn.bootcss.com/canvas-nest.js/1.0.0/canvas-nest.min.js"></script>
+
+</body>
+</html>

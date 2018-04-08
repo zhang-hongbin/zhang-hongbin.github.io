@@ -1,0 +1,738 @@
+<!doctype html>
+
+
+
+  
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="算法,优化,文档,c," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="ZHB-CSDN" type="application/atom+xml" />
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.0" />
+
+
+
+
+
+
+<meta name="description" content="从最一般的定义上说，一个求最小值的问题就是一个优化问题（也叫寻优问题，更文绉绉的叫法是规划——Programming），它同样由两部分组成，目标函数和约束条件，可以用下面的式子表示： 　　（式1）　　约束条件用函数c来表示，就是constrain的意思啦。你可以看出一共有p+q个约束条件，其中p个是不等式约束，q个等式约束。 　　关于这个式子可以这样来理解：式中的x是自变量，但不限定它的维数必须为">
+<meta name="keywords" content="算法,优化,文档,c">
+<meta property="og:type" content="article">
+<meta property="og:title" content="SVM入门（五）线性分类器的求解——问题的描述Part2">
+<meta property="og:url" content="https://zhang-hongbin.github.io/2017/03/05/SVM入门（五）线性分类器的求解——问题的描述Part2/index.html">
+<meta property="og:site_name" content="ZHB-CSDN">
+<meta property="og:description" content="从最一般的定义上说，一个求最小值的问题就是一个优化问题（也叫寻优问题，更文绉绉的叫法是规划——Programming），它同样由两部分组成，目标函数和约束条件，可以用下面的式子表示： 　　（式1）　　约束条件用函数c来表示，就是constrain的意思啦。你可以看出一共有p+q个约束条件，其中p个是不等式约束，q个等式约束。 　　关于这个式子可以这样来理解：式中的x是自变量，但不限定它的维数必须为">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://oo590vn4k.bkt.clouddn.com/20170305-1.gif">
+<meta property="og:image" content="http://oo590vn4k.bkt.clouddn.com/20170305-2.gif">
+<meta property="og:updated_time" content="2017-05-02T08:55:40.771Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="SVM入门（五）线性分类器的求解——问题的描述Part2">
+<meta name="twitter:description" content="从最一般的定义上说，一个求最小值的问题就是一个优化问题（也叫寻优问题，更文绉绉的叫法是规划——Programming），它同样由两部分组成，目标函数和约束条件，可以用下面的式子表示： 　　（式1）　　约束条件用函数c来表示，就是constrain的意思啦。你可以看出一共有p+q个约束条件，其中p个是不等式约束，q个等式约束。 　　关于这个式子可以这样来理解：式中的x是自变量，但不限定它的维数必须为">
+<meta name="twitter:image" content="http://oo590vn4k.bkt.clouddn.com/20170305-1.gif">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://zhang-hongbin.github.io/2017/03/05/SVM入门（五）线性分类器的求解——问题的描述Part2/"/>
+
+
+
+
+
+  <title> SVM入门（五）线性分类器的求解——问题的描述Part2 | ZHB-CSDN </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">ZHB-CSDN</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">Be here now</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            主頁
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分類
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            檔案
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            標簽
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="https://zhang-hongbin.github.io/2017/03/05/SVM入门（五）线性分类器的求解——问题的描述Part2/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Zhang Hongbin">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="http://oo590vn4k.bkt.clouddn.com/111.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="ZHB-CSDN">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                SVM入门（五）线性分类器的求解——问题的描述Part2
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-03-05T13:36:46+08:00">
+                2017-03-05
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/算法/" itemprop="url" rel="index">
+                    <span itemprop="name">算法</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>从最一般的定义上说，一个求最小值的问题就是一个优化问题（也叫<font color="red">寻优问题</font>，更文绉绉的叫法是<font color="red">规划——Programming</font>），它同样由两部分组成，目标函数和约束条件，可以用下面的式子表示：</p>
+<p>　　<img src="http://oo590vn4k.bkt.clouddn.com/20170305-1.gif" alt="">（式1）<br>　　约束条件用函数c来表示，就是constrain的意思啦。你可以看出一共有p+q个约束条件，其中p个是不等式约束，q个等式约束。</p>
+<p>　　关于这个式子可以这样来理解：式中的x是自变量，但不限定它的维数必须为1（视乎你解决的问题空间维数，对我们的文本分类来说，那可是成千上万啊）。要求f(x)在哪一点上取得最小值（反倒不太关心这个最小值到底是多少，关键是哪一点），但不是在整个空间里找，而是在约束条件所划定的一个有限的空间里找，这个有限的空间就是优化理论里所说的可行域。注意可行域中的每一个点都要求满足所有p+q个条件，而不是满足其中一条或几条就可以（切记，要满足每个约束），同时可行域边界上的点有一个额外好的特性，它们可以使不等式约束取得等号！而边界内的点不行。</p>
+<p>　　这对一般的优化问题可能提供不了什么帮助，但对我们的 SVM来说，边界上的点有其特殊意义，实际上是它们唯一的决定了分类超平面，这些点（想象他们就是以前的图中恰好落在H1和H2上的点，在文本分类问题中，每一个点代表一个文档，因而这个点本身也是一个向量）就被称为支持向量。</p>
+<p>　　关于可行域还有个概念不得不提，那就是凸集，凸集是指有这么一个点的集合，其中任取两个点连一条直线，这条线上的点仍然在这个集合内部，因此说“凸”是很形象的（一个反例是，二维平面上，一个月牙形的区域就不是凸集，你随便就可以找到两个点违反了刚才的规定）。</p>
+<p>　　回头再来看我们线性分类器问题的描述，可以看出更多的东西。</p>
+<p>　　<img src="http://oo590vn4k.bkt.clouddn.com/20170305-2.gif" alt="">（式2）</p>
+<p>　　在这个问题中，自变量就是w，而目标函数是w的二次函数，所有的约束条件都是w的线性函数（哎，千万不要把xi当成变量，它代表样本，是已知的），这种规划问题有个很有名气的称呼——<font color="red">二次规划（Quadratic Programming，QP）</font>，而且可以更进一步的说，由于它的可行域是一个凸集，因此它是一个<font color="red">凸二次规划</font>。</p>
+<p>　　一下子提了这么多术语，实在不是为了让大家以后能向别人炫耀学识的渊博，这其实是我们继续下去的一个重要前提，因为在动手求一个问题的解之前（好吧，我承认，是动计算机求……），我们必须先问自己：这个问题是不是有解？如果有解，是否能找到？</p>
+<p>　　对于一般意义上的规划问题，两个问题的答案都是不一定，但凸二次规划让人喜欢的地方就在于，它有解（教科书里面为了严谨，常常加限定成分，说它有全局最优解，由于我们想找的本来就是全局最优的解，所以不加也罢），而且可以找到！（当然，依据你使用的算法不同，找到这个解的速度，行话叫收敛速度，会有所不同）</p>
+<p>　　对比（式2）和（式1）还可以发现，我们的线性分类器问题只有不等式约束，因此形式上看似乎比一般意义上的规划问题要简单，但解起来却并非如此。</p>
+<p>　　因为我们实际上并不知道该怎么解一个带约束的优化问题。如果你仔细回忆一下高等数学的知识，会记得我们可以轻松的解一个不带任何约束的优化问题（实际上就是当年背得烂熟的函数求极值嘛，求导再找0点呗，谁不会啊？笑），我们甚至还会解一个只带等式约束的优化问题，也是背得烂熟的，求条件极值，记得么，通过添加拉格朗日乘子，构造拉格朗日函数，来把这个问题转化为无约束的优化问题云云（如果你一时没想通，我提醒一下，构造出的拉格朗日函数就是转化之后的问题形式，它显然没有带任何条件）。</p>
+<p>　　读者问：如果只带等式约束的问题可以转化为无约束的问题而得以求解，那么可不可以把带不等式约束的问题向只带等式约束的问题转化一下而得以求解呢？</p>
+<p>　　聪明，可以，实际上我们也正是这么做的。下一节就来说说如何做这个转化，一旦转化完成，求解对任何学过高等数学的人来说，都是小菜一碟啦。</p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/算法/" rel="tag"><i class="fa fa-tag"></i> 算法</a>
+          
+            <a href="/tags/优化/" rel="tag"><i class="fa fa-tag"></i> 优化</a>
+          
+            <a href="/tags/文档/" rel="tag"><i class="fa fa-tag"></i> 文档</a>
+          
+            <a href="/tags/c/" rel="tag"><i class="fa fa-tag"></i> c</a>
+          
+        </div>
+      
+
+      
+        
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/03/04/SVM入门（四）线性分类器的求解——问题的描述Part1/" rel="next" title="SVM入门（四）线性分类器的求解——问题的描述Part1">
+                <i class="fa fa-chevron-left"></i> SVM入门（四）线性分类器的求解——问题的描述Part1
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/03/06/SVM入门（六）线性分类器的求解——问题的转化，直观角度/" rel="prev" title="SVM入门（六）线性分类器的求解——问题的转化，直观角度">
+                SVM入门（六）线性分类器的求解——问题的转化，直观角度 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+
+      <section class="site-overview sidebar-panel sidebar-panel-active">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="http://oo590vn4k.bkt.clouddn.com/111.png"
+               alt="Zhang Hongbin" />
+          <p class="site-author-name" itemprop="name">Zhang Hongbin</p>
+           
+              <p class="site-description motion-element" itemprop="description"></p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives">
+                <span class="site-state-item-count">86</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">23</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">85</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+          <div class="feed-link motion-element">
+            <a href="/atom.xml" rel="alternate">
+              <i class="fa fa-rss"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Zhang Hongbin</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+  
+  <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.0"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.0"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.0"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+<script type="text/javascript"
+color="0,0,255" opacity='0.7' zIndex="-2" count="99" src="//cdn.bootcss.com/canvas-nest.js/1.0.0/canvas-nest.min.js"></script>
+
+</body>
+</html>

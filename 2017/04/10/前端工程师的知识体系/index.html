@@ -1,0 +1,1117 @@
+<!doctype html>
+
+
+
+  
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="前端开发,知识体系," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="ZHB-CSDN" type="application/atom+xml" />
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.0" />
+
+
+
+
+
+
+<meta name="description" content="Front-End Engineer 这词很好的体现了前端的特(ku)殊(bi)性。 下图是张克军绘制的前端工程师图解：  前端开发的核心是HTML + CSS + JavaScript。本质上它们构成一个MVC框架，即HTML作为信息模型（Model），CSS控制样式（View），JavaScript负责调度数据和实现某种展现逻辑（Controller）。">
+<meta name="keywords" content="前端开发,知识体系">
+<meta property="og:type" content="article">
+<meta property="og:title" content="前端工程师的知识体系">
+<meta property="og:url" content="https://zhang-hongbin.github.io/2017/04/10/前端工程师的知识体系/index.html">
+<meta property="og:site_name" content="ZHB-CSDN">
+<meta property="og:description" content="Front-End Engineer 这词很好的体现了前端的特(ku)殊(bi)性。 下图是张克军绘制的前端工程师图解：  前端开发的核心是HTML + CSS + JavaScript。本质上它们构成一个MVC框架，即HTML作为信息模型（Model），CSS控制样式（View），JavaScript负责调度数据和实现某种展现逻辑（Controller）。">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://images.cnitblog.com/blog/78199/201412/191748134544082.jpg">
+<meta property="og:updated_time" content="2017-08-26T05:30:24.197Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="前端工程师的知识体系">
+<meta name="twitter:description" content="Front-End Engineer 这词很好的体现了前端的特(ku)殊(bi)性。 下图是张克军绘制的前端工程师图解：  前端开发的核心是HTML + CSS + JavaScript。本质上它们构成一个MVC框架，即HTML作为信息模型（Model），CSS控制样式（View），JavaScript负责调度数据和实现某种展现逻辑（Controller）。">
+<meta name="twitter:image" content="http://images.cnitblog.com/blog/78199/201412/191748134544082.jpg">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://zhang-hongbin.github.io/2017/04/10/前端工程师的知识体系/"/>
+
+
+
+
+
+  <title> 前端工程师的知识体系 | ZHB-CSDN </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">ZHB-CSDN</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">Be here now</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            主頁
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分類
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            檔案
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            標簽
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="https://zhang-hongbin.github.io/2017/04/10/前端工程师的知识体系/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Zhang Hongbin">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="http://oo590vn4k.bkt.clouddn.com/111.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="ZHB-CSDN">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                前端工程师的知识体系
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-04-10T14:15:32+08:00">
+                2017-04-10
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/前端工程师之路/" itemprop="url" rel="index">
+                    <span itemprop="name">前端工程师之路</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>Front-End Engineer 这词很好的体现了前端的特(ku)殊(bi)性。</p>
+<p>下图是张克军绘制的前端工程师图解：</p>
+<p><img src="http://images.cnitblog.com/blog/78199/201412/191748134544082.jpg" alt=""></p>
+<p>前端开发的核心是HTML + CSS + JavaScript。本质上它们构成一个MVC框架，即HTML作为信息模型（Model），CSS控制样式（View），JavaScript负责调度数据和实现某种展现逻辑（Controller）。</p>
+ <a id="more"></a>
+<h2 id="HTML"><a href="#HTML" class="headerlink" title="HTML"></a>HTML</h2><h3 id="标签的分类"><a href="#标签的分类" class="headerlink" title="标签的分类"></a>标签的分类</h3><ul>
+<li><p>标签表示一个元素</p>
+</li>
+<li><p>按性质划分: Block-Level和Inline-Level</p>
+</li>
+<li><p>按语义划分:</p>
+<ul>
+<li><p>Headings: h1, h2, h3, h4, h5, h6</p>
+</li>
+<li><p>Paragraphs: p</p>
+</li>
+<li><p>Text Formatting: em, strong, sub, del, ins, small</p>
+</li>
+<li><p>Lists: ul, li, ol, dl, dt, dd</p>
+</li>
+<li><p>Tables: table, thead, tbody, tr, th, td</p>
+</li>
+<li><p>Forms and Input: form, input, select, textarea</p>
+</li>
+<li><p>Others: div, span, a, img, <!----></p>
+</li>
+<li><p>HTML5: header, footer, article, section</p>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="XHTML"><a href="#XHTML" class="headerlink" title="XHTML"></a>XHTML</h3><p>XHTML 于2000年的1月26日成为 W3C 标准。W3C 将 XHTML 定义为最新的HTML版本。XHTML 将逐渐取代 HTML。XHTML是通过把 HTML 和 XML 各自的长处加以结合形成的。XHTML 语法规则如下：</p>
+<ul>
+<li><p>属性名和标签名称必须小写</p>
+</li>
+<li><p>属性值必须加引号</p>
+</li>
+<li><p>属性不能简写</p>
+</li>
+<li><p>用 Id 属性代替 name 属性</p>
+</li>
+<li><p>XHTML 元素必须被正确地嵌套</p>
+</li>
+<li><p>XHTML 元素必须被关闭</p>
+</li>
+</ul>
+<h3 id="标签的语义化"><a href="#标签的语义化" class="headerlink" title="标签的语义化"></a>标签的语义化</h3><p>为表达语义而标记文档，而不是为了样式，结构良好的文档可以向浏览器传达尽可能多的语义，不论是浏览器位于掌上电脑还是时髦的桌面图形浏览器。结构良好的文档都能向用户传达可视化的语义，即使是在老的浏览器，或是在被用户关闭了 CSS 的现代浏览器中。同时结构良好的HTML代码也有助于搜索引擎索引你的网站。</p>
+<ul>
+<li><p>不要使用table布局，table是用来表格显示的。</p>
+</li>
+<li><p>不要到处滥用div标签，div是用来分块用的</p>
+</li>
+<li><p>不要使用样式标签，如font, center, big, small, b, i，样式可以用CSS来控制，b和i可以用strong和em来代替。</p>
+</li>
+<li><p>不要使用换行标签<br>和空格来控制样式，请用CSS。</p>
+</li>
+<li><p>尽量不要使用内联CSS</p>
+</li>
+</ul>
+<h2 id="CSS"><a href="#CSS" class="headerlink" title="CSS"></a>CSS</h2><h3 id="基础"><a href="#基础" class="headerlink" title="基础"></a>基础</h3><ul>
+<li><p>层叠和继承</p>
+</li>
+<li><p>优先级</p>
+</li>
+<li><p>盒模型</p>
+</li>
+<li><p>定位</p>
+</li>
+<li><p>浮动</p>
+</li>
+</ul>
+<h3 id="进阶"><a href="#进阶" class="headerlink" title="进阶"></a>进阶</h3><ul>
+<li><p>CSS Sprite：CSS Sprite主要用于前端性能优化的一种技术，原理是通过将多张背景图片合成在一张图片上从而减少HTTP请求，加快载入速度。</p>
+</li>
+<li><p>浏览器兼容性：绝大部分情况下我们需要考虑浏览器的兼容性，目前正在使用的浏览器版本非常多，IE6, IE7, IE8, IE9, IE10, Chrome, Firefox, Safari。</p>
+</li>
+<li><p>IE HasLayout和Block Format Content：IE HasLayout是一个 Internet Explorer for Windows的私有概念，它决定了一个元素如何显示以及约束其包含的内容、如何与其他元素交互和建立联系、如何响应和传递应用程序事件、用户事件等。这种渲染特性可以通过某些 CSS 属性被不可逆转地触发。而有些 HTML 元素则默认就具有”layout”。目前只有IE6和IE7有这个概率。BFC是 W3C CSS 2.1 规范中的一个概念，它决定了元素如何对其内容进行定位，以及与其他元素的关系和相互作用。这个其实和浏览器的兼容性有关，因为绝大部分的兼容性问题都是它们引起的。</p>
+</li>
+<li><p>CSS Frameworks：</p>
+</li>
+</ul>
+<p>CSS框架是一系列CSS文件的集合体，包含了基本的元素重置，页面排版、网格布局、表单样式、通用规则等代码块,用于简化web前端开发的工作，提高工作效率。目前常见框架有：</p>
+<pre><code>- 960 Grid System
+
+- Blueprint CSS
+
+- Bluetrip
+
+- Minimum Page
+</code></pre><p>还是一个比较出名和特殊的框架是Twitter的Bootstrap。Bootstrap是快速开发Web应用程序的前端工具包。它是一个CSS和HTML的集合，它使用了最新的浏览器技术，给你的Web开发提供了时尚的版式，表单，buttons，表格，网格系统等等。它是基于Less开发的。不支持IE6，在IE7和IE8里效果也不咋地。</p>
+<ul>
+<li>CSS3：</li>
+</ul>
+<p>虽然CSS3还没有正式成为标准，但是包括IE9+, chrome, Firefox等现代浏览器都支持CSS3。CSS提供了好多以前需要用JavaScript和切图才能搞定的功能，目前主要功能有：</p>
+<ul>
+<li><ul>
+<li><p>圆角</p>
+</li>
+<li><p>多背景</p>
+</li>
+<li><p>@font-face</p>
+</li>
+<li><p>动画与渐变</p>
+</li>
+<li><p>渐变色</p>
+</li>
+<li><p>Box阴影</p>
+</li>
+<li><p>RGBa-加入透明色</p>
+</li>
+<li><p>文字阴影</p>
+</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li><p>CSS性能优化：CSS 代码是控制页面显示样式与效果的最直接“工具”，但是在性能调优时他们通常被 Web 开发工程师所忽略，而事实上不规范的 CSS 会对页面渲染的效率有严重影响，尤其是对于结构复杂的 Web 2.0 页面，这种影响更是不可磨灭。所以，写出规范的、高性能的 CSS 代码会极大的提高应用程序的效率。</p>
+</li>
+<li><p>LESS and SASS：CSS 预处理器，用来为 CSS 增加一些编程的的特性，无需考虑浏览器的兼容性问题，例如你可以在 CSS 中使用变量、简单的程序逻辑、函数等等在编程语言中的一些基本技巧，可以让你的 CSS 更见简洁，适应性更强，代码更直观等诸多好处。SASS基于Ruby开发。LESS既可以在客户端运行，也可以借助Node.js或者Rhino在服务端运行。</p>
+</li>
+</ul>
+<h2 id="javascript"><a href="#javascript" class="headerlink" title="javascript"></a>javascript</h2><h3 id="基础-1"><a href="#基础-1" class="headerlink" title="基础"></a>基础</h3><ul>
+<li><p>数据类型</p>
+</li>
+<li><p>变量</p>
+</li>
+<li><p>表达式与运算符</p>
+</li>
+<li><p>控制语句</p>
+</li>
+<li><p>函数</p>
+</li>
+<li><p>异常</p>
+</li>
+<li><p>OO</p>
+</li>
+<li><p>事件</p>
+</li>
+<li><p>BOM</p>
+</li>
+<li><p>闭包</p>
+</li>
+</ul>
+<h3 id="进阶-1"><a href="#进阶-1" class="headerlink" title="进阶"></a>进阶</h3><ul>
+<li><p>DOM：DOM即文档对象模型，HTML DOM 定义了访问和操作HTML文档的标准方法。几乎所有的现代浏览器都能很好的支持DOM了。</p>
+</li>
+<li><p>JSON：(JavaScript Object Notation) 是一种轻量级的数据交换格式，易于人阅读和编写，同时也易于机器解析和生成。是目前事实上数据交换的标准格式，几乎所有语言都支持JSON，比XML强太多了。</p>
+</li>
+<li><p>AJAX：即“Asynchronous JavaScript and XML”（异步JavaScript和XML)，AJAX并非缩写词，而是由Jesse James Gaiiett创造的名词，由Google发扬光大。用于创建更好更快以及交互性更强的 Web 应用程序的技术。</p>
+</li>
+<li><p>JavaScript Frameworks：极大简化我们JavaScript编程的工作量，它主要提供了以下几个主要功能： DOM操作，跨浏览器兼容性，以及程序架构。当然像jQuery它本身其实并不是一个框架，它是一个库(lib)。目前主流的框架或库有如下几个：</p>
+<pre><code>jQuery
+
+YUI
+
+DOJO
+</code></pre></li>
+<li><p>HTML5:同CSS3类似，即虽然没有成为标准，但是主流的浏览器都支持了。HTML5不是HMTL，虽然也提供了一些新标签，但是它的主要用途还是JavaScript。HTML5主要提供以下功能：</p>
+<ul>
+<li><p>本地音频视频播放</p>
+</li>
+<li><p>Canvas/SVG</p>
+</li>
+<li><p>地理信息</p>
+</li>
+<li><p>硬件加速</p>
+</li>
+<li><p>本地运行</p>
+</li>
+<li><p>本地存储</p>
+</li>
+<li><p>从桌面拖放文件到浏览器上传</p>
+</li>
+<li><p>语义化标签，Form表单</p>
+</li>
+</ul>
+</li>
+<li><p>前端模板:主要是为了解决复杂的数据拼接问题，可以将模板语言转换化为HTML结构，可以大大简化工作量，同时代码的可维护性得到很大的提高。目前比较主流前端模板有：</p>
+<ul>
+<li><p>MustCache</p>
+</li>
+<li><p>JsRender</p>
+</li>
+</ul>
+</li>
+<li><p>前端MVC:Web应用的功能越来越强，Javascript代码也越来越多，大量的JS代码要以何种架构来组织就成了一个亟待解决的问题，于是就有人把传统的MVC架构移植到前端来解决这些问题。目前主流前端MVC框架主要有以下这些：</p>
+<ul>
+<li><p>Backbone.js</p>
+</li>
+<li><p>Spine</p>
+</li>
+<li><p>YUI</p>
+</li>
+<li><p>Agility.js</p>
+</li>
+<li><p>Ember.js</p>
+</li>
+<li><p>Batman.js</p>
+</li>
+<li><p>Dojo</p>
+</li>
+<li><p>AngularJS(MVVM)</p>
+</li>
+<li><p>KnockoutJS(MVVM)</p>
+</li>
+</ul>
+</li>
+<li><p>模块化开发:特点是“模块化开发，按需加载“。这其中CommonJS组织定义了AMD的规范用来规范浏览器端的模块定义。RequireJS和SeaJS是实现了AMD的两个优秀的框架。详见：<a href="http://www.weakweb.com/articles/341.html" target="_blank" rel="noopener">http://www.weakweb.com/articles/341.html</a></p>
+</li>
+<li><p>JavaScript单元测试:QUnit</p>
+</li>
+<li><p>JavaScript设计模式</p>
+</li>
+<li><p>NodeJS:把JavaScript移植到服务器端了，这样前端和后端就可以使用同样的技术，方便统一开发。而且NodeJS是非阻塞调用的，在特定领域性能是非常强劲的。而且这是前端开发人员进军后台开发的好机会，进而前后端统一开发，但又不用去学习其它后台开发语言。</p>
+</li>
+<li><p>ES5:ECMAScript 5，也就是最新的JavaScript规范，对之前的JavaScript作了很多改进，增加了好多新的特性，比如JSONECMAScript 5，也就是最新的JavaScript规范，对之前的JavaScript作了很多改进，增加了好多新的特性，比如JSON。</p>
+</li>
+</ul>
+<h2 id="Others"><a href="#Others" class="headerlink" title="Others"></a>Others</h2><ul>
+<li><p>响应式设计：伴随着各种智能设备的流行，响应式设计现在是非常火热。以前做网页只要面向PC机的浏览器，页面直接固定宽度就行，比如960px，而现在通过手机的访问量已经超过PC机，并且设备的尺寸多种多样，未来会更多。在这种背景下，网页支持所有设备进行访问是基本要求了，而响应式设计能很好的解决这些问题。</p>
+</li>
+<li><p>Http1.1：GET，POST方式，Request/Response 头部，状态码等。</p>
+</li>
+<li><p>Web移动开发：开发方式一般是native的方式或者Web方式，作为前端开发人员来说自然是去学习Web移动开发了。PhoneGap是必学的，前端层面的框架如jQueryMobile, Sencha Touch, jQTouch等都是不错的选择。</p>
+</li>
+<li><p>前端安全：随着前端技术的发展,安全问题已经从服务器悄然来到了每一个用户的的面前，盗取用户数据, 制造恶意的可以自我复制的蠕虫代码,让病毒在用户间传播,使服务器当掉. 更有甚者可能会在用户不知觉得情况下,让用户成为攻击者,这绝对不是骇人听闻。富客户端的应用越来越广，前端的安全问题也随之增多。常见的攻击方法有：</p>
+<ul>
+<li><p>XSS，跨站脚本攻击(Cross Site Script)。它指的是恶意攻击者往Web页面里插入恶意html代码，当用户浏览该页之时，嵌入的恶意html代码会被执行，从而达到恶意用户的特殊目的。</p>
+</li>
+<li><p>CSRF(Cross Site Request Forgery)，跨站点伪造请求。顾名思义就是 通过伪造连接请求在用户不知情的情况下，让用户以自己的身份来完成攻击者需要达到的一些目的。</p>
+</li>
+<li><p>cookie劫持，通过获取页面的权限，在页面中写一个简单的到恶意站点的请求，并携带用户的cookie 获取cookie后通过cookie 就可以直以被盗用户的身份登录站点。</p>
+</li>
+</ul>
+</li>
+<li>跨域处理：同源策略规定跨域之间的脚本是隔离的，一个域的脚本不能访问和操作另外一个域的绝大部分属性和方法。所谓的跨域处理就是处于不用域之间的脚步互相调用，目前有很多方法来处理它。</li>
+<li>调试工具：前端的调试工具很多，比如Firebug，Webkit核心的web inspector, IE的iedeveloper。HTTP相关的fiddler, httpwatch等，还有格式化代码的jsbeatutifier，它有助于阅读压缩处理过的JavaScript代码。IETester可以模拟所有的IE版本，是调试IE兼容性的好工具。</li>
+<li>SEO：搜索引擎优化</li>
+<li>A/B test：确定两个元素或版本（A和B）哪个版本更好，你需要同时实验两个版本。最后，选择最好的版本使用。</li>
+<li>可用性/可访问性：<ul>
+<li>可用性指的是：产品是否容易上手，用户能否完成任务，效率如何，以及这过程中用户的主观感受可好，是从用户的角度来看产品的质量。可用性好意味着产品质量高，是企业的核心竞争力。</li>
+<li>可访问性：上网用户中那些视力受损的人，通过屏幕阅读器使用键盘命令将网页的内容读给他们听。以语义化的HTML（结构和表现相分离的HTML）编写的网页文件，就可以让此类用户更容易导航，且网页文件中的重要信息也更有可能被这些用户找到。</li>
+</ul>
+</li>
+<li>前端流程/部署：Grunt，Bower和Yeoman现在几乎是前端最流行的自动化的项目构建工具</li>
+<li>正则表达式</li>
+<li>浏览器插件开发</li>
+<li>浏览器原理</li>
+</ul>
+<h2 id="沟通能力"><a href="#沟通能力" class="headerlink" title="沟通能力"></a>沟通能力</h2><p>优秀的前端工程师需要具备良好的沟通能力，因为你的工作与很多人的工作息息相关。在任何情况下，前端工程师至少都要满足下列四类客户的需求。</p>
+<ul>
+<li><p><strong>产品经理——这些是负责策划应用程序的一群人。他们能够想象出怎样通过应用程序来满足用户需求，以及怎样通过他们设计的模式赚到钱（往往事与愿违）。一般来说，这些人追求的是丰富的功能。</strong></p>
+</li>
+<li><p><strong>UI设计师——这些人负责应用程序的视觉设计和交互模拟。他们关心的是用户对什么敏感、交互的一贯性以及整体的好用性。他们热衷于流畅靓丽但并不容易实现的用户界面，但考虑问题往往不周全。</strong></p>
+</li>
+<li><p><strong>项目经理——这些人负责实际地运行和维护应用程序。项目管理的主要关注点，无外乎正常运行时间（uptime）——应用程序始终正常可用的时间、性能和截止日期。项目经理追求的目标往往是尽量保持事情的简单化，以及不在升级更新时引入新问题。</strong></p>
+</li>
+<li><p><strong>最终用户——当然是应用程序的主要消费者。尽管我们不会经常与最终用户打交道，但他们的反馈意见至关重要；没人想用的应用程序毫无价值。最终用户要求最多的就是对个人有用的功能，以及竞争性产品所具备的功能。</strong></p>
+</li>
+</ul>
+<p><strong>从某种意义上说，优秀的前端工程师就像是一位大使，需要时刻抱着外交官的心态来应对每一天的工作。</strong></p>
+<h2 id="如何提高前端技术"><a href="#如何提高前端技术" class="headerlink" title="如何提高前端技术"></a>如何提高前端技术</h2><ul>
+<li>Github是一个优秀的代码托管网站，我们可以在上创建我们个人的项目，同时也是学习的好地方，我们可以关注其它优秀的项目。JSFiddle是一个web开发人员的练习场，一个可以在很多方面应用的工具。我们可以用他来在线编辑一些HTML,CSS,javascript片段。你编辑的代码可以与其他人分享，或嵌入你的博客等</li>
+<li>阅读优秀的开源代码</li>
+<li>关注技术发展趋势，了解最新的行业技术，可以通过订阅知名博客，阅读技术新闻获取</li>
+<li>写博客/记笔记，可以进行知识积累。</li>
+</ul>
+<p>##前端修炼之路</p>
+<ul>
+<li><p>入门：打基础同时能参与到项目中去。</p>
+<ul>
+<li><p>HMTL &amp; XHTML</p>
+</li>
+<li><p>CSS基础知识</p>
+</li>
+<li><p>JavaScript基础知识</p>
+</li>
+<li><p>DOM</p>
+</li>
+<li><p>JSON</p>
+</li>
+<li><p>AJAX</p>
+</li>
+<li><p>JavaScript Frameworks</p>
+</li>
+</ul>
+</li>
+<li><p>深入：掌握前端核心技术，可以独立干活。</p>
+<ul>
+<li><p>HTML5标签，TML标签语义化</p>
+</li>
+<li><p>CSS Sprite</p>
+</li>
+<li><p>浏览器兼容性</p>
+</li>
+<li><p>IE HasLayout和Block Format Content</p>
+</li>
+<li><p>CSS3</p>
+</li>
+<li><p>精通JavaScript Frameworks</p>
+</li>
+<li><p>HTML5</p>
+</li>
+<li><p>前端模板</p>
+</li>
+<li><p>前端MVC</p>
+</li>
+<li><p>模块化开发</p>
+</li>
+<li><p>Http1.1</p>
+</li>
+<li><p>调试工具</p>
+</li>
+<li><p>正则表达式</p>
+</li>
+<li><p>响应式设计</p>
+</li>
+</ul>
+</li>
+<li><p>潜出：把握整个前端项目，做整个前端项目的架构师。</p>
+<ul>
+<li><p>CSS性能优化</p>
+</li>
+<li><p>LESS and SASS</p>
+</li>
+<li><p>JavaScript单元测试</p>
+</li>
+<li><p>JavaScript设计模式</p>
+</li>
+<li><p>NodeJS</p>
+</li>
+<li><p>ES5</p>
+</li>
+<li><p>Web移动开发</p>
+</li>
+<li><p>浏览器插件开发</p>
+</li>
+<li><p>前端安全</p>
+</li>
+<li><p>跨域处理</p>
+</li>
+<li><p>SEO</p>
+</li>
+<li><p>A/B test</p>
+</li>
+<li><p>可用性/可访问性</p>
+</li>
+<li><p>前端流程/部署</p>
+</li>
+<li><p>浏览器原理</p>
+</li>
+</ul>
+</li>
+<li><p>出师：一代宗师。</p>
+<ul>
+<li><p>不停的学习新的技术</p>
+</li>
+<li><p>交互设计能力，管理能力</p>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="前端的未来"><a href="#前端的未来" class="headerlink" title="前端的未来"></a>前端的未来</h2><ul>
+<li><p><strong>走技术流路线，即深入研究前端相关的各项技术，比如浏览器原理，JavaScript本身的研究，W3C各种标准等。前端技术发展很快，各种新技术层出不穷，这条路走下去是很累的。</strong></p>
+</li>
+<li><p><strong>往交互设计方向走，前端工程师做到一定程度后交互设计能力也会得到很大的提高，对整个信息架构的把握能力也会更强。可以很好的弥补视觉设计师在交换设计上的不足。这条路其实和第一条是不冲突的，甚至可以理解为同一条路。</strong></p>
+</li>
+<li><p><strong>往后走，即去学习后台开发的技术，比如JAVA/PHP等，其实绝大部分传统的后台开发人员就是这个状态，即前后台都做。个人认为这样的话其实已经走回老路了，毕竟前端就是从原来的后台开发那里独立出来的。</strong></p>
+</li>
+<li><p><strong>往管理方向，比如项目经理，或者干脆转行，比如公务员等。</strong></p>
+</li>
+</ul>
+<p>注：本文转自<a href="http://www.cnblogs.com/yoshirogu/p/4174463.html" target="_blank" rel="noopener">http://www.cnblogs.com/yoshirogu/p/4174463.html</a></p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/前端开发/" rel="tag"><i class="fa fa-tag"></i> 前端开发</a>
+          
+            <a href="/tags/知识体系/" rel="tag"><i class="fa fa-tag"></i> 知识体系</a>
+          
+        </div>
+      
+
+      
+        
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/04/10/浅谈HTTP中Get与Post的区别/" rel="next" title="浅谈HTTP中Get与Post的区别">
+                <i class="fa fa-chevron-left"></i> 浅谈HTTP中Get与Post的区别
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/04/13/HTTP状态码含义/" rel="prev" title="http状态码含义">
+                http状态码含义 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="http://oo590vn4k.bkt.clouddn.com/111.png"
+               alt="Zhang Hongbin" />
+          <p class="site-author-name" itemprop="name">Zhang Hongbin</p>
+           
+              <p class="site-description motion-element" itemprop="description"></p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives">
+                <span class="site-state-item-count">86</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">23</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">85</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+          <div class="feed-link motion-element">
+            <a href="/atom.xml" rel="alternate">
+              <i class="fa fa-rss"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#HTML"><span class="nav-number">1.</span> <span class="nav-text">HTML</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#标签的分类"><span class="nav-number">1.1.</span> <span class="nav-text">标签的分类</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#XHTML"><span class="nav-number">1.2.</span> <span class="nav-text">XHTML</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#标签的语义化"><span class="nav-number">1.3.</span> <span class="nav-text">标签的语义化</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#CSS"><span class="nav-number">2.</span> <span class="nav-text">CSS</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#基础"><span class="nav-number">2.1.</span> <span class="nav-text">基础</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#进阶"><span class="nav-number">2.2.</span> <span class="nav-text">进阶</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#javascript"><span class="nav-number">3.</span> <span class="nav-text">javascript</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#基础-1"><span class="nav-number">3.1.</span> <span class="nav-text">基础</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#进阶-1"><span class="nav-number">3.2.</span> <span class="nav-text">进阶</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Others"><span class="nav-number">4.</span> <span class="nav-text">Others</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#沟通能力"><span class="nav-number">5.</span> <span class="nav-text">沟通能力</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#如何提高前端技术"><span class="nav-number">6.</span> <span class="nav-text">如何提高前端技术</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#前端的未来"><span class="nav-number">7.</span> <span class="nav-text">前端的未来</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Zhang Hongbin</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+  
+  <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.0"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.0"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.0"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+<script type="text/javascript"
+color="0,0,255" opacity='0.7' zIndex="-2" count="99" src="//cdn.bootcss.com/canvas-nest.js/1.0.0/canvas-nest.min.js"></script>
+
+</body>
+</html>

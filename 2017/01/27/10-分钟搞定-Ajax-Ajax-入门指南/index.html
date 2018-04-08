@@ -1,0 +1,777 @@
+<!doctype html>
+
+
+
+  
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="Ajax," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="ZHB-CSDN" type="application/atom+xml" />
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.0" />
+
+
+
+
+
+
+<meta name="description" content="教练，我要学 JavaScript！我要当前端！好，那你懂 Ajax 吗？你知道为什么要学 Ajax 吗？如果你的页面还停留在静态页面和不停刷新得到的动态页面，那么，是时候学习 Ajax 了。作为一个前端必备技能，今天我们来对 Ajax 一个面对面的交流！ 什么是 Ajax？Ajax 提供了一种方式，让你无需刷新页面就可以异步获取数据，听起来是不是很吊，我再也不用每次提交表单刷新页面了，再也不发送">
+<meta name="keywords" content="Ajax">
+<meta property="og:type" content="article">
+<meta property="og:title" content="10 分钟搞定 Ajax - Ajax 入门指南">
+<meta property="og:url" content="https://zhang-hongbin.github.io/2017/01/27/10-分钟搞定-Ajax-Ajax-入门指南/index.html">
+<meta property="og:site_name" content="ZHB-CSDN">
+<meta property="og:description" content="教练，我要学 JavaScript！我要当前端！好，那你懂 Ajax 吗？你知道为什么要学 Ajax 吗？如果你的页面还停留在静态页面和不停刷新得到的动态页面，那么，是时候学习 Ajax 了。作为一个前端必备技能，今天我们来对 Ajax 一个面对面的交流！ 什么是 Ajax？Ajax 提供了一种方式，让你无需刷新页面就可以异步获取数据，听起来是不是很吊，我再也不用每次提交表单刷新页面了，再也不发送">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2017-09-04T08:33:43.174Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="10 分钟搞定 Ajax - Ajax 入门指南">
+<meta name="twitter:description" content="教练，我要学 JavaScript！我要当前端！好，那你懂 Ajax 吗？你知道为什么要学 Ajax 吗？如果你的页面还停留在静态页面和不停刷新得到的动态页面，那么，是时候学习 Ajax 了。作为一个前端必备技能，今天我们来对 Ajax 一个面对面的交流！ 什么是 Ajax？Ajax 提供了一种方式，让你无需刷新页面就可以异步获取数据，听起来是不是很吊，我再也不用每次提交表单刷新页面了，再也不发送">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://zhang-hongbin.github.io/2017/01/27/10-分钟搞定-Ajax-Ajax-入门指南/"/>
+
+
+
+
+
+  <title> 10 分钟搞定 Ajax - Ajax 入门指南 | ZHB-CSDN </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">ZHB-CSDN</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">Be here now</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            主頁
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分類
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            檔案
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            標簽
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="https://zhang-hongbin.github.io/2017/01/27/10-分钟搞定-Ajax-Ajax-入门指南/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Zhang Hongbin">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="http://oo590vn4k.bkt.clouddn.com/111.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="ZHB-CSDN">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                10 分钟搞定 Ajax - Ajax 入门指南
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-01-27T13:00:05+08:00">
+                2017-01-27
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/九、Ajax/" itemprop="url" rel="index">
+                    <span itemprop="name">九、Ajax</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>教练，我要学 JavaScript！我要当前端！好，那你懂 Ajax 吗？你知道为什么要学 Ajax 吗？如果你的页面还停留在静态页面和不停刷新得到的动态页面，那么，是时候学习 Ajax 了。作为一个前端必备技能，今天我们来对 Ajax 一个面对面的交流！</p>
+<h2 id="什么是-Ajax？"><a href="#什么是-Ajax？" class="headerlink" title="什么是 Ajax？"></a>什么是 Ajax？</h2><p>Ajax 提供了一种方式，让你无需刷新页面就可以异步获取数据，听起来是不是很吊，我再也不用每次提交表单刷新页面了，再也不发送数据就刷新页面了，直接把返回的数据插入 DOM 就可以在页面显示数据了。通过 Ajax 我们就可以做出更好的交互了。</p>
+<h2 id="如何使用-Ajax"><a href="#如何使用-Ajax" class="headerlink" title="如何使用 Ajax"></a>如何使用 Ajax</h2><h3 id="第一步：创建-XHR-对象"><a href="#第一步：创建-XHR-对象" class="headerlink" title="第一步：创建 XHR 对象"></a>第一步：创建 XHR 对象</h3><p>Ajax 的核心就是 XHR(XMLHttpRequest) 对象，虽然名字里包含了 XML，但是事实上，并不一定需要用 XML 作为数据格式，在 JSON 大行其道的时代，必然传输 JSON 会更加的愉悦了。</p>
+<p>在 IE 已死的今天，不需要再考虑如何兼容 IE 旧版本的 XHR 对象了，所以我们只需要通过</p>
+<pre><code>var xhr = new XMLHttpRequest();
+</code></pre><p>就可以获得我们所需要的 XHR 对象了，没错，就是这么简单，不需要判断浏览器的属性，不需要兼容 IE！</p>
+<h3 id="第二步：XHR的用法"><a href="#第二步：XHR的用法" class="headerlink" title="第二步：XHR的用法"></a>第二步：XHR的用法</h3><p>有了这个对象之后，我们看看需要使用什么样的动作才能完成一次正常的传输？首先我们需要启动一个请求以备发送，然后再发送，发送完之后对返回的数据进行处理。用代码怎么写呢？<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> xhr = <span class="keyword">new</span> XMLHttpRequest();</span><br><span class="line">xhr.open(<span class="string">'get'</span>, <span class="string">'example.php'</span>, <span class="literal">false</span>);</span><br><span class="line">xhr.send(<span class="literal">null</span>);</span><br><span class="line"><span class="keyword">if</span> (xhr.status &gt;= <span class="number">200</span> &amp;&amp; xhr.status &lt; <span class="number">300</span>) || xhr.status(<span class="number">304</span>) &#123;</span><br><span class="line">    alert(xhr.responseText);</span><br><span class="line">&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    alert(<span class="string">'Request was unsuccessful'</span> + xhr.status);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>上面这段代码首先创造了 XHR 对象，然后用 open 方法去启动一个请求，默认接收三个参数，分别是要发送的请求的类型，请求的 URL，以及是否异步发送请求。再调用 get 方法发送数据，这里是 null，发送完之后对返回的状态进行检测，通过 xhr.status 返回相对应的状态码，200 表示成功， 304 表示缓存，其他均表示返回失败。</p>
+<p>看完上面的代码之后，有人会问，那我想要异步发送怎么办？大多数情况下， Ajax 请求都是异步发送的，这个时候我们需要用到另外一个 XHR 对象的属性 readtstatechange，通常当它的值为 4 的时候，表示所有数据已经接受到了。因此，我们可以把上面的代码更改为如下：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> xhr = <span class="keyword">new</span> XMLHttpRequest();</span><br><span class="line">xhr.onreadystatechange = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (xhr.status === <span class="number">4</span>) &#123;</span><br><span class="line">        <span class="keyword">if</span> ((xhr.status &gt;= <span class="number">200</span> &amp;&amp; xhr.status &lt; <span class="number">300</span>) || xhr.status === <span class="number">304</span>) &#123;</span><br><span class="line">            alert(xhr.responseText);</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            alert(<span class="string">'Request was unsuccessful'</span> + xhr.status);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line">xhr.open(<span class="string">'get'</span>, <span class="string">'example.txt'</span>, <span class="literal">true</span>);</span><br><span class="line">xhr.send(<span class="literal">null</span>);</span><br></pre></td></tr></table></figure></p>
+<p>这样我们一个完整的 Ajax 请求就已经完成了，是不是很觉得很简单呢？其实，很多时候我们不仅仅只是简单的获取数据而已，往往我们需要请求不同的参数，或者需要把一些数据发送到服务器里，这个时候就需要进一步的使用了。</p>
+<h2 id="再谈-GET-和-POST"><a href="#再谈-GET-和-POST" class="headerlink" title="再谈 GET 和 POST"></a>再谈 GET 和 POST</h2><h3 id="GET"><a href="#GET" class="headerlink" title="GET"></a>GET</h3><p>GET 是最常见的请求类型，经常用于向服务器查询某些信息。我们可以将查询的字符串追加到 URL 的末尾，发送给服务器。例如下面：</p>
+<pre><code>xhr.open(&apos;get&apos;, &apos;example.php?name1=value1&amp;name2=value2&apos;, true)
+</code></pre><h3 id="POST"><a href="#POST" class="headerlink" title="POST"></a>POST</h3><p>另外一个常见的请求是 POST，用于向服务器发送应该被保存的数据。不同于 GET，POST 请求是把数据作为请求的主体去提交的，所以我们的数据一般是在 send 方法里面发出的。可以见下面的例子：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> xhr = <span class="keyword">new</span> XMLHttpRequest();</span><br><span class="line">xhr.onreadystatechange = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (xhr.status === <span class="number">4</span>) &#123;</span><br><span class="line">        <span class="keyword">if</span> ((xhr.status &gt;= <span class="number">200</span> &amp;&amp; xhr.status &lt; <span class="number">300</span>) || xhr.status === <span class="number">304</span>) &#123;</span><br><span class="line">            alert(xhr.responseText);</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            alert(<span class="string">'Request was unsuccessful'</span> + xhr.status);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line">xhr.open(<span class="string">'post'</span>, <span class="string">'example.php'</span>, <span class="literal">true</span>);</span><br><span class="line"><span class="keyword">var</span> form = <span class="built_in">document</span>.getElementById(<span class="string">'user-info'</span>);</span><br><span class="line">xhr.send(serialize(form));</span><br></pre></td></tr></table></figure></p>
+<h2 id="XMLHttpRequest-2-级"><a href="#XMLHttpRequest-2-级" class="headerlink" title="XMLHttpRequest 2 级"></a>XMLHttpRequest 2 级</h2><h3 id="FormData"><a href="#FormData" class="headerlink" title="FormData"></a>FormData</h3><p>有的时候我们会经常需要提交更多的数据，通过创建一个 FormData 对象，我们可以更加简单的创建于表单格式相同的数据。例如：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">var data = new FormData();</span><br><span class="line">data.append(&apos;name&apos;, &apos;Steven&apos;);</span><br></pre></td></tr></table></figure></p>
+<p><code>append</code> 方法接受两个参数，键和值，分别对应表单字段的名字和表单字段的值。</p>
+<p>创建了 FormData 的实例以后，可以之间传给 XHR 的 send 方法，如下：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 省略创建 XHR 对象和对其状态的监测</span></span><br><span class="line"></span><br><span class="line">xhr.open(<span class="string">'post'</span>, <span class="string">'postexample.php'</span>, <span class="literal">true</span>);</span><br><span class="line"><span class="keyword">var</span> form = <span class="built_in">document</span>.getElementById(<span class="string">'user-info'</span>);</span><br><span class="line">xhr.send(<span class="keyword">new</span> FormData(form));</span><br></pre></td></tr></table></figure></p>
+<p>有时候我们需要验证这个表单是否由特定的用户或者是否有足够的权限的时候，可以再提交表单前 append 对应的 token，再对应提交。</p>
+<h3 id="progress"><a href="#progress" class="headerlink" title="progress"></a>progress</h3><p>有时候我们想知道 Ajax 传输的状态怎么样了怎么办！通过 progress 事件，我们可以时刻知道传输的状态，它的使用必须放在启动请求 ‘open’ 之前，例如：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">xhr.onprogress = <span class="function"><span class="keyword">function</span>(<span class="params">event</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> divStatus = <span class="built_in">document</span>.getElementById(<span class="string">'status'</span>);</span><br><span class="line">    <span class="keyword">if</span> (event.lengthComputable) &#123;</span><br><span class="line">        divStatus.innerHTML = <span class="string">'接受到了'</span> + event.position + event.totalSize + <span class="string">'bytes'</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">xhr.open(<span class="string">'get'</span>, <span class="string">'example.php'</span>, <span class="literal">true</span>);</span><br><span class="line">xhr.send(<span class="literal">null</span>);</span><br></pre></td></tr></table></figure></p>
+<h2 id="跨域请求"><a href="#跨域请求" class="headerlink" title="跨域请求"></a>跨域请求</h2><p>然而 Ajax 并不是万能的，有时候我们想要异步获取其他网站的数据的时候，就会返回失败，这是因为 XHR 对象只能访问与包含它页面位于同一个域中的资源。那我们要怎么办呢？</p>
+<h3 id="CORS"><a href="#CORS" class="headerlink" title="CORS"></a>CORS</h3><p>跨源资源共享标准通过新增一系列 HTTP 头，让服务器能声明哪些来源可以通过浏览器访问该服务器上的资源。主要有三种：</p>
+<ul>
+<li><p>通过使用 Origin 和 Access-Control-Allow-Origin 就可以完成最简单的跨站请求。不过 Access-Control-Allow-Origin 需要为 * 或者包含由 Origin 指明的站点。</p>
+</li>
+<li><p>“预请求”要求必须先发送一个 OPTIONS 请求给目的站点，来查明这个跨站请求对于目的站点是不是安全可接受的。这样做，是因为跨站请求可能会对目的站点的数据造成破坏。</p>
+</li>
+<li><p>一般而言，对于跨站请求，浏览器是不会发送凭证信息的。但如果将<a href="https://developer.mozilla.org/en-US/docs/Web/API/XMLHttpRequest" target="_blank" rel="noopener">XMLHttpRequest</a> 的一个特殊标志位设置为true，浏览器就将允许该请求的发送。</p>
+</li>
+</ul>
+<h3 id="图片Ping"><a href="#图片Ping" class="headerlink" title="图片Ping"></a>图片Ping</h3><p>在使用图片的时候，我们的img 中的 src 属性也可以使用任何网页的链接，意味加载这一类请求无需担心是否跨域。常常用于动态创建图像，或者跟踪用户点击页面，动态广告曝光次数等。</p>
+<h3 id="JSONP"><a href="#JSONP" class="headerlink" title="JSONP"></a>JSONP</h3><p>JSONP 是 JSON with padding 的缩写，意思是填充式的 JSON，同图片 Ping 一样，<code>script</code>的 <code>src</code> 属性也是可以跨域的，因此通过动态创建一个 <code>script</code> 元素获取我们所需要的资源。</p>
+<p>不同于图像 Ping 只返回图片，JSONP 可以直接访问相应文本。只需要在添加 URL 的时候添加查询参数即可，看起来会像下面这个样子：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">http://freeeoip.net/json/?callback=handleResponse</span><br><span class="line"></span><br><span class="line">// 或者 PHP 形式的</span><br><span class="line">http://test.com/bookservice.php?callback=displayBooks</span><br></pre></td></tr></table></figure></p>
+<p>其中赋值给 <code>callback</code> 的表示指定的调用函数，完整的 JSONP 如下：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 处理返回数据的请求</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">handleResponse</span>(<span class="params">data</span>)</span>&#123;</span><br><span class="line">    alert(<span class="string">'Your city is in'</span> + data.city + data.country);</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 动态生成 JSPONP 请求</span></span><br><span class="line"><span class="keyword">var</span> script = <span class="built_in">document</span>.createElement(<span class="string">'script'</span>);</span><br><span class="line">script.src = <span class="string">'http://freegeoip.net/json/?callback=handleResponse'</span>;</span><br><span class="line"><span class="built_in">document</span>.body.insertBefore(script, <span class="built_in">document</span>.body.firstChild);</span><br></pre></td></tr></table></figure></p>
+<ul>
+<li>好处： 双向通信，可以跨域</li>
+<li>坏处：无法识别恶意代码，无法知道是否获取失败</li>
+</ul>
+<p>注：本文转自<a href="http://www.jianshu.com/p/56a93e6a0621" target="_blank" rel="noopener">Ajax 入门指南</a></p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Ajax/" rel="tag"><i class="fa fa-tag"></i> Ajax</a>
+          
+        </div>
+      
+
+      
+        
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/01/26/HTTP/" rel="next" title="HTTP">
+                <i class="fa fa-chevron-left"></i> HTTP
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/01/27/Ajax快速入门/" rel="prev" title="Ajax快速入门">
+                Ajax快速入门 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="http://oo590vn4k.bkt.clouddn.com/111.png"
+               alt="Zhang Hongbin" />
+          <p class="site-author-name" itemprop="name">Zhang Hongbin</p>
+           
+              <p class="site-description motion-element" itemprop="description"></p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives">
+                <span class="site-state-item-count">86</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">23</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">85</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+          <div class="feed-link motion-element">
+            <a href="/atom.xml" rel="alternate">
+              <i class="fa fa-rss"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#什么是-Ajax？"><span class="nav-number">1.</span> <span class="nav-text">什么是 Ajax？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#如何使用-Ajax"><span class="nav-number">2.</span> <span class="nav-text">如何使用 Ajax</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#第一步：创建-XHR-对象"><span class="nav-number">2.1.</span> <span class="nav-text">第一步：创建 XHR 对象</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#第二步：XHR的用法"><span class="nav-number">2.2.</span> <span class="nav-text">第二步：XHR的用法</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#再谈-GET-和-POST"><span class="nav-number">3.</span> <span class="nav-text">再谈 GET 和 POST</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#GET"><span class="nav-number">3.1.</span> <span class="nav-text">GET</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#POST"><span class="nav-number">3.2.</span> <span class="nav-text">POST</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#XMLHttpRequest-2-级"><span class="nav-number">4.</span> <span class="nav-text">XMLHttpRequest 2 级</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#FormData"><span class="nav-number">4.1.</span> <span class="nav-text">FormData</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#progress"><span class="nav-number">4.2.</span> <span class="nav-text">progress</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#跨域请求"><span class="nav-number">5.</span> <span class="nav-text">跨域请求</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#CORS"><span class="nav-number">5.1.</span> <span class="nav-text">CORS</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#图片Ping"><span class="nav-number">5.2.</span> <span class="nav-text">图片Ping</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#JSONP"><span class="nav-number">5.3.</span> <span class="nav-text">JSONP</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Zhang Hongbin</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+  
+  <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.0"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.0"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.0"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+<script type="text/javascript"
+color="0,0,255" opacity='0.7' zIndex="-2" count="99" src="//cdn.bootcss.com/canvas-nest.js/1.0.0/canvas-nest.min.js"></script>
+
+</body>
+</html>

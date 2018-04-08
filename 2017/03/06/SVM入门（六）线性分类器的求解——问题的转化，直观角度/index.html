@@ -1,0 +1,743 @@
+<!doctype html>
+
+
+
+  
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="算法,优化,文档,c," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="ZHB-CSDN" type="application/atom+xml" />
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.0" />
+
+
+
+
+
+
+<meta name="description" content="作者注：之前转载的五篇有关SVM的文章在原文中没有了之后的内容，所以也没法转载了。今天偶然发现了另一个主页，刚好有余下的内容，就接着上次的第五篇继续转载，让有需要的人来看。接下来的几篇SVM转载出处：http://www.blogjava.net/zhenandaci/archive/2009/03/01/257237.html 让我再一次比较完整的重复一下我们要解决的问题：我们有属于两个类别的样">
+<meta name="keywords" content="算法,优化,文档,c">
+<meta property="og:type" content="article">
+<meta property="og:title" content="SVM入门（六）线性分类器的求解——问题的转化，直观角度">
+<meta property="og:url" content="https://zhang-hongbin.github.io/2017/03/06/SVM入门（六）线性分类器的求解——问题的转化，直观角度/index.html">
+<meta property="og:site_name" content="ZHB-CSDN">
+<meta property="og:description" content="作者注：之前转载的五篇有关SVM的文章在原文中没有了之后的内容，所以也没法转载了。今天偶然发现了另一个主页，刚好有余下的内容，就接着上次的第五篇继续转载，让有需要的人来看。接下来的几篇SVM转载出处：http://www.blogjava.net/zhenandaci/archive/2009/03/01/257237.html 让我再一次比较完整的重复一下我们要解决的问题：我们有属于两个类别的样">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://oo590vn4k.bkt.clouddn.com/20170306-1.png">
+<meta property="og:image" content="http://oo590vn4k.bkt.clouddn.com/20170306-2.gif">
+<meta property="og:image" content="http://oo590vn4k.bkt.clouddn.com/20170306-3.gif">
+<meta property="og:image" content="http://oo590vn4k.bkt.clouddn.com/20170306-4.gif">
+<meta property="og:updated_time" content="2017-05-02T09:35:19.346Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="SVM入门（六）线性分类器的求解——问题的转化，直观角度">
+<meta name="twitter:description" content="作者注：之前转载的五篇有关SVM的文章在原文中没有了之后的内容，所以也没法转载了。今天偶然发现了另一个主页，刚好有余下的内容，就接着上次的第五篇继续转载，让有需要的人来看。接下来的几篇SVM转载出处：http://www.blogjava.net/zhenandaci/archive/2009/03/01/257237.html 让我再一次比较完整的重复一下我们要解决的问题：我们有属于两个类别的样">
+<meta name="twitter:image" content="http://oo590vn4k.bkt.clouddn.com/20170306-1.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://zhang-hongbin.github.io/2017/03/06/SVM入门（六）线性分类器的求解——问题的转化，直观角度/"/>
+
+
+
+
+
+  <title> SVM入门（六）线性分类器的求解——问题的转化，直观角度 | ZHB-CSDN </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">ZHB-CSDN</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">Be here now</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            主頁
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分類
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            檔案
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            標簽
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="https://zhang-hongbin.github.io/2017/03/06/SVM入门（六）线性分类器的求解——问题的转化，直观角度/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Zhang Hongbin">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="http://oo590vn4k.bkt.clouddn.com/111.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="ZHB-CSDN">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                SVM入门（六）线性分类器的求解——问题的转化，直观角度
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-03-06T13:36:46+08:00">
+                2017-03-06
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/算法/" itemprop="url" rel="index">
+                    <span itemprop="name">算法</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>作者注：之前转载的五篇有关SVM的文章在原文中没有了之后的内容，所以也没法转载了。今天偶然发现了另一个主页，刚好有余下的内容，就接着上次的第五篇继续转载，让有需要的人来看。<br>接下来的几篇SVM转载出处：<a href="http://www.blogjava.net/zhenandaci/archive/2009/03/01/257237.html" target="_blank" rel="noopener">http://www.blogjava.net/zhenandaci/archive/2009/03/01/257237.html</a></p>
+<p>让我再一次比较完整的重复一下我们要解决的问题：我们有属于两个类别的样本点（并不限定这些点在二维空间中）若干，如图，<br><img src="http://oo590vn4k.bkt.clouddn.com/20170306-1.png" alt=""><br>  圆形的样本点定为正样本（连带着，我们可以把正样本所属的类叫做正类），方形的点定为负例。我们想求得这样一个线性函数（在n维空间中的线性函数）：</p>
+<p>g(x)=wx+b</p>
+<p>使得所有属于正类的点x+代入以后有g(x+)≥1，而所有属于负类的点x-代入后有g(x-)≤-1（之所以总跟1比较，无论正一还是负一，都是因为我们固定了间隔为1，注意间隔和几何间隔的区别）。代入g(x)后的值如果在1和-1之间，我们就拒绝判断。</p>
+<p>求这样的g(x)的过程就是求w（一个n维向量）和b（一个实数）两个参数的过程（但实际上只需要求w，求得以后找某些样本点代入就可以求得b）。因此在求g(x)的时候，w才是变量。</p>
+<p>你肯定能看出来，一旦求出了w（也就求出了b），那么中间的直线H就知道了（因为它就是wx+b=0嘛，哈哈），那么H1和H2也就知道了（因为三者是平行的，而且相隔的距离还是||w||决定的）。那么w是谁决定的？显然是你给的样本决定的，一旦你在空间中给出了那些个样本点，三条直线的位置实际上就唯一确定了（因为我们求的是最优的那三条，当然是唯一的），我们解优化问题的过程也只不过是把这个确定了的东西算出来而已。<br>样本确定了w，用数学的语言描述，就是w可以表示为样本的某种组合：w=α1x1+α2x2+…+αnxn</p>
+<p>式子中的αi是一个一个的数（在严格的证明过程中，这些α被称为拉格朗日乘子），而xi是样本点，因而是向量，n就是总样本点的个数。为了方便描述，以下开始严格区别数字与向量的乘积和向量间的乘积，我会用α1x1表示数字和向量的乘积，而用&lt;x1,x2&gt;表示向量x1,x2的内积（也叫点积，注意与向量叉积的区别）。因此g(x)的表达式严格的形式应该是：<code>g(x)=&lt;w,x&gt;+b</code></p>
+<p>但是上面的式子还不够好，你回头看看图中正样本和负样本的位置，想像一下，我不动所有点的位置，而只是把其中一个正样本点定为负样本点（也就是把一个点的形状从圆形变为方形），结果怎么样？三条直线都必须移动（因为对这三条直线的要求是必须把方形和圆形的点正确分开）！这说明w不仅跟样本点的位置有关，还跟样本的类别有关（也就是和样本的“标签”有关）。因此用下面这个式子表示才算完整：</p>
+<p>w=α1y1x1+α2y2x2+…+αnynxn （式1）</p>
+<p>其中的yi就是第i个样本的标签，它等于1或者-1。其实以上式子的那一堆拉格朗日乘子中，只有很少的一部分不等于0（不等于0才对w起决定作用），这部分不等于0的拉格朗日乘子后面所乘的样本点，其实都落在H1和H2上，也正是这部分样本（而不需要全部样本）唯一的确定了分类函数，当然，更严格的说，这些样本的一部分就可以确定，因为例如确定一条直线，只需要两个点就可以，即便有三五个都落在上面，我们也不是全都需要。这部分我们真正需要的样本点，就叫做支持（撑）向量！（名字还挺形象吧，他们“撑”起了分界线）<br>式子也可以用求和符号简写一下：</p>
+<p><img src="http://oo590vn4k.bkt.clouddn.com/20170306-2.gif" alt=""></p>
+<p>因此原来的g(x)表达式可以写为：</p>
+<p><img src="http://oo590vn4k.bkt.clouddn.com/20170306-3.gif" alt=""></p>
+<p>注意式子中x才是变量，也就是你要分类哪篇文档，就把该文档的向量表示代入到 x的位置，而所有的xi统统都是已知的样本。还注意到式子中只有xi和x是向量，因此一部分可以从内积符号中拿出来，得到g(x)的式子为：</p>
+<p><img src="http://oo590vn4k.bkt.clouddn.com/20170306-4.gif" alt=""></p>
+<p>发现了什么？w不见啦！从求w变成了求α。</p>
+<p>但肯定有人会说，这并没有把原问题简化呀。嘿嘿，其实简化了，只不过在你看不见的地方，以这样的形式描述问题以后，我们的优化问题少了很大一部分不等式约束（记得这是我们解不了极值问题的万恶之源）。但是接下来先跳过线性分类器求解的部分，来看看 SVM在线性分类器上所做的重大改进——核函数。</p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/算法/" rel="tag"><i class="fa fa-tag"></i> 算法</a>
+          
+            <a href="/tags/优化/" rel="tag"><i class="fa fa-tag"></i> 优化</a>
+          
+            <a href="/tags/文档/" rel="tag"><i class="fa fa-tag"></i> 文档</a>
+          
+            <a href="/tags/c/" rel="tag"><i class="fa fa-tag"></i> c</a>
+          
+        </div>
+      
+
+      
+        
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/03/05/SVM入门（五）线性分类器的求解——问题的描述Part2/" rel="next" title="SVM入门（五）线性分类器的求解——问题的描述Part2">
+                <i class="fa fa-chevron-left"></i> SVM入门（五）线性分类器的求解——问题的描述Part2
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/03/07/SVM入门（七）为何需要核函数（转载）/" rel="prev" title="SVM入门（七）为何需要核函数（转载）">
+                SVM入门（七）为何需要核函数（转载） <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+
+      <section class="site-overview sidebar-panel sidebar-panel-active">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="http://oo590vn4k.bkt.clouddn.com/111.png"
+               alt="Zhang Hongbin" />
+          <p class="site-author-name" itemprop="name">Zhang Hongbin</p>
+           
+              <p class="site-description motion-element" itemprop="description"></p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives">
+                <span class="site-state-item-count">86</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">23</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">85</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+          <div class="feed-link motion-element">
+            <a href="/atom.xml" rel="alternate">
+              <i class="fa fa-rss"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Zhang Hongbin</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+  
+  <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.0"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.0"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.0"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+<script type="text/javascript"
+color="0,0,255" opacity='0.7' zIndex="-2" count="99" src="//cdn.bootcss.com/canvas-nest.js/1.0.0/canvas-nest.min.js"></script>
+
+</body>
+</html>
