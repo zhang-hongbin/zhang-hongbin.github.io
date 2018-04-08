@@ -2,6 +2,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://zhang-hongbin.github.io/2018/01/07/React%20%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/</loc>
+    
+    <lastmod>2018-04-08T11:34:03.850Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>https://zhang-hongbin.github.io/2018/01/10/React%20%E5%B1%9E%E6%80%A7%E4%B8%8E%E4%BA%8B%E4%BB%B6/</loc>
     
     <lastmod>2018-01-11T13:31:20.803Z</lastmod>
@@ -33,13 +40,6 @@
     <loc>https://zhang-hongbin.github.io/2017/08/16/BFC%20%E6%9C%80%E7%86%9F%E6%82%89%E7%9A%84%E9%99%8C%E7%94%9F%E4%BA%BA/</loc>
     
     <lastmod>2018-01-08T08:54:02.251Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://zhang-hongbin.github.io/2018/01/07/React%20%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/</loc>
-    
-    <lastmod>2018-01-07T10:49:11.561Z</lastmod>
     
   </url>
   
