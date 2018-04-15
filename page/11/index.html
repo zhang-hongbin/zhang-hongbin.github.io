@@ -259,6 +259,166 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="https://zhang-hongbin.github.io/2017/03/01/SVM入门（一）：SVM的八股简介/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Zhang Hongbin">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="http://oo590vn4k.bkt.clouddn.com/111.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="ZHB-CSDN">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2017/03/01/SVM入门（一）：SVM的八股简介/" itemprop="url">
+                  SVM入门（一）：SVM的八股简介
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-03-01T11:06:27+08:00">
+                2017-03-01
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/算法/" itemprop="url" rel="index">
+                    <span itemprop="name">算法</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p> 转自：<a href="http://tech.ddvip.com/2009-02/1234595359108775.html" target="_blank" rel="noopener">http://tech.ddvip.com/2009-02/1234595359108775.html</a></p>
+<p>   支持向量机(Support Vector Machine)是Cortes和Vapnik于1995年首先提出的，它在解决小样本、非线性及高维模式识别中表现出许多特有的优势，并能够推广应用到函数拟合等其他<a href="http://lib.csdn.net/base/machinelearning" target="_blank" rel="noopener">机器学习</a>问题中[10]。</p>
+<p>　　支持向量机方法是建立在统计学习理论的VC 维理论和结构风险最小原理基础上的，根据有限的样本信息在模型的复杂性（即对特定训练样本的学习精度，Accuracy）和学习能力（即无错误地识别任意样本的能力）之间寻求最佳折衷，以期获得最好的推广能力[14]（或称泛化能力）。</p>
+<p>　　以上是经常被有关SVM 的学术文献引用的介绍，有点八股，我来逐一分解并解释一下。</p>
+<p>　　Vapnik是统计机器学习的大牛，这想必都不用说，他出版的《Statistical Learning Theory》是一本完整阐述统计机器学习思想的名著。在该书中详细的论证了统计机器学习之所以区别于传统机器学习的本质，就在于统计机器学习能够精确的给出学习效果，能够解答需要的样本数等等一系列问题。与统计机器学习的精密思维相比，传统的机器学习基本上属于摸着石头过河，用传统的机器学习方法构造分类系统完全成了一种技巧，一个人做的结果可能很好，另一个人差不多的方法做出来却很差，缺乏指导和原则。</p>
+<p>　　所谓VC维是对函数类的一种度量，可以简单的理解为问题的复杂程度，VC维越高，一个问题就越复杂。正是因为SVM关注的是VC维，后面我们可以看到，SVM解决问题的时候，和样本的维数是无关的（甚至样本是上万维的都可以，这使得SVM很适合用来解决文本分类的问题，当然，有这样的能力也因为引入了核函数）。</p>
+<p>　　结构风险最小听上去文绉绉，其实说的也无非是下面这回事。</p>
+<p>　　机器学习本质上就是一种对问题真实模型的逼近（我们选择一个我们认为比较好的近似模型，这个近似模型就叫做一个假设），但毫无疑问，真实模型一定是不知道的（如果知道了，我们干吗还要机器学习？直接用真实模型解决问题不就可以了？对吧，哈哈）既然真实模型不知道，那么我们选择的假设与问题真实解之间究竟有多大差距，我们就没法得知。比如说我们认为宇宙诞生于150亿年前的一场大爆炸，这个假设能够描述很多我们观察到的现象，但它与真实的宇宙模型之间还相差多少？谁也说不清，因为我们压根就不知道真实的宇宙模型到底是什么。</p>
+<p>　　这个与问题真实解之间的误差，就叫做风险（更严格的说，误差的累积叫做风险）。我们选择了一个假设之后（更直观点说，我们得到了一个分类器以后），真实误差无从得知，但我们可以用某些可以掌握的量来逼近它。最直观的想法就是使用分类器在样本数据上的分类的结果与真实结果（因为样本是已经标注过的数据，是准确的数据）之间的差值来表示。这个差值叫做经验风险Remp(w)。以前的机器学习方法都把经验风险最小化作为努力的目标，但后来发现很多分类函数能够在样本集上轻易达到100%的正确率，在真实分类时却一塌糊涂（即所谓的推广能力差，或泛化能力差）。此时的情况便是选择了一个足够复杂的分类函数（它的VC维很高），能够精确的记住每一个样本，但对样本之外的数据一律分类错误。回头看看经验风险最小化原则我们就会发现，此原则适用的大前提是经验风险要确实能够逼近真实风险才行（行话叫一致），但实际上能逼近么？答案是不能，因为样本数相对于现实世界要分类的文本数来说简直九牛一毛，经验风险最小化原则只在这占很小比例的样本上做到没有误差，当然不能保证在更大比例的真实文本上也没有误差。</p>
+<p>　　统计学习因此而引入了泛化误差界的概念，就是指真实风险应该由两部分内容刻画，一是经验风险，代表了分类器在给定样本上的误差；二是置信风险，代表了我们在多大程度上可以信任分类器在未知文本上分类的结果。很显然，第二部分是没有办法精确计算的，因此只能给出一个估计的区间，也使得整个误差只能计算上界，而无法计算准确的值（所以叫做泛化误差界，而不叫泛化误差）。</p>
+<p>　　置信风险与两个量有关，一是样本数量，显然给定的样本数量越大，我们的学习结果越有可能正确，此时置信风险越小；二是分类函数的VC维，显然VC维越大，推广能力越差，置信风险会变大。</p>
+<p>　　泛化误差界的公式为：<br>　　R(w)≤Remp(w)+Ф(n/h)<br>　　公式中R(w)就是真实风险，Remp(w)就是经验风险，Ф(n/h)就是置信风险。统计学习的目标从经验风险最小化变为了寻求经验风险与置信风险的和最小，即结构风险最小。</p>
+<p>　　SVM正是这样一种努力最小化结构风险的算法。</p>
+<p>　　SVM其他的特点就比较容易理解了。</p>
+<p>　　小样本，并不是说样本的绝对数量少（实际上，对任何算法来说，更多的样本几乎总是能带来更好的效果），而是说与问题的复杂度比起来，SVM算法要求的样本数是相对比较少的。</p>
+<p>　　非线性，是指SVM擅长应付样本数据线性不可分的情况，主要通过松弛变量（也有人叫惩罚变量）和核函数技术来实现，这一部分是SVM的精髓，以后会详细讨论。多说一句，关于文本分类这个问题究竟是不是线性可分的，尚没有定论，因此不能简单的认为它是线性可分的而作简化处理，在水落石出之前，只好先当它是线性不可分的（反正线性可分也不过是线性不可分的一种特例而已，我们向来不怕方法过于通用）。</p>
+<p>　　高维模式识别是指样本维数很高，例如文本的向量表示，如果没有经过另一系列文章（《文本分类入门》）中提到过的降维处理，出现几万维的情况很正常，其他算法基本就没有能力应付了，SVM却可以，主要是因为SVM 产生的分类器很简洁，用到的样本信息很少（仅仅用到那些称之为“支持向量”的样本，此为后话），使得即使样本维数很高，也不会给存储和计算带来大麻烦（相对照而言，kNN算法在分类时就要用到所有样本，样本数巨大，每个样本维数再一高，这日子就没法过了……）。</p>
+<p>　　下一节开始正式讨论SVM。别嫌我说得太详细哦。</p>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
     <link itemprop="mainEntityOfPage" href="https://zhang-hongbin.github.io/2017/01/27/Ajax快速入门/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1129,158 +1289,6 @@ httpRequest.send(null);
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="https://zhang-hongbin.github.io/2017/01/24/canvas/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Zhang Hongbin">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="http://oo590vn4k.bkt.clouddn.com/111.png">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="ZHB-CSDN">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2017/01/24/canvas/" itemprop="url">
-                  canvas
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-01-24T11:00:05+08:00">
-                2017-01-24
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/DOM编程艺术/" itemprop="url" rel="index">
-                    <span itemprop="name">DOM编程艺术</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h2 id="基本用法"><a href="#基本用法" class="headerlink" title="基本用法"></a>基本用法</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;canvas id=<span class="string">"tutorial"</span> width=<span class="string">"300"</span> height=<span class="string">"150"</span>&gt;<span class="xml"><span class="tag">&lt;/<span class="name">canvas</span>&gt;</span></span></span><br></pre></td></tr></table></figure>
-<h2 id="渲染上下文"><a href="#渲染上下文" class="headerlink" title="渲染上下文"></a>渲染上下文</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> canvas = <span class="built_in">document</span>.getElementById(<span class="string">'tutorial'</span>);</span><br><span class="line"><span class="keyword">var</span> ctx = canvas,getContext(<span class="string">'2d'</span>);</span><br></pre></td></tr></table></figure>
-<h2 id="globalCompositeOperation-全局的组合操作"><a href="#globalCompositeOperation-全局的组合操作" class="headerlink" title="globalCompositeOperation 全局的组合操作"></a>globalCompositeOperation 全局的组合操作</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ctx.globalCompositeOperation = <span class="string">'destination-over'</span>;</span><br></pre></td></tr></table></figure>
-<center><img src="http://oo590vn4k.bkt.clouddn.com/20170124-1.png" alt=""></center><br>## 基本绘图的步骤<br><center><img src="http://oo590vn4k.bkt.clouddn.com/20170124-2.png" alt=""></center><br><center><img src="http://oo590vn4k.bkt.clouddn.com/20170124-3.png" alt=""></center>
-
-<h2 id="实现代码"><a href="#实现代码" class="headerlink" title="实现代码"></a>实现代码</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> sun = <span class="keyword">new</span> Image();</span><br><span class="line"><span class="keyword">var</span> moon = <span class="keyword">new</span> Image();</span><br><span class="line"><span class="keyword">var</span> earth = <span class="keyword">new</span> Image();</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">init</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    sun.src = <span class="string">'Canvas_sun.png'</span>;</span><br><span class="line">    moon.src = <span class="string">'Canvas_moon.png'</span>;</span><br><span class="line">    earth.src = <span class="string">'Canvas_earth.png'</span>;</span><br><span class="line">    <span class="built_in">window</span>.requestAnimationFrame(draw);</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">draw</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">&#125;</span><br><span class="line">init();</span><br></pre></td></tr></table></figure>
-<p><center><img src="http://oo590vn4k.bkt.clouddn.com/20170124-4.png" alt=""></center></p>
-<h2 id="讨论"><a href="#讨论" class="headerlink" title="讨论"></a>讨论</h2><p><strong>canvas引擎</strong><br>目前市面上有哪些比较有名的基于canvas的引擎，他们各有什么特点，合适做什么应用？<br>Laro：是一个基于html5 canvas的用于平面2d或者2.5d游戏制作的轻量级游戏引擎。<br>特点：快速、轻量<br>应用：轻量级游戏<br>X-Canvas：是一款跨平台的HTML5游戏引擎。<br>特点：一次开发，跨平台运行<br>应用：手机游戏开发<br>CutJS：一款专门用于跨平台游戏开发的开源2D HTML5渲染引擎<br>特点：轻量级、快速、可交互<br>应用：跨平台的游戏开发<br>cocos2djs:一个游戏框架。国人开发。<br>特点:从cocos2d-x转过来的。各种api广泛。<br>应用：游戏开发</p>
-<p>用canvas画一个圆<br>在一个300*300的canvas（id为“myCanvas“）上，以坐标点（150, 150）为圆心，100为半径，画一个边框色为#4d4e53，填充色为#6a83ff的圆。<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">&lt;!DOCTYPE html&gt;</span><br><span class="line">&lt;html lang=<span class="string">"en"</span>&gt;</span><br><span class="line">&lt;head&gt;</span><br><span class="line">    &lt;meta charset=<span class="string">"UTF-8"</span>&gt;</span><br><span class="line">    &lt;title&gt;Canvas 画圆&lt;<span class="regexp">/title&gt;</span></span><br><span class="line"><span class="regexp">&lt;/</span>head&gt;</span><br><span class="line">&lt;body&gt;</span><br><span class="line">    &lt;canvas id=<span class="string">"myCanvas"</span> width=<span class="string">"300"</span> height=<span class="string">"300"</span>&gt;<span class="xml"><span class="tag">&lt;/<span class="name">canvas</span>&gt;</span></span></span><br><span class="line">    &lt;script type=<span class="string">"text/javascript"</span>&gt;</span><br><span class="line">        <span class="keyword">var</span> canvas = <span class="built_in">document</span>.getElementById(<span class="string">"myCanvas"</span>);</span><br><span class="line">        <span class="keyword">var</span> cxt = canvas.getContext(<span class="string">"2d"</span>);</span><br><span class="line">        cxt.beginPath();</span><br><span class="line">        <span class="comment">//绘制圆，参数为：x坐标，y坐标，半径，起始角度，结束角度，是否沿逆时针方向。</span></span><br><span class="line">        cxt.arc(<span class="number">150</span>, <span class="number">150</span>, <span class="number">100</span>, <span class="number">0</span>, <span class="built_in">Math</span>.PI*<span class="number">2</span>,<span class="literal">true</span>);</span><br><span class="line">        <span class="comment">//设置边框色</span></span><br><span class="line">        cxt.strokeStyle = <span class="string">"#4d4e53"</span>;</span><br><span class="line">        <span class="comment">//设置填充色</span></span><br><span class="line">        cxt.fillStyle = <span class="string">"#6a83ff"</span>;</span><br><span class="line">        <span class="comment">//绘制轮廓</span></span><br><span class="line">        cxt.stroke();</span><br><span class="line">        <span class="comment">//填充</span></span><br><span class="line">        cxt.fill();</span><br><span class="line">        <span class="comment">//关闭绘制路径</span></span><br><span class="line">        cxt.closePath();</span><br><span class="line">    &lt;<span class="regexp">/script&gt;</span></span><br><span class="line"><span class="regexp">&lt;/</span>body&gt;</span><br><span class="line">&lt;<span class="regexp">/html&gt;</span></span><br></pre></td></tr></table></figure></p>
-<p><a href="https://developer.mozilla.org/en-US/docs/Web/API/Canvas_API/Tutorial" target="_blank" rel="noopener">Mozilla官方教程-canvas API</a></p>
-
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
   </section>
 
   
@@ -1330,7 +1338,7 @@ httpRequest.send(null);
           
             <div class="site-state-item site-state-posts">
               <a href="/archives">
-                <span class="site-state-item-count">86</span>
+                <span class="site-state-item-count">87</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>

@@ -259,6 +259,160 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="https://zhang-hongbin.github.io/2017/07/02/详解setTimeOut面试题/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Zhang Hongbin">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="http://oo590vn4k.bkt.clouddn.com/111.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="ZHB-CSDN">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2017/07/02/详解setTimeOut面试题/" itemprop="url">
+                  详解setTimeOut面试题
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-07-02T15:33:12+08:00">
+                2017-07-02
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/四、异步和单线程/" itemprop="url" rel="index">
+                    <span itemprop="name">四、异步和单线程</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <p>最近有一道很有意思的前端面试题<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> (<span class="keyword">var</span> i = <span class="number">1</span>; i &lt;= <span class="number">5</span>; i++) &#123;</span><br><span class="line">  setTimeout( <span class="function"><span class="keyword">function</span> <span class="title">timer</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">      <span class="built_in">console</span>.log(i);</span><br><span class="line">  &#125;, i * <span class="number">1000</span> );</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//要求改动上述代码，使其依次输出1、2、3、4、5</span></span><br></pre></td></tr></table></figure></p>
+<p>这道题涉及到的知识点有<code>函数的执行顺序</code>、<code>闭包</code>、<code>块级作用域</code>等。</p>
+<p>首先，我们可以来看一下这道题原本会输出的结果是什么</p>
+<p><img src="http://oo590vn4k.bkt.clouddn.com/2017070210.png"></p>
+<p>如图，执行这段代码之后，立即输出了一个数字89，然后每过1秒钟输出了一个数字6</p>
+<h2 id="setTimeout-相关知识"><a href="#setTimeout-相关知识" class="headerlink" title="setTimeout()相关知识"></a>setTimeout()相关知识</h2><p>在我们学习<small><font color="purple">setTimeout</font></small>的时候就知道，<small><font color="purple">setTimeout</font></small>有两个参数，第一个参数是回调函数，第二个参数是毫秒数，表示要执行回调函数所要延迟的时间。</p>
+<p>但我们还需要知道的是，<font color="purple">setTimeout</font>会返回一个<font color="purple">Id</font>，即这个定时器的<font color="purple">Id</font>，在上面的代码中其实已经创建了5个定时器，但是默认只返回了最后的一个<font color="purple">Id</font>，我们可以通过将<font color="purple">Id</font>赋值给一个变量，来看到这个过程。</p>
+<p><img src="http://oo590vn4k.bkt.clouddn.com/2017070211.png"></p>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2017/07/02/详解setTimeOut面试题/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
     <link itemprop="mainEntityOfPage" href="https://zhang-hongbin.github.io/2017/07/02/最详尽的-JS-原型与原型链终极详解，没有「可能是」。（三）/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -910,155 +1064,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="https://zhang-hongbin.github.io/2017/06/29/Javascript-数组循环遍历之forEach/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Zhang Hongbin">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="http://oo590vn4k.bkt.clouddn.com/111.png">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="ZHB-CSDN">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2017/06/29/Javascript-数组循环遍历之forEach/" itemprop="url">
-                  Javascript 数组循环遍历之forEach
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-06-29T19:50:46+08:00">
-                2017-06-29
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/五、其他知识/" itemprop="url" rel="index">
-                    <span itemprop="name">五、其他知识</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h2 id="1-js-数组循环遍历。"><a href="#1-js-数组循环遍历。" class="headerlink" title="1.  js 数组循环遍历。"></a>1.  js 数组循环遍历。</h2><p>数组循环变量，最先想到的就是 for(var i=0;i&lt;count;i++)这样的方式了。<br>除此之外，也可以使用较简便的forEach 方式</p>
-<h2 id="2-forEach-函数。"><a href="#2-forEach-函数。" class="headerlink" title="2.  forEach 函数。"></a>2.  forEach 函数。</h2><p>Firefox 和Chrome 的Array 类型都有forEach的函数。使用如下：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">&lt;!--Add by oscar999--&gt;  </span><br><span class="line">&lt;!DOCTYPE HTML PUBLIC <span class="string">"-//W3C//DTD HTML 4.0 Transitional//EN"</span>&gt;  </span><br><span class="line">&lt;HTML&gt;  </span><br><span class="line">&lt;HEAD&gt;  </span><br><span class="line">&lt;TITLE&gt; New Document &lt;<span class="regexp">/TITLE&gt;  </span></span><br><span class="line"><span class="regexp">&lt;META NAME="Author" CONTENT="oscar999"&gt;  </span></span><br><span class="line"><span class="regexp">&lt;/</span>HEAD&gt;  </span><br><span class="line">  </span><br><span class="line">&lt;BODY&gt;  </span><br><span class="line">&lt;script&gt;  </span><br><span class="line"><span class="keyword">var</span> arryAll = [];  </span><br><span class="line">arryAll.push(<span class="number">1</span>);  </span><br><span class="line">arryAll.push(<span class="number">2</span>);  </span><br><span class="line">arryAll.push(<span class="number">3</span>);  </span><br><span class="line">arryAll.push(<span class="number">4</span>);  </span><br><span class="line">  </span><br><span class="line">arryAll.forEach(<span class="function"><span class="keyword">function</span>(<span class="params">e</span>)</span>&#123;  </span><br><span class="line">    alert(e);  </span><br><span class="line">&#125;)  </span><br><span class="line">  </span><br><span class="line">&lt;<span class="regexp">/script&gt;  </span></span><br><span class="line"><span class="regexp">&lt;/</span>BODY&gt;  </span><br><span class="line">&lt;<span class="regexp">/HTML&gt;</span></span><br></pre></td></tr></table></figure></p>
-<p>但是以上，代码在IE中却无法正常工作。<br>因为IE的Array 没有这个方法<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br></pre></td><td class="code"><pre><span class="line">	alert(<span class="built_in">Array</span>.prototype.forEach);</span><br><span class="line"><span class="string">``</span><span class="string">`  </span></span><br><span class="line"><span class="string">执行以上这句得到的是  "undefined"， 也就是说在IE 中 Array 没有forEach的方法。</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">## 3.  让IE兼容forEach方法</span></span><br><span class="line"><span class="string">既然IE的Array 没哟forEach方法， 我们就给它手动添加这个原型方法。</span></span><br><span class="line"><span class="string">`</span><span class="string">``</span>javascript</span><br><span class="line">	<span class="comment">//Array.forEach implementation for IE support..  </span></span><br><span class="line">	<span class="comment">//https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Array/forEach  </span></span><br><span class="line">	<span class="keyword">if</span> (!<span class="built_in">Array</span>.prototype.forEach) &#123;  </span><br><span class="line">	    <span class="built_in">Array</span>.prototype.forEach = <span class="function"><span class="keyword">function</span>(<span class="params">callback, thisArg</span>) </span>&#123;  </span><br><span class="line">	        <span class="keyword">var</span> T, k;  </span><br><span class="line">	        <span class="keyword">if</span> (<span class="keyword">this</span> == <span class="literal">null</span>) &#123;  </span><br><span class="line">	            <span class="keyword">throw</span> <span class="keyword">new</span> <span class="built_in">TypeError</span>(<span class="string">" this is null or not defined"</span>);  </span><br><span class="line">	        &#125;  </span><br><span class="line">	        <span class="keyword">var</span> O = <span class="built_in">Object</span>(<span class="keyword">this</span>);  </span><br><span class="line">	        <span class="keyword">var</span> len = O.length &gt;&gt;&gt; <span class="number">0</span>; <span class="comment">// Hack to convert O.length to a UInt32  </span></span><br><span class="line">	        <span class="keyword">if</span> (&#123;&#125;.toString.call(callback) != <span class="string">"[object Function]"</span>) &#123;  </span><br><span class="line">	            <span class="keyword">throw</span> <span class="keyword">new</span> <span class="built_in">TypeError</span>(callback + <span class="string">" is not a function"</span>);  </span><br><span class="line">	        &#125;  </span><br><span class="line">	        <span class="keyword">if</span> (thisArg) &#123;  </span><br><span class="line">	            T = thisArg;  </span><br><span class="line">	        &#125;  </span><br><span class="line">	        k = <span class="number">0</span>;  </span><br><span class="line">	        <span class="keyword">while</span> (k &lt; len) &#123;  </span><br><span class="line">	            <span class="keyword">var</span> kValue;  </span><br><span class="line">	            <span class="keyword">if</span> (k <span class="keyword">in</span> O) &#123;  </span><br><span class="line">	                kValue = O[k];  </span><br><span class="line">	                callback.call(T, kValue, k, O);  </span><br><span class="line">	            &#125;  </span><br><span class="line">	            k++;  </span><br><span class="line">	        &#125;  </span><br><span class="line">	    &#125;;  </span><br><span class="line">	&#125; </span><br><span class="line"><span class="string">``</span><span class="string">` </span></span><br><span class="line"><span class="string">详细介绍可以参照：</span></span><br><span class="line"><span class="string">https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Array/forEach</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">## 4. 如何跳出循环？</span></span><br><span class="line"><span class="string"> Js 此种状况的forEach 不能使用continue, break;  可以使用如下两种方式：</span></span><br><span class="line"><span class="string">1. if 语句控制</span></span><br><span class="line"><span class="string">2. return . (return true, false)</span></span><br><span class="line"><span class="string">return --&gt; 类似continue </span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">以下例子是取出数组中2的倍数和3的倍数的数;</span></span><br><span class="line"><span class="string">`</span><span class="string">``</span>javascript</span><br><span class="line">	&lt;!--Add by oscar999--&gt;  </span><br><span class="line">	&lt;!DOCTYPE HTML PUBLIC <span class="string">"-//W3C//DTD HTML 4.0 Transitional//EN"</span>&gt;  </span><br><span class="line">	&lt;HTML&gt;  </span><br><span class="line">	&lt;HEAD&gt;  </span><br><span class="line">	&lt;TITLE&gt; New Document &lt;<span class="regexp">/TITLE&gt;  </span></span><br><span class="line"><span class="regexp">	&lt;META NAME="Author" CONTENT="oscar999"&gt;  </span></span><br><span class="line"><span class="regexp">	&lt;/</span>HEAD&gt;  </span><br><span class="line">	  </span><br><span class="line">	&lt;BODY&gt;  </span><br><span class="line">	&lt;script&gt;  </span><br><span class="line">	<span class="keyword">if</span> (!<span class="built_in">Array</span>.prototype.forEach) &#123;  </span><br><span class="line">	    <span class="built_in">Array</span>.prototype.forEach = <span class="function"><span class="keyword">function</span>(<span class="params">callback, thisArg</span>) </span>&#123;  </span><br><span class="line">	        <span class="keyword">var</span> T, k;  </span><br><span class="line">	        <span class="keyword">if</span> (<span class="keyword">this</span> == <span class="literal">null</span>) &#123;  </span><br><span class="line">	            <span class="keyword">throw</span> <span class="keyword">new</span> <span class="built_in">TypeError</span>(<span class="string">" this is null or not defined"</span>);  </span><br><span class="line">	        &#125;  </span><br><span class="line">	        <span class="keyword">var</span> O = <span class="built_in">Object</span>(<span class="keyword">this</span>);  </span><br><span class="line">	        <span class="keyword">var</span> len = O.length &gt;&gt;&gt; <span class="number">0</span>; <span class="comment">// Hack to convert O.length to a UInt32  </span></span><br><span class="line">	        <span class="keyword">if</span> (&#123;&#125;.toString.call(callback) != <span class="string">"[object Function]"</span>) &#123;  </span><br><span class="line">	            <span class="keyword">throw</span> <span class="keyword">new</span> <span class="built_in">TypeError</span>(callback + <span class="string">" is not a function"</span>);  </span><br><span class="line">	        &#125;  </span><br><span class="line">	        <span class="keyword">if</span> (thisArg) &#123;  </span><br><span class="line">	            T = thisArg;  </span><br><span class="line">	        &#125;  </span><br><span class="line">	        k = <span class="number">0</span>;  </span><br><span class="line">	        <span class="keyword">while</span> (k &lt; len) &#123;  </span><br><span class="line">	            <span class="keyword">var</span> kValue;  </span><br><span class="line">	            <span class="keyword">if</span> (k <span class="keyword">in</span> O) &#123;  </span><br><span class="line">	                kValue = O[k];  </span><br><span class="line">	                callback.call(T, kValue, k, O);  </span><br><span class="line">	            &#125;  </span><br><span class="line">	            k++;  </span><br><span class="line">	        &#125;  </span><br><span class="line">	    &#125;;  </span><br><span class="line">	&#125;  </span><br><span class="line">	  </span><br><span class="line">	<span class="keyword">var</span> arryAll = [];  </span><br><span class="line">	arryAll.push(<span class="number">1</span>);  </span><br><span class="line">	arryAll.push(<span class="number">2</span>);  </span><br><span class="line">	arryAll.push(<span class="number">3</span>);  </span><br><span class="line">	arryAll.push(<span class="number">4</span>);  </span><br><span class="line">	arryAll.push(<span class="number">5</span>);  </span><br><span class="line">	  </span><br><span class="line">	<span class="keyword">var</span> arrySpecial = [];  </span><br><span class="line">	  </span><br><span class="line">	arryAll.forEach(<span class="function"><span class="keyword">function</span>(<span class="params">e</span>)</span>&#123;  </span><br><span class="line">	    <span class="keyword">if</span>(e%<span class="number">2</span>==<span class="number">0</span>)  </span><br><span class="line">	    &#123;  </span><br><span class="line">	        arrySpecial.push(e);  </span><br><span class="line">	    &#125;<span class="keyword">else</span> <span class="keyword">if</span>(e%<span class="number">3</span>==<span class="number">0</span>)  </span><br><span class="line">	    &#123;  </span><br><span class="line">	        arrySpecial.push(e);  </span><br><span class="line">	    &#125;  </span><br><span class="line">	&#125;)  </span><br><span class="line">	  </span><br><span class="line">	&lt;<span class="regexp">/script&gt;  </span></span><br><span class="line"><span class="regexp">	&lt;/</span>BODY&gt;  </span><br><span class="line">	&lt;<span class="regexp">/HTML&gt;</span></span><br></pre></td></tr></table></figure></p>
-<p>使用return 达到以上效果<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">arryAll.forEach(<span class="function"><span class="keyword">function</span>(<span class="params">e</span>)</span>&#123;  </span><br><span class="line">    <span class="keyword">if</span>(e%<span class="number">2</span>==<span class="number">0</span>)  </span><br><span class="line">    &#123;  </span><br><span class="line">        arrySpecial.push(e);  </span><br><span class="line">        <span class="keyword">return</span>;  </span><br><span class="line">    &#125;  </span><br><span class="line">    <span class="keyword">if</span>(e%<span class="number">3</span>==<span class="number">0</span>)  </span><br><span class="line">    &#123;      </span><br><span class="line">        arrySpecial.push(e);  </span><br><span class="line">        <span class="keyword">return</span>;  </span><br><span class="line">    &#125;  </span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure></p>
-<p>至于如何写类似break 的效果，目前尚未找到比较好的办法。<br>有搜索一下，有的说return false 可以达成， 试了一下， 效果和return 和return ture 是一样的。</p>
-<hr>
-<p>转自:<a href="http://www.cnblogs.com/liuruyi/p/6483526.html" target="_blank" rel="noopener">http://www.cnblogs.com/liuruyi/p/6483526.html</a></p>
-
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
   </section>
 
   
@@ -1108,7 +1113,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives">
-                <span class="site-state-item-count">86</span>
+                <span class="site-state-item-count">87</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>

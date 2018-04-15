@@ -259,6 +259,176 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="https://zhang-hongbin.github.io/2016/11/06/深入理解javascript原型和闭包（1）——一切都是对象/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Zhang Hongbin">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="http://oo590vn4k.bkt.clouddn.com/111.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="ZHB-CSDN">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2016/11/06/深入理解javascript原型和闭包（1）——一切都是对象/" itemprop="url">
+                  深入理解javascript原型和闭包（1）————一切都是对象
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2016-11-06T20:44:22+08:00">
+                2016-11-06
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/深入理解javascript原型和闭包/" itemprop="url" rel="index">
+                    <span itemprop="name">深入理解javascript原型和闭包</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p><strong>“一切都是对象”这句话的重点在于如何去理解“对象”这个概念。</strong></p>
+<p>——当然，也不是所有的都是对象，值类型就不是对象。</p>
+<p>首先咱们还是先看看javascript中一个常用的函数——typeof()。typeof应该算是咱们的老朋友，还有谁没用过它？</p>
+<p>typeof函数输出的一共有几种类型，在此列出：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">show</span>(<span class="params">x</span>) </span>&#123;</span><br><span class="line"></span><br><span class="line">     <span class="built_in">console</span>.log(<span class="keyword">typeof</span>(x));    <span class="comment">// undefined</span></span><br><span class="line">     <span class="built_in">console</span>.log(<span class="keyword">typeof</span>(<span class="number">10</span>));   <span class="comment">// number</span></span><br><span class="line">     <span class="built_in">console</span>.log(<span class="keyword">typeof</span>(<span class="string">'abc'</span>)); <span class="comment">// string</span></span><br><span class="line">     <span class="built_in">console</span>.log(<span class="keyword">typeof</span>(<span class="literal">true</span>));  <span class="comment">// boolean</span></span><br><span class="line"></span><br><span class="line">     <span class="built_in">console</span>.log(<span class="keyword">typeof</span>(<span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123; &#125;));  <span class="comment">//function</span></span><br><span class="line"></span><br><span class="line">     <span class="built_in">console</span>.log(<span class="keyword">typeof</span>([<span class="number">1</span>, <span class="string">'a'</span>, <span class="literal">true</span>]));  <span class="comment">//object</span></span><br><span class="line">     <span class="built_in">console</span>.log(<span class="keyword">typeof</span> (&#123; <span class="attr">a</span>: <span class="number">10</span>, <span class="attr">b</span>: <span class="number">20</span> &#125;));  <span class="comment">//object</span></span><br><span class="line">     <span class="built_in">console</span>.log(<span class="keyword">typeof</span> (<span class="literal">null</span>));  <span class="comment">//object</span></span><br><span class="line">     <span class="built_in">console</span>.log(<span class="keyword">typeof</span> (<span class="keyword">new</span> <span class="built_in">Number</span>(<span class="number">10</span>)));  <span class="comment">//object</span></span><br><span class="line"> &#125;</span><br><span class="line"> show();</span><br></pre></td></tr></table></figure>
+<p>以上代码列出了typeof输出的集中类型标识，其中上面的四种（undefined, number, string, boolean）属于简单的值类型，不是对象。剩下的几种情况——函数、数组、对象、null、new Number(10)都是对象。他们都是引用类型。</p>
+<p>判断一个变量是不是对象非常简单。值类型的类型判断用typeof，引用类型的类型判断用instanceof。<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> fn = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123; &#125;;</span><br><span class="line"><span class="built_in">console</span>.log(fn <span class="keyword">instanceof</span> <span class="built_in">Object</span>);  <span class="comment">// true</span></span><br></pre></td></tr></table></figure></p>
+<p>好了，上面说了半天对象，各位可能也经常在工作中应对对象，在生活中还得应对活生生的对象。有些个心理不正常或者爱开玩笑的单身人士，还对于系统提示的“找不到对象”耿耿于怀。那么在javascript中的对象，到底该如何定义呢？</p>
+<p><strong>对象——若干属性的集合。</strong></p>
+<p>java或者C#中的对象都是new一个class出来的，而且里面有字段、属性、方法，规定的非常严格。但是javascript就比较随意了——数组是对象，函数是对象，对象还是对象。对象里面的一切都是属性，只有属性，没有方法。那么这样方法如何表示呢？——方法也是一种属性。因为它的属性表示为键值对的形式。</p>
+<p>而且，更加好玩的事，javascript中的对象可以任意的扩展属性，没有class的约束。这个大家应该都知道，就不再强调了。</p>
+<p>先说个最常见的例子：<br><img src="http://oo590vn4k.bkt.clouddn.com/1-1.png" alt=""></p>
+<p>以上代码中，obj是一个自定义的对象，其中a、b、c就是它的属性，而且在c的属性值还是一个对象，它又有name、year两个属性。</p>
+<p>这个可能比较好理解，那么函数和数组也可以这样定义属性吗？——当然不行，但是它可以用另一种形式，总之函数/数组之流，只要是对象，它就是属性的集合。</p>
+<p>以函数为例子：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> fn = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">    alert(<span class="number">100</span>);</span><br><span class="line">&#125;;</span><br><span class="line">fn.a = <span class="number">10</span>;</span><br><span class="line">fn.b = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">    alert(<span class="number">123</span>);</span><br><span class="line">&#125;;</span><br><span class="line">fn.c = &#123;</span><br><span class="line">    name: <span class="string">"王福朋"</span>,</span><br><span class="line">    year: <span class="number">1988</span></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>上段代码中，函数就作为对象被赋值了a、b、c三个属性——很明显，这就是属性的集合吗。</p>
+<p>你问：这个有用吗？</p>
+<p>回答：可以看看jQuery源码！</p>
+<p>在jQuery源码中，“jQuery”或者“$”，这个变量其实是一个函数，不信你可以叫咱们的老朋友typeof验证一下。</p>
+<p>console.log(typeof ($));  // function<br>console.log($.trim(“ ABC “));<br>验明正身！的确是个函数。那么咱们常用的 $.trim() 也是个函数，经常用，就不用验了吧！</p>
+<p>很明显，这就是在$或者jQuery函数上加了一个trim属性，属性值是函数，作用是截取前后空格。</p>
+<p>javascript与java/C#相比，首先最需要解释的就是弱类型，因为弱类型是最基本的用法，而且最常用，就不打算做一节来讲。</p>
+<p>其次要解释的就是本文的内容——一切（引用类型）都是对象，对象是属性的集合。最需要了解的就是对象的概念，和java/C#完全不一样。所以，切记切记！</p>
+<p>最后，有个疑问。在typeof的输出类型中，function和object都是对象，为何却要输出两种答案呢？都叫做object不行吗？——当然不行。</p>
+<p>具体原因，且听下回分解！</p>
+<p>注：文章转自<a href="http://www.cnblogs.com/wangfupeng1988/p/3977924.html" target="_blank" rel="noopener">http://www.cnblogs.com/wangfupeng1988/p/3977924.html</a>  </p>
+<hr>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
     <link itemprop="mainEntityOfPage" href="https://zhang-hongbin.github.io/2016/11/05/学习Javascript闭包（Closure）/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -442,7 +612,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives">
-                <span class="site-state-item-count">86</span>
+                <span class="site-state-item-count">87</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>

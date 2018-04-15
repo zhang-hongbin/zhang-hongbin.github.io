@@ -259,6 +259,214 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="https://zhang-hongbin.github.io/2017/01/20/节点操作/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Zhang Hongbin">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="http://oo590vn4k.bkt.clouddn.com/111.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="ZHB-CSDN">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2017/01/20/节点操作/" itemprop="url">
+                  节点操作
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-01-20T12:23:24+08:00">
+                2017-01-20
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/DOM编程艺术/" itemprop="url" rel="index">
+                    <span itemprop="name">DOM编程艺术</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="获取节点"><a href="#获取节点" class="headerlink" title="获取节点"></a>获取节点</h2><ul>
+<li><h3 id="父子关系"><a href="#父子关系" class="headerlink" title="父子关系"></a>父子关系</h3><pre><code>- parentNode
+- firstChild/lastChild/childNodes
+- childNodes/children
+</code></pre></li>
+<li><h3 id="兄弟关系"><a href="#兄弟关系" class="headerlink" title="兄弟关系"></a>兄弟关系</h3><pre><code>- previousSibling/nextSibling
+- previousElementSibling/nextElementSibling
+</code></pre></li>
+</ul>
+<p><strong>通过父子或者兄弟的关系，获取节点，<font color="red">可维护性差</font></strong></p>
+<ul>
+<li><h3 id="getElementById"><a href="#getElementById" class="headerlink" title="getElementById"></a>getElementById</h3><blockquote>
+<p>element=document.getElementById(‘id’)     </p>
+</blockquote>
+</li>
+<li><h3 id="getElementsByTagName"><a href="#getElementsByTagName" class="headerlink" title="getElementsByTagName"></a>getElementsByTagName</h3><blockquote>
+<p>collection = element.getElementByTagName(tagName)     </p>
+</blockquote>
+</li>
+<li><h3 id="getElementByClassName"><a href="#getElementByClassName" class="headerlink" title="getElementByClassName"></a>getElementByClassName</h3><blockquote>
+<p>collection = element.getElementByClassName(className)</p>
+</blockquote>
+</li>
+<li><h3 id="querySelector-All"><a href="#querySelector-All" class="headerlink" title="querySelector/All"></a>querySelector/All</h3><blockquote>
+<p>list = element.querySeletor/All(selector)   </p>
+</blockquote>
+</li>
+</ul>
+<h2 id="创建节点"><a href="#创建节点" class="headerlink" title="创建节点"></a>创建节点</h2><ul>
+<li><h3 id="createElement"><a href="#createElement" class="headerlink" title="createElement"></a>createElement</h3><blockquote>
+<p>element = document.createElement(tagName) </p>
+</blockquote>
+</li>
+</ul>
+<p>例如：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">document</span>.createElement(<span class="string">"div"</span>); <span class="comment">//创建div标签</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">document</span>.createElement(<span class="string">"a"</span>);  <span class="comment">//创建a标签</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">document</span>.createElement(<span class="string">"script"</span>);  <span class="comment">//创建a标签</span></span><br></pre></td></tr></table></figure></p>
+<h2 id="修改节点"><a href="#修改节点" class="headerlink" title="修改节点"></a>修改节点</h2><ul>
+<li><h3 id="textContent"><a href="#textContent" class="headerlink" title="textContent"></a>textContent</h3><blockquote>
+<p>element.textContent</p>
+<ul>
+<li>节点及其后代节点的文本内容</li>
+</ul>
+</blockquote>
+</li>
+<li><h3 id="innerText"><a href="#innerText" class="headerlink" title="innerText"></a><font color="grey">innerText</font></h3></li>
+</ul>
+<h2 id="插入节点"><a href="#插入节点" class="headerlink" title="插入节点"></a>插入节点</h2><ul>
+<li><h3 id="appendChild"><a href="#appendChild" class="headerlink" title="appendChild"></a>appendChild</h3></li>
+</ul>
+<blockquote>
+<p>var achild =element.appendChild(achild);</p>
+</blockquote>
+<p>例如：<br>其中html部分为：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&lt;div id=&quot;users&quot;&gt;</span><br><span class="line">&lt;/div&gt;</span><br></pre></td></tr></table></figure></p>
+<p>DOM操作为：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">&lt;script&gt;</span><br><span class="line">	<span class="keyword">var</span> users =<span class="built_in">document</span>.getElementById(<span class="string">'users'</span>)</span><br><span class="line">	<span class="keyword">var</span> h2 = <span class="built_in">document</span>.createElement(<span class="string">'h2'</span>);</span><br><span class="line">	h2.innerText =<span class="string">' 8882人在学习该课程：'</span>;</span><br><span class="line">	<span class="keyword">var</span> ul = <span class="built_in">document</span>.createElement(<span class="string">'ul'</span>);</span><br><span class="line">	users.appendChild(h2);</span><br><span class="line">	users.appendChild(ul);</span><br><span class="line">&lt;<span class="regexp">/script&gt;</span></span><br></pre></td></tr></table></figure></p>
+<h3 id="相应补充"><a href="#相应补充" class="headerlink" title="相应补充:"></a>相应补充:</h3><p><strong>将元素插入第一列：</strong></p>
+<ul>
+<li>element<font color="red">.insertBefore(</font> li<font color="red"> , </font>element.firstChild<font color="red">)</font>    </li>
+</ul>
+<h2 id="删除节点"><a href="#删除节点" class="headerlink" title="删除节点"></a>删除节点</h2><p>child = element.removeChild(child)</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> user2 = users.getElementsByClassName(<span class="string">'user'</span>)[<span class="number">1</span>];</span><br><span class="line">user2.parentNode.removeChild(user2);</span><br></pre></td></tr></table></figure>
+<h2 id="element-innerHTML"><a href="#element-innerHTML" class="headerlink" title="element.innerHTML"></a><font color="red">element.innerHTML</font></h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">&lt;!DOCTYPE html&gt;</span><br><span class="line">&lt;html lang=<span class="string">"en"</span>&gt;</span><br><span class="line">&lt;head&gt;</span><br><span class="line">	&lt;meta charset=<span class="string">"UTF-8"</span>&gt;</span><br><span class="line">	&lt;title&gt;Document&lt;<span class="regexp">/title&gt;</span></span><br><span class="line"><span class="regexp">&lt;/</span>head&gt;</span><br><span class="line">&lt;body&gt;</span><br><span class="line">	&lt;div id=<span class="string">"user"</span>&gt;</span><br><span class="line">		&lt;h2&gt;<span class="number">8882</span>人在学习该课程：&lt;<span class="regexp">/h2&gt;</span></span><br><span class="line"><span class="regexp">		&lt;ul&gt;</span></span><br><span class="line"><span class="regexp">			&lt;li class="user"&gt;&lt;img src=""&gt;1&lt;/</span>li&gt;</span><br><span class="line">			&lt;li <span class="class"><span class="keyword">class</span></span>=<span class="string">"user"</span>&gt;<span class="xml"><span class="tag">&lt;<span class="name">img</span> <span class="attr">src</span>=<span class="string">""</span>&gt;</span>2<span class="tag">&lt;/<span class="name">li</span>&gt;</span></span></span><br><span class="line">			&lt;li <span class="class"><span class="keyword">class</span></span>=<span class="string">"user"</span>&gt;<span class="xml"><span class="tag">&lt;<span class="name">img</span> <span class="attr">src</span>=<span class="string">""</span>&gt;</span>3<span class="tag">&lt;/<span class="name">li</span>&gt;</span></span></span><br><span class="line">		&lt;<span class="regexp">/ul&gt;</span></span><br><span class="line"><span class="regexp">	&lt;/</span>div&gt;</span><br><span class="line">	&lt;script type=<span class="string">"text/javascript"</span>&gt;</span><br><span class="line">	<span class="keyword">var</span> user=<span class="built_in">document</span>.getElementById(<span class="string">'user'</span>);</span><br><span class="line">	<span class="keyword">var</span> ul=user.getElementsByTagName(<span class="string">'ul'</span>)[<span class="number">0</span>];</span><br><span class="line">	ul.innerHTML += <span class="string">'&lt;li class="user"&gt;&lt;img src=""&gt;4&lt;/li&gt;'</span>;   </span><br><span class="line"></span><br><span class="line">	&lt;<span class="regexp">/script&gt;</span></span><br><span class="line"><span class="regexp">&lt;/</span>body&gt;</span><br><span class="line">&lt;<span class="regexp">/html&gt;</span></span><br></pre></td></tr></table></figure>
+<p>即实现了创建节点，插入节点，也实现了删除节点。是不是很方面呢？<br>但是innerHTML的使用会造成：</p>
+<ul>
+<li>内存泄漏</li>
+<li>安全问题    </li>
+</ul>
+<p>所以建议创建新节点时使用。最好内容信息不为用户所填，从而不会造成安全问题。</p>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
     <link itemprop="mainEntityOfPage" href="https://zhang-hongbin.github.io/2017/01/19/TCP协议详解/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1025,169 +1233,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="https://zhang-hongbin.github.io/2017/01/13/html中的src与href的区别/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Zhang Hongbin">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="http://oo590vn4k.bkt.clouddn.com/111.png">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="ZHB-CSDN">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2017/01/13/html中的src与href的区别/" itemprop="url">
-                  html中的src与href的区别
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-01-13T15:35:40+08:00">
-                2017-01-13
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/HTML/" itemprop="url" rel="index">
-                    <span itemprop="name">HTML</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <blockquote>
-<ul>
-<li><strong>href标识超文本引用，用在link和a等元素上，href是引用和页面关联，是在当前元素和引用资源之间建立联系</strong><br>  <link href="common.css" rel="stylesheet">当浏览器解析到这一句的时候会识别该文档为css文件，会下载并且不会停止对当前文档的处理，这也是为什么建议使用link方式来加载css而不是使用@import。</li>
-</ul>
-</blockquote>
-<blockquote>
-<ul>
-<li><strong>src是source的缩写，是指向外部资源的位置，指向的内部会迁入到文档中当前标签所在的位置；在请求src资源时会将其指向的资源下载并应用到当前文档中，例如js脚本，img图片和frame等元素。</strong><br>  <script src="js.js"></script>当浏览器解析到这一句的时候会暂停其他资源的下载和处理，直至将该资源加载，编译，执行完毕，图片和框架等元素也是如此，类似于该元素所指向的资源嵌套如当前标签内，这也是为什么要把js饭再底部而不是头部。</li>
-</ul>
-</blockquote>
-<p>补充：link和@import的区别（两者都是外部引用CSS的方式）</p>
-<ol>
-<li><p>link是XHTML标签，除了加载CSS外，还可以定义RSS等其他事务；@import属于CSS范畴，只能加载CSS。</p>
-</li>
-<li><p>link引用CSS时，在页面载入时同时加载；@import需要页面网页完全载入以后加载。</p>
-</li>
-<li><p>link是XHTML标签，无兼容问题；@import是在CSS2.1提出的，低版本的浏览器不支持。</p>
-</li>
-<li><p>ink支持使用Javascript控制DOM去改变样式；而@import不支持。</p>
-</li>
-</ol>
-
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
   </section>
 
   
@@ -1237,7 +1282,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives">
-                <span class="site-state-item-count">86</span>
+                <span class="site-state-item-count">87</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
