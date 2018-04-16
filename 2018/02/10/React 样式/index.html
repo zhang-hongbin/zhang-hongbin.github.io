@@ -91,15 +91,17 @@
 <meta name="description" content="一、内联样式 CSS命名规范:dialog_confirm–button–highlight 注意样式的驼峰写法 第一种引用形式在head.js文件修改为 12345678910111213141516171819202122import React from &quot;react&quot;export default class Header extends React.Component &amp;#123;">
 <meta name="keywords" content="React">
 <meta property="og:type" content="article">
-<meta property="og:title" content="5 React 样式">
+<meta property="og:title" content="5. React 样式">
 <meta property="og:url" content="https://zhang-hongbin.github.io/2018/02/10/React 样式/index.html">
 <meta property="og:site_name" content="ZHB-CSDN">
 <meta property="og:description" content="一、内联样式 CSS命名规范:dialog_confirm–button–highlight 注意样式的驼峰写法 第一种引用形式在head.js文件修改为 12345678910111213141516171819202122import React from &quot;react&quot;export default class Header extends React.Component &amp;#123;">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-04-15T17:15:05.504Z">
+<meta property="og:image" content="http://oo590vn4k.bkt.clouddn.com/20180210-1.png">
+<meta property="og:updated_time" content="2018-04-16T14:47:05.468Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="5 React 样式">
+<meta name="twitter:title" content="5. React 样式">
 <meta name="twitter:description" content="一、内联样式 CSS命名规范:dialog_confirm–button–highlight 注意样式的驼峰写法 第一种引用形式在head.js文件修改为 12345678910111213141516171819202122import React from &quot;react&quot;export default class Header extends React.Component &amp;#123;">
+<meta name="twitter:image" content="http://oo590vn4k.bkt.clouddn.com/20180210-1.png">
 
 
 
@@ -133,7 +135,7 @@
 
 
 
-  <title> 5 React 样式 | ZHB-CSDN </title>
+  <title> 5. React 样式 | ZHB-CSDN </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -283,7 +285,7 @@
             
             
               
-                5 React 样式
+                5. React 样式
               
             
           </h1>
@@ -362,11 +364,15 @@
 <li><p>第一种引用形式<br>在<code>head.js</code>文件修改为</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> React <span class="keyword">from</span> <span class="string">"react"</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="class"><span class="keyword">class</span> <span class="title">Header</span> <span class="keyword">extends</span> <span class="title">React</span>.<span class="title">Component</span> </span>&#123;</span><br><span class="line">    render() &#123;</span><br><span class="line">	<span class="comment">//添加componengtHeadStyle部分,注意是在render函数内部</span></span><br><span class="line">        <span class="keyword">const</span> componentHeadStyle = &#123;</span><br><span class="line">            header : &#123;</span><br><span class="line">                backgroundColor:<span class="string">"#333333"</span>,</span><br><span class="line">                color:<span class="string">"#FFFFFF"</span>,</span><br><span class="line">                paddingTop:<span class="string">"15px"</span>,</span><br><span class="line">                paddingBottom:<span class="string">'15px'</span></span><br><span class="line">            &#125; ,</span><br><span class="line">        &#125;</span><br><span class="line">		</span><br><span class="line">        <span class="keyword">return</span> (</span><br><span class="line">		<span class="comment">//样式引入</span></span><br><span class="line">            &lt;header style = &#123; componentHeadStyle.header &#125; &gt;</span><br><span class="line">                &lt;h2&gt;这是首部&lt;<span class="regexp">/h2&gt;</span></span><br><span class="line"><span class="regexp">            &lt;/</span>header&gt;</span><br><span class="line">        )</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 </li>
-<li><p>第二种引入形式——文件中引用css的形式<br>(1) 创建<code>/js/css/style.css</code>文件，其代码为：</p>
-<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.smallFontSize</span> <span class="selector-tag">h2</span> &#123;</span><br><span class="line">    <span class="attribute">font-size</span>: <span class="number">12px</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</li>
+<li><p>第二种引入形式——文件中引用css的形式</p>
+<div style="margin-left:30px">
+
+</div></li>
 </ol>
-<p>(2) 样式引入<br>在<code>index.html</code>文件中添加<code>&lt;link rel=&quot;stylesheet&quot; href=&quot;./src/css/style.css&quot; /&gt;</code><br>在<code>header.js</code>文件中添加<code>&lt;header style={componentHeadStyle.header} className=&quot;smallFontSize&quot;&gt;</code>，注意<code>class</code>需要更改为<code>className</code></p>
+<p>(1) 创建<code>/js/css/style.css</code>文件，其代码为：<br><figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.smallFontSize</span> <span class="selector-tag">h2</span> &#123;</span><br><span class="line">	<span class="attribute">font-size</span>: <span class="number">12px</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>(2) 样式引入<br>在<code>index.html</code>文件中添加<br><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">link</span> <span class="attr">rel</span>=<span class="string">"stylesheet"</span> <span class="attr">href</span>=<span class="string">"./src/css/style.css"</span> /&gt;</span></span><br></pre></td></tr></table></figure></p>
+<p>在<code>header.js</code>文件中添加<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;header style=&#123;componentHeadStyle.header&#125; className=<span class="string">"smallFontSize"</span>&gt;</span><br></pre></td></tr></table></figure></p>
+<p>注意<code>class</code>需要更改为<code>className</code><br></p>
 <ol start="5">
 <li>缺点是动画、伪类{hover}等不能使用</li>
 </ol>
@@ -375,7 +381,30 @@
 <li><code>paddingBottom:(this.state.miniHeader)?&#39;3px&#39;:&#39;15px&#39;</code></li>
 <li>注意好好理解这里的<code>state</code>引起样式的即时变化</li>
 </ol>
-
+<hr>
+<h2 id="三、CSS模块化"><a href="#三、CSS模块化" class="headerlink" title="三、CSS模块化"></a>三、CSS模块化</h2><p>本节需要安装<code>babel-plugin-react-html-attrs</code> <code>style-loader</code> <code>css-loader</code>三个插件，具体代码如下：<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cnpm install babel-plugin-react-html-attrs style-loader css-loader --save-dev</span><br></pre></td></tr></table></figure></p>
+<p>以下为本章具体知识结构：</p>
+<ul>
+<li>CSS模块化：1.全局污染 2.命名混乱 3.依赖管理不彻底 4.无法共享变量 5.代码压缩不彻底</li>
+<li>CSS Modules模块化<center><img src="http://oo590vn4k.bkt.clouddn.com/20180210-1.png"></center></li>
+<li>babel-plugin-react-html-attrs <a href="https://github.com/insin/babel-plugin-react-html-attrs" target="_blank" rel="noopener">https://github.com/insin/babel-plugin-react-html-attrs</a></li>
+<li>style-loader <a href="https://github.com/webpack/style-loader" target="_blank" rel="noopener">https://github.com/webpack/style-loader</a></li>
+<li>css-loader <a href="https://github.com/webpack/css-loader" target="_blank" rel="noopener">https://github.com/webpack/css-loader</a></li>
+<li>导入：var footerCss = require(“../../css/footer/css”);</li>
+<li>使用：<footer class="{footerCss.miniFooter}"></footer></li>
+<li>:local(.normal){color:green;}</li>
+<li>:global(.btn){color:red;}</li>
+<li>CSS模块化优点：1.所有模块都是local的，解决了命名冲突和全局污染问题 2.class名生成规则配置灵活，可以用来压缩class名 3.只需引用组件的JS就能搞定组件所有的JS和CSS 4.依然是CSS，几乎零学习成本</li>
+</ul>
+<hr>
+<h2 id="四、JSX样式与CSS的互转"><a href="#四、JSX样式与CSS的互转" class="headerlink" title="四、JSX样式与CSS的互转"></a>四、JSX样式与CSS的互转</h2><p>在线转换工具：<a href="https://staxmanade.com/CssToReact/" target="_blank" rel="noopener">https://staxmanade.com/CssToReact/</a></p>
+<hr>
+<h2 id="五、Ant-Design样式框架介绍"><a href="#五、Ant-Design样式框架介绍" class="headerlink" title="五、Ant Design样式框架介绍"></a>五、Ant Design样式框架介绍</h2><ol>
+<li>谷歌团队开发的material框架 <a href="http://www.material-ui.com/" target="_blank" rel="noopener">http://www.material-ui.com/</a></li>
+<li>蚂蚁金服开发的框架 <a href="http://ant.design/" target="_blank" rel="noopener">http://ant.design/</a></li>
+</ol>
+<hr>
+<h2 id="六、Ant-Design样式框架使用"><a href="#六、Ant-Design样式框架使用" class="headerlink" title="六、Ant Design样式框架使用"></a>六、Ant Design样式框架使用</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install antd --save</span><br></pre></td></tr></table></figure>
       
     </div>
 
@@ -561,7 +590,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#一、内联样式"><span class="nav-number">1.</span> <span class="nav-text">一、内联样式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#二、内联样式中的表达式"><span class="nav-number">2.</span> <span class="nav-text">二、内联样式中的表达式</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#一、内联样式"><span class="nav-number">1.</span> <span class="nav-text">一、内联样式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#二、内联样式中的表达式"><span class="nav-number">2.</span> <span class="nav-text">二、内联样式中的表达式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#三、CSS模块化"><span class="nav-number">3.</span> <span class="nav-text">三、CSS模块化</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#四、JSX样式与CSS的互转"><span class="nav-number">4.</span> <span class="nav-text">四、JSX样式与CSS的互转</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#五、Ant-Design样式框架介绍"><span class="nav-number">5.</span> <span class="nav-text">五、Ant Design样式框架介绍</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#六、Ant-Design样式框架使用"><span class="nav-number">6.</span> <span class="nav-text">六、Ant Design样式框架使用</span></a></li></ol></div>
             
 
           </div>
