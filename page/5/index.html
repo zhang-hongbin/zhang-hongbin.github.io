@@ -259,6 +259,186 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="https://zhang-hongbin.github.io/2017/06/29/原生JS-forEach-和map-遍历的区别以及兼容写法/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Zhang Hongbin">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="http://oo590vn4k.bkt.clouddn.com/111.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="ZHB-CSDN">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2017/06/29/原生JS-forEach-和map-遍历的区别以及兼容写法/" itemprop="url">
+                  原生JS forEach()和map()遍历的区别以及兼容写法
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-06-29T20:46:46+08:00">
+                2017-06-29
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/五、其他知识/" itemprop="url" rel="index">
+                    <span itemprop="name">五、其他知识</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="一、原生JS-forEach-和map-遍历"><a href="#一、原生JS-forEach-和map-遍历" class="headerlink" title="一、原生JS forEach()和map()遍历"></a>一、原生JS forEach()和map()遍历</h2><p>共同点：</p>
+<pre><code>1.都是循环遍历数组中的每一项。
+
+2.forEach() 和 map() 里面每一次执行匿名函数都支持3个参数：数组中的当前项item,当前项的索引index,原始数组input。
+
+3.匿名函数中的this都是指Window。
+
+4.只能遍历数组。
+</code></pre><h3 id="1-forEach"><a href="#1-forEach" class="headerlink" title="1.forEach()"></a>1.forEach()</h3><p>   没有返回值。</p>
+<p>arr[].forEach(function(value,index,array){</p>
+<p>　　//do something</p>
+<p>})</p>
+<p>参数：value数组中的当前项, index当前项的索引, array原始数组；<br>数组中有几项，那么传递进去的匿名回调函数就需要执行几次；<br>理论上这个方法是没有返回值的，仅仅是遍历数组中的每一项，不对原来数组进行修改；但是可以自己通过数组的索引来修改原来的数组；<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> ary = [<span class="number">12</span>,<span class="number">23</span>,<span class="number">24</span>,<span class="number">42</span>,<span class="number">1</span>];  </span><br><span class="line"><span class="keyword">var</span> res = ary.forEach(<span class="function"><span class="keyword">function</span> (<span class="params">item,index,input</span>) </span>&#123;  </span><br><span class="line">       input[index] = item*<span class="number">10</span>;  </span><br><span class="line">&#125;)  </span><br><span class="line"><span class="built_in">console</span>.log(res);<span class="comment">//--&gt; undefined;  </span></span><br><span class="line"><span class="built_in">console</span>.log(ary);<span class="comment">//--&gt; 通过数组索引改变了原数组；</span></span><br></pre></td></tr></table></figure></p>
+<h3 id="2-map"><a href="#2-map" class="headerlink" title="2.map()"></a>2.map()</h3><p>有返回值，可以return 出来。</p>
+<p>arr[].map(function(value,index,array){</p>
+<p>　　//do something</p>
+<p>　　return XXX</p>
+<p>})</p>
+<p>参数：value数组中的当前项,index当前项的索引,array原始数组；<br>区别：map的回调函数中支持return返回值；return的是啥，相当于把数组中的这一项变为啥（并不影响原来的数组，只是相当于把原数组克隆一份，把克隆的这一份的数组中的对应项改变了）；<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> ary = [<span class="number">12</span>,<span class="number">23</span>,<span class="number">24</span>,<span class="number">42</span>,<span class="number">1</span>];  </span><br><span class="line"><span class="keyword">var</span> res = ary.map(<span class="function"><span class="keyword">function</span> (<span class="params">item,index,input</span>) </span>&#123;  </span><br><span class="line">    <span class="keyword">return</span> item*<span class="number">10</span>;  </span><br><span class="line">&#125;)  </span><br><span class="line"><span class="built_in">console</span>.log(res);<span class="comment">//--&gt;[120,230,240,420,10];  原数组拷贝了一份，并进行了修改</span></span><br><span class="line"><span class="built_in">console</span>.log(ary);<span class="comment">//--&gt;[12,23,24,42,1]；  原数组并未发生变化</span></span><br></pre></td></tr></table></figure></p>
+<p>兼容写法：</p>
+<p>不管是forEach还是map在IE6-8下都不兼容（不兼容的情况下在Array.prototype上没有这两个方法）,那么需要我们自己封装一个都兼容的方法，代码如下：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br></pre></td><td class="code"><pre><span class="line">	<span class="comment">/** </span></span><br><span class="line"><span class="comment">	* forEach遍历数组 </span></span><br><span class="line"><span class="comment">	* @param callback [function] 回调函数； </span></span><br><span class="line"><span class="comment">	* @param context [object] 上下文； </span></span><br><span class="line"><span class="comment">	*/</span>  </span><br><span class="line">	<span class="built_in">Array</span>.prototype.myForEach = <span class="function"><span class="keyword">function</span> <span class="title">myForEach</span>(<span class="params">callback,context</span>)</span>&#123;  </span><br><span class="line">	    context = context || <span class="built_in">window</span>;  </span><br><span class="line">	    <span class="keyword">if</span>(<span class="string">'forEach'</span> <span class="keyword">in</span> <span class="built_in">Array</span>.prototye) &#123;  </span><br><span class="line">	        <span class="keyword">this</span>.forEach(callback,context);  </span><br><span class="line">	        <span class="keyword">return</span>;  </span><br><span class="line">	    &#125;  </span><br><span class="line">	    <span class="comment">//IE6-8下自己编写回调函数执行的逻辑  </span></span><br><span class="line">	    <span class="keyword">for</span>(<span class="keyword">var</span> i = <span class="number">0</span>,len = <span class="keyword">this</span>.length; i &lt; len;i++) &#123;  </span><br><span class="line">	        callback &amp;&amp; callback.call(context,<span class="keyword">this</span>[i],i,<span class="keyword">this</span>);  </span><br><span class="line">	    &#125;  </span><br><span class="line">	&#125;  </span><br><span class="line"><span class="string">``</span><span class="string">` </span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">`</span><span class="string">``</span>javascript</span><br><span class="line"> </span><br><span class="line">	<span class="comment">/** </span></span><br><span class="line"><span class="comment">	* map遍历数组 </span></span><br><span class="line"><span class="comment">	* @param callback [function] 回调函数； </span></span><br><span class="line"><span class="comment">	* @param context [object] 上下文； </span></span><br><span class="line"><span class="comment">	*/</span>  </span><br><span class="line">	<span class="built_in">Array</span>.prototype.myMap = <span class="function"><span class="keyword">function</span> <span class="title">myMap</span>(<span class="params">callback,context</span>)</span>&#123;  </span><br><span class="line">	    context = context || <span class="built_in">window</span>;  </span><br><span class="line">	    <span class="keyword">if</span>(<span class="string">'map'</span> <span class="keyword">in</span> <span class="built_in">Array</span>.prototye) &#123;  </span><br><span class="line">	        <span class="keyword">return</span> <span class="keyword">this</span>.map(callback,context);  </span><br><span class="line">	    &#125;  </span><br><span class="line">	    <span class="comment">//IE6-8下自己编写回调函数执行的逻辑  </span></span><br><span class="line">	    <span class="keyword">var</span> newAry = [];  </span><br><span class="line">	    <span class="keyword">for</span>(<span class="keyword">var</span> i = <span class="number">0</span>,len = <span class="keyword">this</span>.length; i &lt; len;i++) &#123;  </span><br><span class="line">	        <span class="keyword">if</span>(<span class="keyword">typeof</span>  callback === <span class="string">'function'</span>) &#123;  </span><br><span class="line">	            <span class="keyword">var</span> val = callback.call(context,<span class="keyword">this</span>[i],i,<span class="keyword">this</span>);  </span><br><span class="line">	            newAry[newAry.length] = val;  </span><br><span class="line">	        &#125;  </span><br><span class="line">	    &#125;  </span><br><span class="line">	    <span class="keyword">return</span> newAry;  </span><br><span class="line">	&#125;  </span><br><span class="line"><span class="string">``</span><span class="string">` </span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">## 二、jQuery $.each()和$.map()遍历</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">共同点：</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">即可遍历数组，又可遍历对象。</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string"> </span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">### 1.$.each()</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">没有返回值。$.each()里面的匿名函数支持2个参数：当前项的索引i，数组中的当前项v。如果遍历的是对象，k 是键，v 是值。</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">$.each(arr, function(index,value)&#123;</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">　　//do something</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">&#125;)</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">参数：arr要遍历的数组,index当前项的索引,value数组中的当前项</span></span><br><span class="line"><span class="string">第1个和第2个参数正好和以上两个函数是相反的，注意不要记错了</span></span><br><span class="line"><span class="string">`</span><span class="string">``</span>javascript</span><br><span class="line">	$.each( [<span class="string">"a"</span>,<span class="string">"b"</span>,<span class="string">"c"</span>], <span class="function"><span class="keyword">function</span>(<span class="params">i, v</span>)</span>&#123;  </span><br><span class="line">	     alert( i + <span class="string">": "</span> + v );  </span><br><span class="line">	&#125;);  </span><br><span class="line">	[javascript] view plain copy</span><br><span class="line">	 </span><br><span class="line">	$(<span class="string">"span"</span>).each(<span class="function"><span class="keyword">function</span>(<span class="params">i, v</span>)</span>&#123;  </span><br><span class="line">	     alert( i + <span class="string">": "</span> + v );  </span><br><span class="line">	&#125;);</span><br></pre></td></tr></table></figure>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">$.each( &#123; <span class="attr">name</span>: <span class="string">"John"</span>, <span class="attr">lang</span>: <span class="string">"JS"</span> &#125;, <span class="function"><span class="keyword">function</span>(<span class="params">k, v</span>)</span>&#123;  </span><br><span class="line">     alert( <span class="string">"Name: "</span> + k + <span class="string">", Value: "</span> + v );  </span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<h3 id="2-map-1"><a href="#2-map-1" class="headerlink" title="2.$.map()"></a>2.$.map()</h3><p>有返回值，可以return 出来。$.map()里面的匿名函数支持2个参数和$.each()里的参数位置相反：数组中的当前项v，当前项的索引 i。如果遍历的是对象，k 是键，v 是值。如果是$(“span”).map()形式，参数顺序和$.each()  $(“span”).each()一样。</p>
+<p>$.map(arr, function(value, index){</p>
+<p>　　//do something</p>
+<p>　　return XXX</p>
+<p>})</p>
+<pre><code class="javascript">    <span class="keyword">var</span> arr=$.map( [<span class="number">0</span>,<span class="number">1</span>,<span class="number">2</span>], <span class="function"><span class="keyword">function</span>(<span class="params">v</span>)</span>{  
+         <span class="keyword">return</span> v + <span class="number">4</span>;  
+    });  
+    <span class="built_in">console</span>.log(arr);  
+    [javascript] view plain copy
+
+    $.map({<span class="string">"name"</span>:<span class="string">"Jim"</span>,<span class="string">"age"</span>:<span class="number">17</span>},<span class="function"><span class="keyword">function</span>(<span class="params">k, v</span>)</span>{  
+         <span class="built_in">console</span>.log( k+<span class="string">":"</span>+v );  
+});
+</code></pre>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
     <link itemprop="mainEntityOfPage" href="https://zhang-hongbin.github.io/2017/06/29/Javascript-数组循环遍历之forEach/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -909,160 +1089,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="https://zhang-hongbin.github.io/2017/06/29/最详尽的-JS-原型与原型链终极详解，没有「可能是」。（一）/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Zhang Hongbin">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="http://oo590vn4k.bkt.clouddn.com/111.png">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="ZHB-CSDN">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2017/06/29/最详尽的-JS-原型与原型链终极详解，没有「可能是」。（一）/" itemprop="url">
-                  最详尽的 JS 原型与原型链终极详解，没有「可能是」。（一）
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-06-29T12:33:12+08:00">
-                2017-06-29
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/二、原型和原型链/" itemprop="url" rel="index">
-                    <span itemprop="name">二、原型和原型链</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <p><a href="http://www.zhanghongbin.top/2017/07/01/%E6%9C%80%E8%AF%A6%E5%B0%BD%E7%9A%84-JS-%E5%8E%9F%E5%9E%8B%E4%B8%8E%E5%8E%9F%E5%9E%8B%E9%93%BE%E7%BB%88%E6%9E%81%E8%AF%A6%E8%A7%A3%EF%BC%8C%E6%B2%A1%E6%9C%89%E3%80%8C%E5%8F%AF%E8%83%BD%E6%98%AF%E3%80%8D%E3%80%82%EF%BC%88%E4%BA%8C%EF%BC%89/#more" target="_blank" rel="noopener">第二篇已更新，点击进入</a><br><a href="http://www.zhanghongbin.top/2017/07/02/%E6%9C%80%E8%AF%A6%E5%B0%BD%E7%9A%84-JS-%E5%8E%9F%E5%9E%8B%E4%B8%8E%E5%8E%9F%E5%9E%8B%E9%93%BE%E7%BB%88%E6%9E%81%E8%AF%A6%E8%A7%A3%EF%BC%8C%E6%B2%A1%E6%9C%89%E3%80%8C%E5%8F%AF%E8%83%BD%E6%98%AF%E3%80%8D%E3%80%82%EF%BC%88%E4%B8%89%EF%BC%89/" target="_blank" rel="noopener">第三篇已更新，点击进入</a><br><br><br>三篇文章都更新完毕，完整的剖析了 JS 原型与原型链，希望通过这些教程能让你对 Javascript 这门语言理解的更透彻！</p>
-<h2 id="一-普通对象与函数对象"><a href="#一-普通对象与函数对象" class="headerlink" title="一. 普通对象与函数对象"></a>一. 普通对象与函数对象</h2><p>JavaScript 中，万物皆对象！但对象也是有区别的。分为<b>普通对象和函数对象</b>，Object 、Function 是 JS 自带的函数对象。下面举例说明<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> o1 = &#123;&#125;; </span><br><span class="line"><span class="keyword">var</span> o2 =<span class="keyword">new</span> <span class="built_in">Object</span>();</span><br><span class="line"><span class="keyword">var</span> o3 = <span class="keyword">new</span> f1();</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">f1</span>(<span class="params"></span>)</span>&#123;&#125;; </span><br><span class="line"><span class="keyword">var</span> f2 = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;&#125;;</span><br><span class="line"><span class="keyword">var</span> f3 = <span class="keyword">new</span> <span class="built_in">Function</span>(<span class="string">'str'</span>,<span class="string">'console.log(str)'</span>);</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(<span class="keyword">typeof</span> <span class="built_in">Object</span>); <span class="comment">//function </span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="keyword">typeof</span> <span class="built_in">Function</span>); <span class="comment">//function  </span></span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(<span class="keyword">typeof</span> f1); <span class="comment">//function </span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="keyword">typeof</span> f2); <span class="comment">//function </span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="keyword">typeof</span> f3); <span class="comment">//function   </span></span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(<span class="keyword">typeof</span> o1); <span class="comment">//object </span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="keyword">typeof</span> o2); <span class="comment">//object </span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="keyword">typeof</span> o3); <span class="comment">//object</span></span><br></pre></td></tr></table></figure></p>
-<p>在上面的例子中 o1 o2 o3 为普通对象，f1 f2 f3 为函数对象。怎么区分，其实很简单，<b>凡是通过 new Function() 创建的对象都是函数对象，其他的都是普通对象。f1,f2,归根结底都是通过 new Function()的方式进行创建的。Function Object 也都是通过 New Function()创建的。</b></p>
-<p>一定要分清楚普通对象和函数对象，下面我们会常常用到它。</p>
-<h2 id="二-构造函数"><a href="#二-构造函数" class="headerlink" title="二. 构造函数"></a>二. 构造函数</h2><p>我们先复习一下构造函数的知识：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Person</span>(<span class="params">name, age, job</span>) </span>&#123;</span><br><span class="line"> <span class="keyword">this</span>.name = name;</span><br><span class="line"> <span class="keyword">this</span>.age = age;</span><br><span class="line"> <span class="keyword">this</span>.job = job;</span><br><span class="line"> <span class="keyword">this</span>.sayName = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123; alert(<span class="keyword">this</span>.name) &#125; </span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">var</span> person1 = <span class="keyword">new</span> Person(<span class="string">'Zaxlct'</span>, <span class="number">28</span>, <span class="string">'Software Engineer'</span>);</span><br><span class="line"><span class="keyword">var</span> person2 = <span class="keyword">new</span> Person(<span class="string">'Mick'</span>, <span class="number">23</span>, <span class="string">'Doctor'</span>);</span><br></pre></td></tr></table></figure></p>
-<p>上面的例子中 person1 和 person2 都是 Person 的<b>实例</b>。这两个<b>实例</b>都有一个 constructor （构造函数）属性，该属性（是一个指针）指向 Person。 即：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">console</span>.log(person1.constructor == Person); <span class="comment">//true</span></span><br><span class="line"><span class="built_in">console</span>.log(person2.constructor == Person); <span class="comment">//true</span></span><br></pre></td></tr></table></figure></p>
-<p>我们要记住两个概念（构造函数，实例）：<br><b><br>person1 和 person2 都是 构造函数 Person 的实例 <strong><br>一个公式：<br>
-</strong> 实例的构造函数属性（constructor）指向构造函数。<br></b></p>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2017/06/29/最详尽的-JS-原型与原型链终极详解，没有「可能是」。（一）/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
   </section>
 
   
@@ -1112,7 +1138,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives">
-                <span class="site-state-item-count">87</span>
+                <span class="site-state-item-count">88</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
