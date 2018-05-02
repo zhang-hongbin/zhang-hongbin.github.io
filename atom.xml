@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://zhang-hongbin.github.io/"/>
-  <updated>2018-05-02T08:24:01.963Z</updated>
+  <updated>2018-05-02T08:26:28.244Z</updated>
   <id>https://zhang-hongbin.github.io/</id>
   
   <author>
@@ -21,7 +21,7 @@
     <link href="https://zhang-hongbin.github.io/2018/03/08/React%20Router/"/>
     <id>https://zhang-hongbin.github.io/2018/03/08/React Router/</id>
     <published>2018-03-08T07:06:46.000Z</published>
-    <updated>2018-05-02T08:24:01.963Z</updated>
+    <updated>2018-05-02T08:26:28.244Z</updated>
     
     <content type="html"><![CDATA[<p style="color:red">提醒您即将踩坑，原因 react-router版本 由<small>V2</small> 升级使用V4版本 </p><p>首先安装<code>react-router</code><br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install --save react-router</span><br></pre></td></tr></table></figure></p><h2 id="一、Router-概念"><a href="#一、Router-概念" class="headerlink" title="一、Router 概念"></a>一、Router 概念</h2><h3 id="1-demo-代码的逻辑结构"><a href="#1-demo-代码的逻辑结构" class="headerlink" title="1. demo 代码的逻辑结构"></a>1. demo 代码的逻辑结构</h3><hr><h3 id="2-控制页面的层级关系"><a href="#2-控制页面的层级关系" class="headerlink" title="2. 控制页面的层级关系"></a>2. 控制页面的层级关系</h3><hr><h3 id="3-单页面构建-Router-控制"><a href="#3-单页面构建-Router-控制" class="headerlink" title="3. 单页面构建 Router 控制"></a>3. 单页面构建 Router 控制</h3><hr><h3 id="4-https-github-com-ReactTraining-react-router"><a href="#4-https-github-com-ReactTraining-react-router" class="headerlink" title="4. https://github.com/ReactTraining/react-router"></a>4. <a href="https://github.com/ReactTraining/react-router" target="_blank" rel="noopener">https://github.com/ReactTraining/react-router</a></h3><hr><h3 id="5-底层机制"><a href="#5-底层机制" class="headerlink" title="5. 底层机制"></a>5. 底层机制</h3><p>React:state/props -&gt; Components -&gt; UI<br>Router:location -&gt; Router -&gt; UI</p><h2 id="二、Router-参数传递"><a href="#二、Router-参数传递" class="headerlink" title="二、Router 参数传递"></a>二、Router 参数传递</h2>]]></content>
     
@@ -390,11 +390,11 @@
       <category term="十一、关于开发环境" scheme="https://zhang-hongbin.github.io/categories/%E5%8D%81%E4%B8%80%E3%80%81%E5%85%B3%E4%BA%8E%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83/"/>
     
     
-      <category term="Git" scheme="https://zhang-hongbin.github.io/tags/Git/"/>
-    
       <category term="webpack" scheme="https://zhang-hongbin.github.io/tags/webpack/"/>
     
       <category term="模块化" scheme="https://zhang-hongbin.github.io/tags/%E6%A8%A1%E5%9D%97%E5%8C%96/"/>
+    
+      <category term="Git" scheme="https://zhang-hongbin.github.io/tags/Git/"/>
     
   </entry>
   
