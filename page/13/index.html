@@ -259,6 +259,195 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="https://zhang-hongbin.github.io/2017/01/20/属性操作/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Zhang Hongbin">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="http://oo590vn4k.bkt.clouddn.com/111.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="ZHB-CSDN">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2017/01/20/属性操作/" itemprop="url">
+                  属性操作
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-01-20T17:48:08+08:00">
+                2017-01-20
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/DOM编程艺术/" itemprop="url" rel="index">
+                    <span itemprop="name">DOM编程艺术</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="属性访问器操作"><a href="#属性访问器操作" class="headerlink" title="属性访问器操作"></a>属性访问器操作</h2><ul>
+<li><h3 id="读操作-："><a href="#读操作-：" class="headerlink" title="读操作 ："></a>读操作 ：</h3>例子：<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&lt;div&gt;</span><br><span class="line">	&lt;label <span class="keyword">for</span>=<span class="string">"userName"</span>&gt;用户名：&lt;<span class="regexp">/label&gt;</span></span><br><span class="line"><span class="regexp">	&lt;input id="userName" type="text" class="u-txt"&gt;</span></span><br><span class="line"><span class="regexp">&lt;/</span>div&gt;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>则操作为：<br><code><br>    input.className;    //“u-txt”<br>    input[“id”];        //“userName”<br></code></p>
+<ul>
+<li><h3 id="写操作-："><a href="#写操作-：" class="headerlink" title="写操作 ："></a>写操作 ：</h3>例子：<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&lt;div&gt;</span><br><span class="line">	&lt;label <span class="keyword">for</span>=<span class="string">"userName"</span>&gt;用户名：&lt;<span class="regexp">/label&gt;</span></span><br><span class="line"><span class="regexp">	&lt;input id="userName" class="u-txt" &gt;</span></span><br><span class="line"><span class="regexp">&lt;/</span>div&gt;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>则操作为：<br><code><br>    input.value=”<a href="mailto:wwq@163.com" target="_blank" rel="noopener">wwq@163.com</a>“;    //则显示框内为<a href="mailto:wwq@163.com" target="_blank" rel="noopener">wwq@163.com</a>,后台增加了value=”<a href="mailto:wwq@163.com" target="_blank" rel="noopener">wwq@163.com</a>“;<br>    input.disabled = true;<br></code></p>
+<blockquote>
+<p><font color="red"><br><strong>总结</strong>：使用属性访问器，优缺点比较：</font></p>
+</blockquote>
+<pre><code>X 通用性-名字异常
+X 拓展性
+√ 使用对象
+</code></pre><p>      </p>
+<h2 id="getAttribute-setAttribute操作"><a href="#getAttribute-setAttribute操作" class="headerlink" title="getAttribute/setAttribute操作"></a>getAttribute/setAttribute操作</h2><ul>
+<li><h3 id="读操作-：-1"><a href="#读操作-：-1" class="headerlink" title="读操作 ："></a>读操作 ：</h3>  <strong>方法：</strong><code>var attribute = element.getAttribute(attributeName);</code><br><strong>例子：</strong><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&lt;div&gt;</span><br><span class="line">	&lt;label <span class="keyword">for</span>=<span class="string">"userName"</span>&gt;用户名：&lt;<span class="regexp">/label&gt;</span></span><br><span class="line"><span class="regexp">	&lt;input id="userName" type="text" class="u-txt"&gt;</span></span><br><span class="line"><span class="regexp">&lt;/</span>div&gt;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>则操作为：<br><code><br>    input.getAttribute(“class”);    //“u-txt”<br></code></p>
+<ul>
+<li><h3 id="写操作-：-1"><a href="#写操作-：-1" class="headerlink" title="写操作 ："></a>写操作 ：</h3>  <strong>方法：</strong><code>element.setAttribute(name,value);</code><br><strong>例子：</strong><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&lt;div&gt;</span><br><span class="line">	&lt;label <span class="keyword">for</span>=<span class="string">"userName"</span>&gt;用户名：&lt;<span class="regexp">/label&gt;</span></span><br><span class="line"><span class="regexp">	&lt;input id="userName" class="u-txt" &gt;</span></span><br><span class="line"><span class="regexp">&lt;/</span>div&gt;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>则操作为：<br><code><br>    input.setAttribute(“value”,”<a href="mailto:wwq@163.com" target="_blank" rel="noopener">wwq@163.com</a>“);    //则显示框内为<a href="mailto:wwq@163.com" target="_blank" rel="noopener">wwq@163.com</a>,后台增加了value=”<a href="mailto:wwq@163.com" target="_blank" rel="noopener">wwq@163.com</a>“;<br>    input.disabled = true;</code></p>
+<blockquote>
+<p><font color="red"><br><strong>总结</strong>： getAttribute/setAttribute操作，优缺点比较：</font></p>
+</blockquote>
+<pre><code>X 仅字符串操作
+√ 通用性
+</code></pre><p><br></p>
+<h2 id="dataset操作"><a href="#dataset操作" class="headerlink" title="dataset操作"></a>dataset操作</h2><blockquote>
+<p><strong>介绍：</strong></p>
+<ul>
+<li>HTMLElement.dataset   //是HTML元素上的一个属性，叫做dataset</li>
+<li>data-<em>属性集             //它是data-</em>属性的集合</li>
+<li>元素上保存数据             //主要用途是在元素上保存数据，一般用来做自定义的数据属性<br>例子：<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">"user"</span> <span class="attr">data-id</span>=<span class="string">"123456"</span> <span class="attr">data-account-name</span>=<span class="string">"wwq"</span> <span class="attr">data-name</span>=<span class="string">"魏文庆"</span> <span class="attr">data-email</span>=<span class="string">"wwq123@163.com"</span> <span class="attr">data-mobile</span>=<span class="string">"13524543878"</span>&gt;</span>wwq<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</blockquote>
+<p>则使用<code>div.dataset.</code>输出    </p>
+<table cellspacing="4px"><br><tr><td bgcolor="ligblue">id</td><td bgcolor="orange">“123456”</td></tr><br><tr><td bgcolor="ligblue">accountName</td><td bgcolor="orange">“wwq”</td></tr><br><tr><td bgcolor="ligblue">name</td><td bgcolor="orange">“魏文庆”</td></tr><br><tr><td bgcolor="ligblue">email</td><td bgcolor="orange">“<a href="mailto:wwq123@163.com" target="_blank" rel="noopener">wwq123@163.com</a>“</td></tr><br><tr><td bgcolor="ligblue">mobile</td><td bgcolor="orange">“13524543878”</td></tr><br></table>
+
+
+
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
     <link itemprop="mainEntityOfPage" href="https://zhang-hongbin.github.io/2017/01/20/节点操作/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1048,191 +1237,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="https://zhang-hongbin.github.io/2017/01/15/CSS-的优先级机制/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Zhang Hongbin">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="http://oo590vn4k.bkt.clouddn.com/111.png">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="ZHB-CSDN">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2017/01/15/CSS-的优先级机制/" itemprop="url">
-                  CSS 的优先级机制
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-01-15T16:06:17+08:00">
-                2017-01-15
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/CSS/" itemprop="url" rel="index">
-                    <span itemprop="name">CSS</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h2 id="样式的优先级"><a href="#样式的优先级" class="headerlink" title=" 样式的优先级"></a><font color="red"> 样式的优先级</font></h2><p><strong> 多重样式（Multiple Styles）:如果外部样式、内部样式和内联样式同时应用于同一个元素，就是使多重样式的情况。</strong></p>
-<p>一般情况下，优先级如下：</p>
-<font color="red">（外部样式）External style sheet &lt;（内部样式）Internal style sheet &lt;（内联样式）Inline style</font>
-
-
-
-<p>有个例外的情况，就是如果外部样式放在内部样式的后面，则外部样式将覆盖内部样式。</p>
-<p>示例如下：</p>
-<pre><code>&lt;head&gt;
-    &lt;style type=&quot;text/css&quot;&gt;
-      /* 内部样式 */
-      h3{color:green;}
-    &lt;/style&gt;
-
-    &lt;!-- 外部样式 style.css --&gt;
-    &lt;link rel=&quot;stylesheet&quot; type=&quot;text/css&quot; href=&quot;style.css&quot;/&gt;
-    &lt;!-- 设置：h3{color:blue;} --&gt;
-&lt;/head&gt;
-&lt;body&gt;
-    &lt;h3&gt;测试！&lt;/h3&gt;
-&lt;/body&gt;
-</code></pre><h2 id="选择器的优先权"><a href="#选择器的优先权" class="headerlink" title="选择器的优先权"></a><font color="red">选择器的优先权</font></h2><p><img src="http://oo590vn4k.bkt.clouddn.com/20170115-1.png" alt=""></p>
-<p>解释：</p>
-<ol>
-<li><p>内联样式表的权值最高 1000；</p>
-</li>
-<li><p>ID 选择器的权值为 100</p>
-</li>
-<li><p>Class 类选择器的权值为 10</p>
-</li>
-<li><p>HTML 标签选择器的权值为 1</p>
-</li>
-</ol>
-<p>利用选择器的权值进行计算比较，示例如下：</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">&lt;html&gt;</span><br><span class="line">  &lt;head&gt;</span><br><span class="line">    &lt;style type=<span class="string">"text/css"</span>&gt;</span><br><span class="line">        #redP p &#123;</span><br><span class="line">             <span class="comment">/* 权值 = 100+1=101 */</span></span><br><span class="line">             color:#F00;  /* 红色 */</span><br><span class="line">        &#125;</span><br><span class="line"> </span><br><span class="line">        #redP .red em &#123;</span><br><span class="line">             <span class="comment">/* 权值 = 100+10+1=111 */</span></span><br><span class="line">             color:#00F; /* 蓝色 */</span><br><span class="line"> </span><br><span class="line">        &#125;</span><br><span class="line"> </span><br><span class="line">        #redP p span em &#123;</span><br><span class="line">             <span class="comment">/* 权值 = 100+1+1+1=103 */</span></span><br><span class="line">             color:#FF0;/*黄色*/</span><br><span class="line">        &#125;</span><br><span class="line">    &lt;<span class="regexp">/style&gt;</span></span><br><span class="line"><span class="regexp">  &lt;/</span>head&gt;</span><br><span class="line">  &lt;body&gt;</span><br><span class="line">     &lt;div id=<span class="string">"redP"</span>&gt;</span><br><span class="line">        &lt;p <span class="class"><span class="keyword">class</span></span>=<span class="string">"red"</span>&gt;red</span><br><span class="line">           &lt;span&gt;&lt;em&gt;em red&lt;/em&gt;&lt;/span&gt;</span><br><span class="line">        &lt;<span class="regexp">/p&gt;</span></span><br><span class="line"><span class="regexp">        &lt;p&gt;red&lt;/</span>p&gt;</span><br><span class="line">     &lt;<span class="regexp">/div&gt;</span></span><br><span class="line"><span class="regexp">  &lt;/</span>body&gt;</span><br><span class="line">&lt;<span class="regexp">/html&gt;</span></span><br></pre></td></tr></table></figure>
-<p><strong>结果： 标签内的数据显示为蓝色。</strong></p>
-<h2 id="CSS-优先级法则"><a href="#CSS-优先级法则" class="headerlink" title="CSS 优先级法则"></a><font color="red">CSS 优先级法则</font></h2><p>A  选择器都有一个权值，权值越大越优先；</p>
-<p>B  当权值相等时，后出现的样式表设置要优于先出现的样式表设置；</p>
-<p>C  创作者的规则高于浏览者：即网页编写者设置的CSS 样式的优先权高于浏览器所设置的样式；</p>
-<p>D  继承的CSS 样式不如后来指定的CSS 样式；</p>
-<p>E  在同一组属性设置中标有“!important”规则的优先级最大；示例如下：</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">&lt;html&gt;</span><br><span class="line">  &lt;head&gt;</span><br><span class="line">    &lt;style type=<span class="string">"text/css"</span>&gt;</span><br><span class="line">     #redP p&#123;</span><br><span class="line">        <span class="comment">/*两个color属性在同一组*/</span></span><br><span class="line">        color:#00f !important; /* 优先级最大 */</span><br><span class="line">        color:#f00;</span><br><span class="line">     &#125;</span><br><span class="line">    &lt;<span class="regexp">/style&gt;</span></span><br><span class="line"><span class="regexp">  &lt;/</span>head&gt;</span><br><span class="line">  &lt;body&gt;</span><br><span class="line">     &lt;div id=<span class="string">"redP"</span>&gt;</span><br><span class="line">       &lt;p&gt;color&lt;<span class="regexp">/p&gt;</span></span><br><span class="line"><span class="regexp">       &lt;p&gt;color&lt;/</span>p&gt;</span><br><span class="line">     &lt;<span class="regexp">/div&gt;</span></span><br><span class="line"><span class="regexp">  &lt;/</span>body&gt;</span><br><span class="line">&lt;<span class="regexp">/html&gt;</span></span><br></pre></td></tr></table></figure>
-<p>结果：在Firefox 下显示为蓝色；在IE  6 下显示为红色；</p>
-
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
   </section>
 
   
@@ -1282,7 +1286,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives">
-                <span class="site-state-item-count">87</span>
+                <span class="site-state-item-count">88</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>

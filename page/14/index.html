@@ -259,6 +259,191 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="https://zhang-hongbin.github.io/2017/01/15/CSS-的优先级机制/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Zhang Hongbin">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="http://oo590vn4k.bkt.clouddn.com/111.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="ZHB-CSDN">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2017/01/15/CSS-的优先级机制/" itemprop="url">
+                  CSS 的优先级机制
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-01-15T16:06:17+08:00">
+                2017-01-15
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/CSS/" itemprop="url" rel="index">
+                    <span itemprop="name">CSS</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="样式的优先级"><a href="#样式的优先级" class="headerlink" title=" 样式的优先级"></a><font color="red"> 样式的优先级</font></h2><p><strong> 多重样式（Multiple Styles）:如果外部样式、内部样式和内联样式同时应用于同一个元素，就是使多重样式的情况。</strong></p>
+<p>一般情况下，优先级如下：</p>
+<font color="red">（外部样式）External style sheet &lt;（内部样式）Internal style sheet &lt;（内联样式）Inline style</font>
+
+
+
+<p>有个例外的情况，就是如果外部样式放在内部样式的后面，则外部样式将覆盖内部样式。</p>
+<p>示例如下：</p>
+<pre><code>&lt;head&gt;
+    &lt;style type=&quot;text/css&quot;&gt;
+      /* 内部样式 */
+      h3{color:green;}
+    &lt;/style&gt;
+
+    &lt;!-- 外部样式 style.css --&gt;
+    &lt;link rel=&quot;stylesheet&quot; type=&quot;text/css&quot; href=&quot;style.css&quot;/&gt;
+    &lt;!-- 设置：h3{color:blue;} --&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;h3&gt;测试！&lt;/h3&gt;
+&lt;/body&gt;
+</code></pre><h2 id="选择器的优先权"><a href="#选择器的优先权" class="headerlink" title="选择器的优先权"></a><font color="red">选择器的优先权</font></h2><p><img src="http://oo590vn4k.bkt.clouddn.com/20170115-1.png" alt=""></p>
+<p>解释：</p>
+<ol>
+<li><p>内联样式表的权值最高 1000；</p>
+</li>
+<li><p>ID 选择器的权值为 100</p>
+</li>
+<li><p>Class 类选择器的权值为 10</p>
+</li>
+<li><p>HTML 标签选择器的权值为 1</p>
+</li>
+</ol>
+<p>利用选择器的权值进行计算比较，示例如下：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">&lt;html&gt;</span><br><span class="line">  &lt;head&gt;</span><br><span class="line">    &lt;style type=<span class="string">"text/css"</span>&gt;</span><br><span class="line">        #redP p &#123;</span><br><span class="line">             <span class="comment">/* 权值 = 100+1=101 */</span></span><br><span class="line">             color:#F00;  /* 红色 */</span><br><span class="line">        &#125;</span><br><span class="line"> </span><br><span class="line">        #redP .red em &#123;</span><br><span class="line">             <span class="comment">/* 权值 = 100+10+1=111 */</span></span><br><span class="line">             color:#00F; /* 蓝色 */</span><br><span class="line"> </span><br><span class="line">        &#125;</span><br><span class="line"> </span><br><span class="line">        #redP p span em &#123;</span><br><span class="line">             <span class="comment">/* 权值 = 100+1+1+1=103 */</span></span><br><span class="line">             color:#FF0;/*黄色*/</span><br><span class="line">        &#125;</span><br><span class="line">    &lt;<span class="regexp">/style&gt;</span></span><br><span class="line"><span class="regexp">  &lt;/</span>head&gt;</span><br><span class="line">  &lt;body&gt;</span><br><span class="line">     &lt;div id=<span class="string">"redP"</span>&gt;</span><br><span class="line">        &lt;p <span class="class"><span class="keyword">class</span></span>=<span class="string">"red"</span>&gt;red</span><br><span class="line">           &lt;span&gt;&lt;em&gt;em red&lt;/em&gt;&lt;/span&gt;</span><br><span class="line">        &lt;<span class="regexp">/p&gt;</span></span><br><span class="line"><span class="regexp">        &lt;p&gt;red&lt;/</span>p&gt;</span><br><span class="line">     &lt;<span class="regexp">/div&gt;</span></span><br><span class="line"><span class="regexp">  &lt;/</span>body&gt;</span><br><span class="line">&lt;<span class="regexp">/html&gt;</span></span><br></pre></td></tr></table></figure>
+<p><strong>结果： 标签内的数据显示为蓝色。</strong></p>
+<h2 id="CSS-优先级法则"><a href="#CSS-优先级法则" class="headerlink" title="CSS 优先级法则"></a><font color="red">CSS 优先级法则</font></h2><p>A  选择器都有一个权值，权值越大越优先；</p>
+<p>B  当权值相等时，后出现的样式表设置要优于先出现的样式表设置；</p>
+<p>C  创作者的规则高于浏览者：即网页编写者设置的CSS 样式的优先权高于浏览器所设置的样式；</p>
+<p>D  继承的CSS 样式不如后来指定的CSS 样式；</p>
+<p>E  在同一组属性设置中标有“!important”规则的优先级最大；示例如下：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">&lt;html&gt;</span><br><span class="line">  &lt;head&gt;</span><br><span class="line">    &lt;style type=<span class="string">"text/css"</span>&gt;</span><br><span class="line">     #redP p&#123;</span><br><span class="line">        <span class="comment">/*两个color属性在同一组*/</span></span><br><span class="line">        color:#00f !important; /* 优先级最大 */</span><br><span class="line">        color:#f00;</span><br><span class="line">     &#125;</span><br><span class="line">    &lt;<span class="regexp">/style&gt;</span></span><br><span class="line"><span class="regexp">  &lt;/</span>head&gt;</span><br><span class="line">  &lt;body&gt;</span><br><span class="line">     &lt;div id=<span class="string">"redP"</span>&gt;</span><br><span class="line">       &lt;p&gt;color&lt;<span class="regexp">/p&gt;</span></span><br><span class="line"><span class="regexp">       &lt;p&gt;color&lt;/</span>p&gt;</span><br><span class="line">     &lt;<span class="regexp">/div&gt;</span></span><br><span class="line"><span class="regexp">  &lt;/</span>body&gt;</span><br><span class="line">&lt;<span class="regexp">/html&gt;</span></span><br></pre></td></tr></table></figure>
+<p>结果：在Firefox 下显示为蓝色；在IE  6 下显示为红色；</p>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
     <link itemprop="mainEntityOfPage" href="https://zhang-hongbin.github.io/2017/01/13/html中的src与href的区别/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -895,161 +1080,6 @@ params：这个是一个参数列表
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="https://zhang-hongbin.github.io/2016/11/17/深入理解javascript原型和闭包（16）——完结/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Zhang Hongbin">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="http://oo590vn4k.bkt.clouddn.com/111.png">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="ZHB-CSDN">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2016/11/17/深入理解javascript原型和闭包（16）——完结/" itemprop="url">
-                  深入理解javascript原型和闭包（16）——完结
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2016-11-17T21:56:49+08:00">
-                2016-11-17
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/深入理解javascript原型和闭包/" itemprop="url" rel="index">
-                    <span itemprop="name">深入理解javascript原型和闭包</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>之前一共用15篇文章，把javascript的原型和闭包。</p>
-<p>首先，javascript本来就“不容易学”。不是说它有多难，而是学习它的人，往往都是在学会了其他语言之后，又学javascript。有其他语言的学习经历和实践经历，再加上自学javascript，边学边用，肯定会产生许多误解，走许多弯路。我就没少经历，也算是一种教训。</p>
-<p>其次，原型和闭包又是一对难兄难弟，一来是他俩比较难懂，而来是他俩都或多或少的给初级开发人员带来许多BUG。不懂原型和闭包，你也可以开发javascript程序，但是你写不出高质量、符合设计原则的javascript程序。</p>
-<p>因此，还是强调基础，强调理论！理论和实践相结合不是一句空话。</p>
-<p>由此想到了我平时练习投篮。一般喜欢篮球的人都是周末和别人去一起打篮球玩，我之前也是如此。但是我从今年春天开始，每周另外抽出一小时时间，自己一个人去练习投篮。练习正确的投篮姿势，强迫自己在练习的时候使用正确姿势，时间长了就形成了肌肉记忆。</p>
-<p>所以，工作之余，切不可忘记充电。</p>
-<p>　　　</p>
-<p>写这些东西，我也参考了好多资料，包括博客园、csdn好多技术专家的博客，各种javascript书籍，json.js源码，jQuery源码。但是我都没有生搬硬套里面的术语和段落。</p>
-<p>自己写东西，不是抄袭，不是写毕业论文。一定要有自己的思考和总结。学习、工作中都是如此。</p>
-<p>此前15篇文章中所有的描述、解释、例子包括图片，都体现了我自己的理解，大部分图片都是我自己画出来的。包括在写每一篇文章之前，我都要去思考，应该用何种方式去表达，才能让读者更容易理解和接收。</p>
-<p>最后，看到好多文章都是长篇大论，恨不得用一篇文章解释完所有的内容。而我的文章都是小步快跑，看完一篇估计也就十分钟。这是我在看《明朝那些事儿》时发现的一个思路。这本书一节只有很少的内容，而且语言简单，演绎性很强，一节紧扣着一节，能黏住读者。</p>
-<p> 因此，我在写文章时，会先用一个大家都知道的概念引入正题，然后进一步解释。在一篇文章的最后，要抛出一个疑问引出下一节。</p>
-<p>原型和闭包这个系列，正好填补了javascript教程一个空缺，即使《javascript高级程序设计》中，都没有将原型和闭包讲解的如此深入。希望大家多多支持吧。</p>
-
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
   </section>
 
   
@@ -1099,7 +1129,7 @@ params：这个是一个参数列表
           
             <div class="site-state-item site-state-posts">
               <a href="/archives">
-                <span class="site-state-item-count">87</span>
+                <span class="site-state-item-count">88</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>

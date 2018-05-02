@@ -259,6 +259,190 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="https://zhang-hongbin.github.io/2017/03/07/SVM入门（七）为何需要核函数（转载）/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Zhang Hongbin">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="http://oo590vn4k.bkt.clouddn.com/111.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="ZHB-CSDN">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2017/03/07/SVM入门（七）为何需要核函数（转载）/" itemprop="url">
+                  SVM入门（七）为何需要核函数（转载）
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-03-07T13:36:46+08:00">
+                2017-03-07
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/算法/" itemprop="url" rel="index">
+                    <span itemprop="name">算法</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>生存？还是毁灭？——哈姆雷特</p>
+<p>可分？还是不可分？——支持向量机</p>
+<p>之前一直在讨论的线性分类器,器如其名（汗，这是什么说法啊），只能对线性可分的样本做处理。如果提供的样本线性不可分，结果很简单，线性分类器的求解程序会无限循环，永远也解不出来。这必然使得它的适用范围大大缩小，而它的很多优点我们实在不原意放弃，怎么办呢？是否有某种方法，让线性不可分的数据变得线性可分呢？</p>
+<p>有！其思想说来也简单，来用一个二维平面中的分类问题作例子，你一看就会明白。事先声明，下面这个例子是网络早就有的，我一时找不到原作者的正确信息，在此借用，并加进了我自己的解说而已。</p>
+<p>例子是下面这张图：</p>
+<p><img src="http://www.blogjava.net/images/blogjava_net/zhenandaci/WindowsLiveWriter/SVM_10595/clip_image001_thumb.jpg" alt=""></p>
+<p>我们把横轴上端点a和b之间红色部分里的所有点定为正类，两边的黑色部分里的点定为负类。试问能找到一个线性函数把两类正确分开么？不能，因为二维空间里的线性函数就是指直线，显然找不到符合条件的直线。</p>
+<p>但我们可以找到一条曲线，例如下面这一条：<br><img src="http://www.blogjava.net/images/blogjava_net/zhenandaci/WindowsLiveWriter/SVM_10595/clip_image002_thumb.gif" alt=""></p>
+<p>显然通过点在这条曲线的上方还是下方就可以判断点所属的类别（你在横轴上随便找一点，算算这一点的函数值，会发现负类的点函数值一定比0大，而正类的一定比0小）。这条曲线就是我们熟知的二次曲线，它的函数表达式可以写为：</p>
+<p><img src="http://www.blogjava.net/images/blogjava_net/zhenandaci/WindowsLiveWriter/SVM_10595/clip_image002%5B5%5D_thumb.gif" alt=""></p>
+<p>问题只是它不是一个线性函数，但是，下面要注意看了，新建一个向量y和a：</p>
+<p><img src="http://www.blogjava.net/images/blogjava_net/zhenandaci/WindowsLiveWriter/SVM_10595/clip_image002%5B7%5D_thumb.gif" alt=""></p>
+<p>这样g(x)就可以转化为f(y)=&lt;a,y&gt;，你可以把y和a分别回带一下，看看等不等于原来的g(x)。用内积的形式写你可能看不太清楚，实际上f(y)的形式就是：</p>
+<p>g(x)=f(y)=ay</p>
+<p>在任意维度的空间中，这种形式的函数都是一个线性函数（只不过其中的a和y都是多维向量罢了），因为自变量y的次数不大于1。</p>
+<p>看出妙在哪了么？原来在二维空间中一个线性不可分的问题，映射到四维空间后，变成了线性可分的！因此这也形成了我们最初想解决线性不可分问题的基本思路——向高维空间转化，使其变得线性可分。</p>
+<p>而转化最关键的部分就在于找到x到y的映射方法。遗憾的是，如何找到这个映射，没有系统性的方法（也就是说，纯靠猜和凑）。具体到我们的文本分类问题，文本被表示为上千维的向量，即使维数已经如此之高，也常常是线性不可分的，还要向更高的空间转化。其中的难度可想而知。</p>
+<p>小Tips:为什么说f(y)=ay是四维空间里的函数?</p>
+<blockquote>
+<p>大家可能一时没看明白。回想一下我们二维空间里的函数定义<br>g(x)=ax+b<br>变量x是一维的，为什么说它是二维空间里的函数呢？因为还有一个变量我们没写出来，它的完整形式其实是<br>y=g(x)=ax+b<br>即<br>y=ax+b<br>看看，有几个变量？两个。那是几维空间的函数？（作者五岁的弟弟答：五维的。作者：……）<br>再看看<br>f(y)=ay<br>里面的y是三维的变量，那f(y)是几维空间里的函数？（作者五岁的弟弟答：还是五维的。作者：……）</p>
+</blockquote>
+<p>用一个具体文本分类的例子来看看这种向高维空间映射从而分类的方法如何运作，想象一下，我们文本分类问题的原始空间是1000维的（即每个要被分类的文档被表示为一个1000维的向量），在这个维度上问题是线性不可分的。现在我们有一个2000维空间里的线性函数</p>
+<pre><code>f(x’)=&lt;w’,x’&gt;+b
+</code></pre><p>注意向量的右上角有个 ’哦。它能够将原问题变得可分。式中的 w’和x’都是2000维的向量，只不过w’是定值，而x’是变量（好吧,严格说来这个函数是2001维的,哈哈），现在我们的输入呢，是一个1000维的向量x，分类的过程是先把x变换为2000维的向量x’，然后求这个变换后的向量x’与向量w’的内积，再把这个内积的值和b相加，就得到了结果，看结果大于阈值还是小于阈值就得到了分类结果。</p>
+<p>你发现了什么？我们其实只关心那个高维空间里内积的值，那个值算出来了，分类结果就算出来了。而从理论上说， x’是经由x变换来的，因此广义上可以把它叫做x的函数（有一个x，就确定了一个x’，对吧，确定不出第二个），而w’是常量，它是一个低维空间里的常量w经过变换得到的，所以给了一个w 和x的值，就有一个确定的f(x’)值与其对应。这让我们幻想，是否能有这样一种函数K(w,x),他接受低维空间的输入值，却能算出高维空间的内积值&lt;w’,x’&gt;？</p>
+<p>如果有这样的函数，那么当给了一个低维空间的输入x以后，</p>
+<pre><code>g(x)=K(w,x)+b
+
+f(x’)=&lt;w’,x’&gt;+b
+</code></pre><p>这两个函数的计算结果就完全一样，我们也就用不着费力找那个映射关系，直接拿低维的输入往g(x)里面代就可以了（再次提醒，这回的g(x)就不是线性函数啦，因为你不能保证K(w,x)这个表达式里的x次数不高于1哦）。</p>
+<p>万幸的是，这样的K(w,x)确实存在（发现凡是我们人类能解决的问题，大都是巧得不能再巧，特殊得不能再特殊的问题，总是恰好有些能投机取巧的地方才能解决，由此感到人类的渺小），它被称作核函数（核，kernel），而且还不止一个，事实上，只要是满足了Mercer条件的函数，都可以作为核函数。核函数的基本作用就是接受两个低维空间里的向量，能够计算出经过某个变换后在高维空间里的向量内积值。几个比较常用的核函数，俄，教课书里都列过，我就不敲了（懒！）。</p>
+<p>回想我们上节说的求一个线性分类器，它的形式应该是：</p>
+<p><img src="http://www.blogjava.net/images/blogjava_net/zhenandaci/WindowsLiveWriter/SVM_10595/clip_image002%5B9%5D_thumb.gif" alt=""></p>
+<p>现在这个就是高维空间里的线性函数（为了区别低维和高维空间里的函数和向量，我改了函数的名字，并且给w和x都加上了 ’），我们就可以用一个低维空间里的函数（再一次的，这个低维空间里的函数就不再是线性的啦）来代替，</p>
+<p><img src="http://www.blogjava.net/images/blogjava_net/zhenandaci/WindowsLiveWriter/SVM_10595/clip_image002%5B11%5D_thumb.gif" alt=""></p>
+<p>又发现什么了？f(x’) 和g(x)里的α，y，b全都是一样一样的！这就是说，尽管给的问题是线性不可分的，但是我们就硬当它是线性问题来求解，只不过求解过程中，凡是要求内积的时候就用你选定的核函数来算。这样求出来的α再和你选定的核函数一组合，就得到分类器啦！</p>
+<p>明白了以上这些，会自然的问接下来两个问题：</p>
+<p>1． 既然有很多的核函数，针对具体问题该怎么选择？</p>
+<p>2． 如果使用核函数向高维空间映射后，问题仍然是线性不可分的，那怎么办？</p>
+<p>第一个问题现在就可以回答你：对核函数的选择，现在还缺乏指导原则！各种实验的观察结果（不光是文本分类）的确表明，某些问题用某些核函数效果很好，用另一些就很差，但是一般来讲，径向基核函数是不会出太大偏差的一种，首选。（我做文本分类系统的时候，使用径向基核函数，没有参数调优的情况下，绝大部分类别的准确和召回都在85%以上，可见。虽然libSVM的作者林智仁认为文本分类用线性核函数效果更佳，待考证）</p>
+<p>对第二个问题的解决则引出了我们下一节的主题：松弛变量。</p>
+<p>注：转载自Jasper’s Java Jacal的博客<a href="http://www.blogjava.net/zhenandaci/archive/2009/03/06/258288.html" target="_blank" rel="noopener">http://www.blogjava.net/zhenandaci/archive/2009/03/06/258288.html</a></p>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
     <link itemprop="mainEntityOfPage" href="https://zhang-hongbin.github.io/2017/03/06/SVM入门（六）线性分类器的求解——问题的转化，直观角度/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -884,156 +1068,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="https://zhang-hongbin.github.io/2017/03/02/SVM入门（二）线性分类器Part-1/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Zhang Hongbin">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="http://oo590vn4k.bkt.clouddn.com/111.png">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="ZHB-CSDN">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2017/03/02/SVM入门（二）线性分类器Part-1/" itemprop="url">
-                  SVM入门（二）线性分类器Part 1
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-03-02T13:36:46+08:00">
-                2017-03-02
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/算法/" itemprop="url" rel="index">
-                    <span itemprop="name">算法</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>­<br>　　<font color="red">线性分类器</font>(一定意义上,也可以叫做<font color="red">感知机</font>) 是最简单也很有效的分类器形式.在一个线性分类器中,可以看到SVM形成的思路,并接触很多SVM的核心概念.</p>
-<p>　　用一个二维空间里仅有两类样本的分类问题来举个小例子。如图所示<br>　　<img src="http://oo590vn4k.bkt.clouddn.com/20170302-1.gif" alt=""><br>　　­C1和C2是要区分的两个类别，在二维平面中它们的样本如上图所示。中间的直线就是一个<font color="red">分类函数</font>，它可以将两类样本完全分开。一般的，如果一个线性函数能够将样本完全正确的分开，就称这些数据是线性可分的，否则称为非线性可分的。</p>
-<p>　　什么叫<font color="red">线性函数</font>呢？在一维空间里就是一个点，在二维空间里就是一条直线，三维空间里就是一个平面，可以如此想象下去，如果不关注空间的维数，这种线性函数还有一个统一的名称——<font color="red">超平面（Hyper Plane）</font>！</p>
-<p>　　实际上，一个线性函数是一个<font color="red">实值函数（Hyper Plane）</font>（即函数的值是连续的实数），而我们的分类问题（例如这里的二元分类问题——回答一个样本属于还是不属于一个类别的问题）需要离散的输出值，例如用1表示某个样本属于类别C1，而用0表示不属于（不属于C1也就意味着属于C2），这时候只需要简单的在实值函数的基础上附加一个阈值即可，通过分类函数执行时得到的值大于还是小于这个阈值来确定类别归属。 例如我们有一个线性函数</p>
-<p>　　    g(x)=wx+b</p>
-<p>　　我们可以取阈值为0，这样当有一个样本xi需要判别的时候，我们就看g(xi)的值。若g(xi)&gt;0，就判别为类别C1，若g(xi)&lt;0，则判别为类别C2（等于的时候我们就拒绝判断，呵呵）。此时也等价于给函数g(x)附加一个符号函数sgn()，即f(x)=sgn [g(x)]是我们真正的判别函数。</p>
-<p>　　关于g(x)=wx+b这个表达式要注意三点：一，式中的x不是二维坐标系中的横轴，而是样本的向量表示，例如一个样本点的坐标是(3,8)，则xT=(3,8) ，而不是x=3（一般说向量都是说列向量，因此以行向量形式来表示时，就加上转置）。二，这个形式并不局限于二维的情况，在n维空间中仍然可以使用这个表达式，只是式中的w成为了n维向量（在二维的这个例子中，w是二维向量，注意这里的w严格的说也应该是转置的形式，为了表示起来方便简洁，以下均不区别列向量和它的转置，聪明的读者一看便知）；三，g(x)不是中间那条直线的表达式，中间那条直线的表达式是g(x)=0，即wx+b=0，我们也把这个函数叫做分类面。</p>
-<p>　　实际上很容易看出来，中间那条分界线并不是唯一的，我们把它稍微旋转一下，只要不把两类数据分错，仍然可以达到上面说的效果，稍微平移一下，也可以。此时就牵涉到一个问题，对同一个问题存在多个分类函数的时候，哪一个函数更好呢？显然必须要先找一个指标来量化“好”的程度，通常使用的都是叫做“<font color="red">分类间隔（Hyper Plane）</font>”的指标。下一节我们就仔细说说分类间隔，也补一补相关的数学知识。</p>
-
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
   </section>
 
   
@@ -1083,7 +1117,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives">
-                <span class="site-state-item-count">87</span>
+                <span class="site-state-item-count">88</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
