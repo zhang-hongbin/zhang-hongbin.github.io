@@ -259,218 +259,6 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="https://zhang-hongbin.github.io/2017/01/25/BOM/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Zhang Hongbin">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="http://oo590vn4k.bkt.clouddn.com/111.png">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="ZHB-CSDN">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2017/01/25/BOM/" itemprop="url">
-                  BOM
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-01-25T12:00:05+08:00">
-                2017-01-25
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/DOM编程艺术/" itemprop="url" rel="index">
-                    <span itemprop="name">DOM编程艺术</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>BOM（浏览器对象模型），提供了独立于内容而与浏览器进行交换的对象。使用原生的浏览器接口，有助于我们快速调用浏览器本身的接口，完成和浏览器相关的操作。</p>
-<p>学习 BOM，首先要对 BOM 的整体结构有所了解。在整个 BOM 树中，window 对象是核心，所有的对象和集合都是 window 对象的子树。</p>
-<h2 id="window-对象"><a href="#window-对象" class="headerlink" title="window 对象"></a>window 对象</h2><p>window 对象表示整个浏览器窗口，但不必表示其中的内容。如果页面中使用框架，那么所有的框架就会存放在 frames 集合中，可以使用索引或者 <code>name</code> 属性检索，比如 <code>window.frame[0]</code> 或者 <code>window.frame[“frameName”]</code>。</p>
-<p><code>top</code> 对象指向最外层框架，即浏览器窗口本身。由于 window 对象是整个 BOM 的根对象，所以它所包含的对象和属性都可以直接调用。</p>
-<p>window 的属性 <code>parent</code>，指向上层 <code>frameset</code>。</p>
-<p>另一个更加全局化的窗口指针是 <code>self</code>，他总是等于 <code>window</code>。如果页面上没有框架，那么 <code>window</code> 和 <code>self</code> 就等于 <code>top</code>，<code>frames</code> 的集合长度就是 0。</p>
-<h3 id="常用方法和属性"><a href="#常用方法和属性" class="headerlink" title="常用方法和属性"></a>常用方法和属性</h3><ul>
-<li><code>moveBy(dx, dy)</code>，将浏览器窗口相对于当前位置水平移动 <code>dx</code> 个像素，垂直移动 <code>dy</code> 个像素</li>
-<li><code>moveTo(x, y)</code>，将浏览器窗口的左上角坐标置为 <code>(x, y)</code></li>
-<li><code>resizeBy(dw, dh)</code>，将浏览器窗口相对于当前大小，增加或减少 <code>dw</code> 个像素宽度，dh 个像素高度。</li>
-<li><code>resizeTo(w, h)</code>，把浏览器窗口的大小调整为 <code>(w, h)</code></li>
-</ul>
-<p>虽然有了调整窗口的方法，但是获取窗口的位置等信息却存在分歧：</p>
-<ul>
-<li>IE 提供给了 <code>window.screenLeft</code> 和 <code>window.screenTop</code> 对象来判断窗口的位置，但未提供任何判断窗口大小的方法。用 <code>document.body.offsetWidth</code> 和 <code>document.body.offsetHeight</code> 属性可以获取适口的大小，但这并不是标准属性。</li>
-<li>Mozilla 提供了 <code>window.screenX</code> 和 <code>window.screenY</code> 来判断窗口位置。此外，还提供了 <code>window.innerWidth</code> 和 <code>window.innerHeight</code> 属性来判断视口大小，提供了 <code>window.outerWidth</code> 和 <code>windwo.outerHeight</code> 属性判断窗口大小。</li>
-</ul>
-<p>用 JavaScript 可以导航到指定的 URL，并用 <code>window.open()</code> 方法打开新窗口。</p>
-<p>除了能够弹出新窗口，还提供了三种提示框，分别需要调用 <code>alert()</code>、<code>confirm()</code> 和 <code>prompt()</code> 方法。</p>
-<p>window 对象可以使用两个属性控制浏览器的状态栏信息：<code>status</code> 和 <code>defaultStatus</code>。两者的区别在于，<code>status</code> 是状态栏信息暂时改变，<code>defaultStatus</code> 永久性改变状态栏信息。</p>
-<h3 id="时间间隔和暂停"><a href="#时间间隔和暂停" class="headerlink" title="时间间隔和暂停"></a>时间间隔和暂停</h3><p>setTimeout() 和 setInterval() 是 window 对象非常重要的两个方法，它们接收相同的参数，唯一的差别在于第二个参数含义。对于 setTime()，表示延迟时间；对于 setInterval()，表示循环间隔时间。</p>
-<p>调用这两个方法后会返回一个 id，用于后期清除循环和延迟。</p>
-<p>清除循环和延迟的两个方法是：clearTimeout() 和 clearInterval()。它们接收相同的参数，都是 id 值。<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> num = <span class="number">0</span>;</span><br><span class="line"><span class="keyword">var</span> intervalId = <span class="literal">null</span>;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">incNum</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">  num++;</span><br><span class="line">  <span class="keyword">if</span> (num &gt; <span class="number">10</span>) &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(num);</span><br><span class="line">    clearInterval(intervalId);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line">intervalId = setInterval(incNum, <span class="number">100</span>);</span><br><span class="line"><span class="comment">//11</span></span><br></pre></td></tr></table></figure></p>
-<h2 id="history-对象"><a href="#history-对象" class="headerlink" title="history 对象"></a>history 对象</h2><p>最常用的是 <code>window.history.go(num)</code> 方法，用来检索访问历史。<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//后退到上一页</span></span><br><span class="line"><span class="built_in">window</span>.history.go(<span class="number">-1</span>);</span><br><span class="line"><span class="comment">//类似方法</span></span><br><span class="line">history.back();</span><br><span class="line">history.forward();</span><br><span class="line"><span class="comment">//查看历史记录的数量</span></span><br><span class="line">history.length</span><br></pre></td></tr></table></figure></p>
-<h2 id="document-对象"><a href="#document-对象" class="headerlink" title="document 对象"></a>document 对象</h2><p>这个对象的独特之处在于，是唯一一个既属于 DOM 又属于 BOM 的对象。由于 BOM 并没有指导标准，所以这里就列举一些通用属性：</p>
-<ul>
-<li><code>alinkColor</code>，激活的链接颜色</li>
-<li><code>bgColor</code>，背景色</li>
-<li><code>fgColor</code>，前景色</li>
-<li><code>lastModified</code>，最后修改页面的日期</li>
-<li><code>linkColor</code>，链接的默认颜色</li>
-<li><code>referrer</code>，浏览历史的上一个链接地址</li>
-<li><code>title</code>，网站标题</li>
-<li><code>URL</code>，当前页面的链接地址</li>
-<li><code>vlinkColor</code>，访问过的链接颜色</li>
-</ul>
-<p>此外，document 对象有许多集合，用于检索页面内容：</p>
-<ul>
-<li><code>anchors</code>，锚点的结合</li>
-<li><code>applets</code>，applet 的集合</li>
-<li><code>embeds</code>，嵌入式对象的集合</li>
-<li><code>forms</code>，表单的集合</li>
-<li><code>images</code>，图片的集合</li>
-<li><code>links</code>，链接的结合</li>
-</ul>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//访问链接</span></span><br><span class="line"><span class="built_in">document</span>.links[<span class="number">0</span>];</span><br><span class="line"><span class="comment">//访问图像</span></span><br><span class="line"><span class="built_in">document</span>.images[<span class="number">0</span>];</span><br><span class="line"><span class="built_in">document</span>.images[<span class="string">"nameProperty"</span>];</span><br><span class="line"><span class="comment">//访问表单</span></span><br><span class="line"><span class="built_in">document</span>.form[<span class="number">0</span>];</span><br><span class="line"><span class="built_in">document</span>.forms[<span class="string">"nameProperty"</span>];</span><br></pre></td></tr></table></figure>
-<h2 id="location-对象"><a href="#location-对象" class="headerlink" title="location 对象"></a>location 对象</h2><ul>
-<li><p><code>location</code> 对象表示载入窗口的 URL，具体属性：</p>
-</li>
-<li><p><code>hash</code>，如果 URL 包含 #，该属性返回该符号之后的内容</p>
-</li>
-<li><code>host</code>，该属性返回服务器名称</li>
-<li><code>hostname</code>，通常等于 host，有时省略前面的 www</li>
-<li><code>href</code>，该属性返回当前页面的完整的 URL</li>
-<li><code>pathname</code>，该属性返回 URL 中主机名后面的部分</li>
-<li><code>port</code>，该属性返回 URL 中声明的请求接口</li>
-<li><code>protocol</code>，该属性返回 URL 中使用的协议，即双斜杠之前的内容</li>
-<li><code>search</code>，该属性返回 <code>?</code> 之后的内容<br><code>location.href</code> 是最常使用到的属性，修改该属性可以重定向页面，新地址也会添加到历史记录中。</li>
-</ul>
-<p><code>location.assign()</code> 方法和 <code>location.href</code> 属性的功能相同。此外，还有一个 <code>location.replace()</code>，该方法比之前的两种方法多做了一些事情，主要是删除调用该方面的页面的历史记录。</p>
-<p><code>location.reload()</code> 方法用于重载页面，可以传入一个布尔值参数，默认为 <code>false</code>，此时会从缓存中重载当前页面；如果传入 <code>true</code>，则从服务器重新获取数据。</p>
-<h2 id="navigator-对象"><a href="#navigator-对象" class="headerlink" title="navigator 对象"></a>navigator 对象</h2><p><code>navigator</code> 对象，主要用于获取浏览器本身的信息。更多用法将会在浏览器检测一章中做更多介绍。</p>
-<h2 id="screen-对象"><a href="#screen-对象" class="headerlink" title="screen 对象"></a>screen 对象</h2><p><code>screen</code> 对象包含了一些用户屏幕的信息，常用属性和方法：</p>
-<ul>
-<li>availHeight，视窗高度</li>
-<li>availWidth，视窗宽度</li>
-<li>height，屏幕高度</li>
-<li>width，屏幕宽度</li>
-<li>colorDepth，用户表示的颜色位数<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//填充用户屏幕</span></span><br><span class="line"><span class="built_in">window</span>.moveTo(<span class="number">0</span>, <span class="number">0</span>);</span><br><span class="line"><span class="built_in">window</span>.resizeTo(screen.availWidth, screen.availHeight);</span><br></pre></td></tr></table></figure></li>
-</ul>
-
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
     <link itemprop="mainEntityOfPage" href="https://zhang-hongbin.github.io/2017/01/24/canvas/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1287,6 +1075,195 @@
 
 
     
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="https://zhang-hongbin.github.io/2017/01/20/属性操作/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Zhang Hongbin">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="http://oo590vn4k.bkt.clouddn.com/111.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="ZHB-CSDN">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2017/01/20/属性操作/" itemprop="url">
+                  属性操作
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-01-20T17:48:08+08:00">
+                2017-01-20
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/DOM编程艺术/" itemprop="url" rel="index">
+                    <span itemprop="name">DOM编程艺术</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="属性访问器操作"><a href="#属性访问器操作" class="headerlink" title="属性访问器操作"></a>属性访问器操作</h2><ul>
+<li><h3 id="读操作-："><a href="#读操作-：" class="headerlink" title="读操作 ："></a>读操作 ：</h3>例子：<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&lt;div&gt;</span><br><span class="line">	&lt;label <span class="keyword">for</span>=<span class="string">"userName"</span>&gt;用户名：&lt;<span class="regexp">/label&gt;</span></span><br><span class="line"><span class="regexp">	&lt;input id="userName" type="text" class="u-txt"&gt;</span></span><br><span class="line"><span class="regexp">&lt;/</span>div&gt;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>则操作为：<br><code><br>    input.className;    //“u-txt”<br>    input[“id”];        //“userName”<br></code></p>
+<ul>
+<li><h3 id="写操作-："><a href="#写操作-：" class="headerlink" title="写操作 ："></a>写操作 ：</h3>例子：<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&lt;div&gt;</span><br><span class="line">	&lt;label <span class="keyword">for</span>=<span class="string">"userName"</span>&gt;用户名：&lt;<span class="regexp">/label&gt;</span></span><br><span class="line"><span class="regexp">	&lt;input id="userName" class="u-txt" &gt;</span></span><br><span class="line"><span class="regexp">&lt;/</span>div&gt;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>则操作为：<br><code><br>    input.value=”<a href="mailto:wwq@163.com" target="_blank" rel="noopener">wwq@163.com</a>“;    //则显示框内为<a href="mailto:wwq@163.com" target="_blank" rel="noopener">wwq@163.com</a>,后台增加了value=”<a href="mailto:wwq@163.com" target="_blank" rel="noopener">wwq@163.com</a>“;<br>    input.disabled = true;<br></code></p>
+<blockquote>
+<p><font color="red"><br><strong>总结</strong>：使用属性访问器，优缺点比较：</font></p>
+</blockquote>
+<pre><code>X 通用性-名字异常
+X 拓展性
+√ 使用对象
+</code></pre><p>      </p>
+<h2 id="getAttribute-setAttribute操作"><a href="#getAttribute-setAttribute操作" class="headerlink" title="getAttribute/setAttribute操作"></a>getAttribute/setAttribute操作</h2><ul>
+<li><h3 id="读操作-：-1"><a href="#读操作-：-1" class="headerlink" title="读操作 ："></a>读操作 ：</h3>  <strong>方法：</strong><code>var attribute = element.getAttribute(attributeName);</code><br><strong>例子：</strong><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&lt;div&gt;</span><br><span class="line">	&lt;label <span class="keyword">for</span>=<span class="string">"userName"</span>&gt;用户名：&lt;<span class="regexp">/label&gt;</span></span><br><span class="line"><span class="regexp">	&lt;input id="userName" type="text" class="u-txt"&gt;</span></span><br><span class="line"><span class="regexp">&lt;/</span>div&gt;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>则操作为：<br><code><br>    input.getAttribute(“class”);    //“u-txt”<br></code></p>
+<ul>
+<li><h3 id="写操作-：-1"><a href="#写操作-：-1" class="headerlink" title="写操作 ："></a>写操作 ：</h3>  <strong>方法：</strong><code>element.setAttribute(name,value);</code><br><strong>例子：</strong><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&lt;div&gt;</span><br><span class="line">	&lt;label <span class="keyword">for</span>=<span class="string">"userName"</span>&gt;用户名：&lt;<span class="regexp">/label&gt;</span></span><br><span class="line"><span class="regexp">	&lt;input id="userName" class="u-txt" &gt;</span></span><br><span class="line"><span class="regexp">&lt;/</span>div&gt;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>则操作为：<br><code><br>    input.setAttribute(“value”,”<a href="mailto:wwq@163.com" target="_blank" rel="noopener">wwq@163.com</a>“);    //则显示框内为<a href="mailto:wwq@163.com" target="_blank" rel="noopener">wwq@163.com</a>,后台增加了value=”<a href="mailto:wwq@163.com" target="_blank" rel="noopener">wwq@163.com</a>“;<br>    input.disabled = true;</code></p>
+<blockquote>
+<p><font color="red"><br><strong>总结</strong>： getAttribute/setAttribute操作，优缺点比较：</font></p>
+</blockquote>
+<pre><code>X 仅字符串操作
+√ 通用性
+</code></pre><p><br></p>
+<h2 id="dataset操作"><a href="#dataset操作" class="headerlink" title="dataset操作"></a>dataset操作</h2><blockquote>
+<p><strong>介绍：</strong></p>
+<ul>
+<li>HTMLElement.dataset   //是HTML元素上的一个属性，叫做dataset</li>
+<li>data-<em>属性集             //它是data-</em>属性的集合</li>
+<li>元素上保存数据             //主要用途是在元素上保存数据，一般用来做自定义的数据属性<br>例子：<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">"user"</span> <span class="attr">data-id</span>=<span class="string">"123456"</span> <span class="attr">data-account-name</span>=<span class="string">"wwq"</span> <span class="attr">data-name</span>=<span class="string">"魏文庆"</span> <span class="attr">data-email</span>=<span class="string">"wwq123@163.com"</span> <span class="attr">data-mobile</span>=<span class="string">"13524543878"</span>&gt;</span>wwq<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</blockquote>
+<p>则使用<code>div.dataset.</code>输出    </p>
+<table cellspacing="4px"><br><tr><td bgcolor="ligblue">id</td><td bgcolor="orange">“123456”</td></tr><br><tr><td bgcolor="ligblue">accountName</td><td bgcolor="orange">“wwq”</td></tr><br><tr><td bgcolor="ligblue">name</td><td bgcolor="orange">“魏文庆”</td></tr><br><tr><td bgcolor="ligblue">email</td><td bgcolor="orange">“<a href="mailto:wwq123@163.com" target="_blank" rel="noopener">wwq123@163.com</a>“</td></tr><br><tr><td bgcolor="ligblue">mobile</td><td bgcolor="orange">“13524543878”</td></tr><br></table>
+
+
+
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
   </section>
 
   
@@ -1336,7 +1313,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives">
-                <span class="site-state-item-count">88</span>
+                <span class="site-state-item-count">87</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>

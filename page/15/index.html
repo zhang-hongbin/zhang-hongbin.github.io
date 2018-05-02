@@ -259,161 +259,6 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="https://zhang-hongbin.github.io/2016/11/17/深入理解javascript原型和闭包（16）——完结/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Zhang Hongbin">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="http://oo590vn4k.bkt.clouddn.com/111.png">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="ZHB-CSDN">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2016/11/17/深入理解javascript原型和闭包（16）——完结/" itemprop="url">
-                  深入理解javascript原型和闭包（16）——完结
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2016-11-17T21:56:49+08:00">
-                2016-11-17
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/深入理解javascript原型和闭包/" itemprop="url" rel="index">
-                    <span itemprop="name">深入理解javascript原型和闭包</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>之前一共用15篇文章，把javascript的原型和闭包。</p>
-<p>首先，javascript本来就“不容易学”。不是说它有多难，而是学习它的人，往往都是在学会了其他语言之后，又学javascript。有其他语言的学习经历和实践经历，再加上自学javascript，边学边用，肯定会产生许多误解，走许多弯路。我就没少经历，也算是一种教训。</p>
-<p>其次，原型和闭包又是一对难兄难弟，一来是他俩比较难懂，而来是他俩都或多或少的给初级开发人员带来许多BUG。不懂原型和闭包，你也可以开发javascript程序，但是你写不出高质量、符合设计原则的javascript程序。</p>
-<p>因此，还是强调基础，强调理论！理论和实践相结合不是一句空话。</p>
-<p>由此想到了我平时练习投篮。一般喜欢篮球的人都是周末和别人去一起打篮球玩，我之前也是如此。但是我从今年春天开始，每周另外抽出一小时时间，自己一个人去练习投篮。练习正确的投篮姿势，强迫自己在练习的时候使用正确姿势，时间长了就形成了肌肉记忆。</p>
-<p>所以，工作之余，切不可忘记充电。</p>
-<p>　　　</p>
-<p>写这些东西，我也参考了好多资料，包括博客园、csdn好多技术专家的博客，各种javascript书籍，json.js源码，jQuery源码。但是我都没有生搬硬套里面的术语和段落。</p>
-<p>自己写东西，不是抄袭，不是写毕业论文。一定要有自己的思考和总结。学习、工作中都是如此。</p>
-<p>此前15篇文章中所有的描述、解释、例子包括图片，都体现了我自己的理解，大部分图片都是我自己画出来的。包括在写每一篇文章之前，我都要去思考，应该用何种方式去表达，才能让读者更容易理解和接收。</p>
-<p>最后，看到好多文章都是长篇大论，恨不得用一篇文章解释完所有的内容。而我的文章都是小步快跑，看完一篇估计也就十分钟。这是我在看《明朝那些事儿》时发现的一个思路。这本书一节只有很少的内容，而且语言简单，演绎性很强，一节紧扣着一节，能黏住读者。</p>
-<p> 因此，我在写文章时，会先用一个大家都知道的概念引入正题，然后进一步解释。在一篇文章的最后，要抛出一个疑问引出下一节。</p>
-<p>原型和闭包这个系列，正好填补了javascript教程一个空缺，即使《javascript高级程序设计》中，都没有将原型和闭包讲解的如此深入。希望大家多多支持吧。</p>
-
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
     <link itemprop="mainEntityOfPage" href="https://zhang-hongbin.github.io/2016/11/17/深入理解javascript原型和闭包（15）——闭包/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1058,6 +903,166 @@
 
 
     
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="https://zhang-hongbin.github.io/2016/11/13/深入理解javascript原型和闭包（11）——执行上下文栈/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Zhang Hongbin">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="http://oo590vn4k.bkt.clouddn.com/111.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="ZHB-CSDN">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2016/11/13/深入理解javascript原型和闭包（11）——执行上下文栈/" itemprop="url">
+                  深入理解javascript原型和闭包（11）——执行上下文栈
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2016-11-13T12:17:17+08:00">
+                2016-11-13
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/深入理解javascript原型和闭包/" itemprop="url" rel="index">
+                    <span itemprop="name">深入理解javascript原型和闭包</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>继续上文的内容。</p>
+<p>执行全局代码时，会产生一个执行上下文环境，每次调用函数都又会产生执行上下文环境。当函数调用完成时，这个上下文环境以及其中的数据都会被消除，再重新回到全局上下文环境。</p>
+<font color="red">处于活动状态的执行上下文环境只有一个。</font>
+
+<p>其实这是一个压栈出栈的过程——执行上下文栈。如下图：<br><img src="http://oo590vn4k.bkt.clouddn.com/11-1.png" alt=""></p>
+<p>可根据以下代码来详细介绍上下文栈的压栈、出栈过程。<br><img src="http://oo590vn4k.bkt.clouddn.com/11-2.png" alt=""></p>
+<p>如上代码。</p>
+<p>在执行代码之前，首先将创建全局上下文环境。<br><img src="http://oo590vn4k.bkt.clouddn.com/11-3.png" alt=""></p>
+<p>然后是代码执行。代码执行到第12行之前，上下文环境中的变量都在执行过程中被赋值。<br><img src="http://oo590vn4k.bkt.clouddn.com/11-4.png" alt=""></p>
+<p>执行到第13行，调用bar函数。</p>
+<p>跳转到bar函数内部，执行函数体语句之前，会创建一个新的执行上下文环境。<br><img src="http://oo590vn4k.bkt.clouddn.com/11-5.png" alt=""></p>
+<p>并将这个执行上下文环境压栈，设置为活动状态。<br><img src="http://oo590vn4k.bkt.clouddn.com/11-6.png" alt=""></p>
+<p>执行到第5行，又调用了fn函数。进入fn函数，在执行函数体语句之前，会创建fn函数的执行上下文环境，并压栈，设置为活动状态。<br><img src="http://oo590vn4k.bkt.clouddn.com/11-7.png" alt=""></p>
+<p>待第5行执行完毕，即fn函数执行完毕后，此次调用fn所生成的上下文环境出栈，并且被销毁（已经用完了，就要及时销毁，释放内存）。<br><img src="http://oo590vn4k.bkt.clouddn.com/11-8.png" alt=""></p>
+<p>同理，待第13行执行完毕，即bar函数执行完毕后，调用bar函数所生成的上下文环境出栈，并且被销毁（已经用完了，就要及时销毁，释放内存）。<br><img src="http://oo590vn4k.bkt.clouddn.com/11-9.png" alt=""></p>
+<p>好了，我很耐心的给大家介绍了一段简短代码的执行上下文环境的变化过程，一个完整的闭环。其中上下文环境的变量赋值过程我省略了许多，因为那些并不难，一看就知道。</p>
+<p>讲到这里，我不得不很遗憾的跟大家说：其实以上我们所演示的是一种比较理想的情况。有一种情况，而且是很常用的一种情况，无法做到这样干净利落的说销毁就销毁。这种情况就是伟大的——闭包。</p>
+<p>要说闭包，咱们还得先从自由变量和作用域说起。</p>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
   </section>
 
   
@@ -1107,7 +1112,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives">
-                <span class="site-state-item-count">88</span>
+                <span class="site-state-item-count">87</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>

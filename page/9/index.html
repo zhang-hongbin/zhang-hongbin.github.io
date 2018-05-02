@@ -259,160 +259,6 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="https://zhang-hongbin.github.io/2017/04/05/HTTP协议：缓存/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Zhang Hongbin">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="http://oo590vn4k.bkt.clouddn.com/111.png">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="ZHB-CSDN">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2017/04/05/HTTP协议：缓存/" itemprop="url">
-                  HTTP协议：缓存
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-04-05T17:35:51+08:00">
-                2017-04-05
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/九、Ajax/" itemprop="url" rel="index">
-                    <span itemprop="name">九、Ajax</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h1 id="HTTP协议：缓存"><a href="#HTTP协议：缓存" class="headerlink" title="HTTP协议：缓存"></a>HTTP协议：缓存</h1><h3 id="1-缓存的优点"><a href="#1-缓存的优点" class="headerlink" title="1.缓存的优点"></a>1.缓存的优点</h3><ol>
-<li><em>缓存减少了冗余的数据传输，节省了网络费用。</em></li>
-<li><em>缓存缓解了网络瓶颈的问题，不需要更多的网络带宽就能更快的加载页面。</em> </li>
-<li><em>缓存降低了对原始服务器的要求，服务器可以更快的响应。</em></li>
-</ol>
-<h3 id="2-缓存分类"><a href="#2-缓存分类" class="headerlink" title="2.缓存分类"></a>2.缓存分类</h3><h4 id="1-私有缓存"><a href="#1-私有缓存" class="headerlink" title="1)私有缓存"></a>1)私有缓存</h4><p>　　 常见就是我们的浏览器里内置的缓存。</p>
-<h4 id="2）公有缓存"><a href="#2）公有缓存" class="headerlink" title="2）公有缓存"></a>2）公有缓存</h4><p>　　常见的就是代理缓存，不多介绍。</p>
-<h3 id="3-缓存的处理流程"><a href="#3-缓存的处理流程" class="headerlink" title="3.缓存的处理流程"></a>3.缓存的处理流程</h3><p><img src="http://oo590vn4k.bkt.clouddn.com/12-1.png" alt=""><br>处理流程图，如上所示，下面分步骤具体介绍：<br>　　1）请求处理<br>　　用户发起一个http请求，缓存获取到URL，根据URL查找是否有匹配的副本，这个副本可能在内存中，也可能在本地磁盘。<br>　　2） 新鲜度检测<br>　　如果缓存中存在所请求资源的副本，则进行新鲜度检测。新鲜度检测举个简单的例子，我们在商店买了一瓶汽水，汽水瓶上肯定会标有过期时间，我们会根据这个过期时间和现在的时间做对比，看看饮料过期了没，如果没过期，我们正常喝就行了，如果已经过期，我们肯定要找商家。。。其实这就是一个新鲜度检测的过程，HTTP请求的新鲜度检测流程也是这样的，HTTP发起一个请求时，发现缓存中有相应的副本，接着就会检查这个副本有没有过期，如果没有过期，直接使用。如果已经过期，则进行再验证。具体的实现在下面会介绍。<br>　　3）服务器再验证<br>　　缓存中的文档过期了并不代表他和服务器上的不一样，所以这个时候就需要问问服务器，过期的这段时间里这个文档到底有没有改变。如果改变了，缓存就会获取一份新的文档副本，然后发送给客户端。如果没有改变，缓存只需要获取新的首部，包括一个新的过期时间，并对缓存中的首部更新。<br>　　4）创建响应并返回<br>　　我们希望缓存看起来就像是来自原始服务器一样，缓存将已缓存的服务器响应首部作为响应首部，发送给客户端。</p>
-<p>###4.保质期的实现<br>　　HTTP中，通过Cache-Control首部和Expires首部为文档指定了过期时间，通过对过期时间的判断，缓存就可以知道文档是不是在保质期内。Expires首部和Cache-Control:max-age首部都是来告诉缓存文档有没有过期，为什么需要两个响应首部来做这件简单的事情了？其实这一切都是历史原因，Expires首部是HTTP 1.0中提出来的，因为他使用的是绝对日期，如果服务端和客户端时钟不同步的话（实际上这种情况非常常见），缓存可能就会认为文档已经过了保质期。<br>　　HTTP 1.1为了修正这个问题，引入了Cache-Control:max-age首部，这个首部使用相对时间来控制保质期，让一切变得更加合理。举个例子，我们买了一瓶汽水，如果使用Expires首部来标注保质期，就会这么写：饮料过期时间：2012年12月21日，如果某个2货不知道今天多少号，他还真不知道这饮料过期没，我小时候饮料都这么写。后来，有个挺有名的卖牛奶的，大概就叫蒙牛，他发明了一种标注保质期的方法，他怎么搞了？他这么写：保质期：12个月，行，牛逼了，我牛奶一年前就生产出来的牛奶，今天要发给厂家，发之前，先往包装上印上生产日期（当然是印发货那天），然后告诉你，明年才过期，这多聪明，搞成相对的，毒死你。也许HTTP 1.1借鉴了这个伟大的发明，于是就有了Cache-Control:max-age首部。</p>
-<h3 id="5-服务器再验证的实现"><a href="#5-服务器再验证的实现" class="headerlink" title="5.服务器再验证的实现"></a>5.服务器再验证的实现</h3><p>　　缓存要问问服务器，牛奶已经过期了，到底还能不能喝。我说错了，是文档，不是牛奶。HTTP中，使用两个请求请首部来完成这个功能：If-Modified-Sice和If-None-Match。为啥又要两个首部来完成这个功能了？答案还是因为历史的原因。一开始使用 If-Modified-Sice:<date>首部，date是上一次缓存牛奶时，响应中Last-Modified首部的值。<br>　　客户端拿着这个值，问服务器，这段时间内这个牛奶你有没有修改过？服务器看了看这个牛奶的修改时间，如果没有修改过，会返回一个304 Not Modified的响应；如果修改过，把最新的牛奶返回给客户端。后来，人们发现这样有问题，因为就算修改时间变化了，文档也不一定发生改变！于是乎，就有了 If-None-Match:<tag>首部，tag是上一次缓存文档时，响应中Etag的值，Etag是一种唯一标识资源的方式，就像java中的hashcode，如果hashcode不一样，那么两个对象肯定不一样！</tag></date></p>
-<h3 id="6-试探性过期"><a href="#6-试探性过期" class="headerlink" title="6.试探性过期"></a>6.试探性过期</h3><p>　　如果响应中既没有Cache-Control:max-age首部又没有Expires首部，缓存可以计算出一个试探性最大使用期。这东西打个比方就是缓存会根据响应的Last-Modified来决定这文档靠不靠谱，需不需要再验证，如果Last-Modified中的日期是很早之前，那缓存就认为这文档挺靠谱，近期之内应该不会变化；如果Last-Modified中的日期是最近几天，那缓存可能就认为这文档可能经常改变，不靠谱。当然这么粗略的判断想想就知道不严谨，所以我们一定要设置Expires首部和Cache-Control首部。</p>
-<h3 id="7-写在最后"><a href="#7-写在最后" class="headerlink" title="7.写在最后"></a>7.写在最后</h3><p>　　如果你是个好学者，看完这个文章，你可能会迫不及待的打开你的chrome浏览器，F12，观察oschina的HTTP信息。这个时候的你，肯定和几个月前的我一样茫然，因为你发现我上面讲的很多东西再这里被现实无情推翻了。看看这个讨论记录，这是几个月前我在OSC上问的。之所以会出现这个情况，是因为chrome为了保证牛奶的安全放心，所以他不太信任包装上的保质期标识，每次都问问服务器（再验证），牛奶有没有变化，没变化的话他就直接喝了！一切都是为了安全！</p>
-
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
     <link itemprop="mainEntityOfPage" href="https://zhang-hongbin.github.io/2017/03/11/LibSVM学习详细说明/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1416,6 +1262,190 @@ else
 
 
     
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="https://zhang-hongbin.github.io/2017/03/07/SVM入门（七）为何需要核函数（转载）/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Zhang Hongbin">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="http://oo590vn4k.bkt.clouddn.com/111.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="ZHB-CSDN">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2017/03/07/SVM入门（七）为何需要核函数（转载）/" itemprop="url">
+                  SVM入门（七）为何需要核函数（转载）
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-03-07T13:36:46+08:00">
+                2017-03-07
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/算法/" itemprop="url" rel="index">
+                    <span itemprop="name">算法</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>生存？还是毁灭？——哈姆雷特</p>
+<p>可分？还是不可分？——支持向量机</p>
+<p>之前一直在讨论的线性分类器,器如其名（汗，这是什么说法啊），只能对线性可分的样本做处理。如果提供的样本线性不可分，结果很简单，线性分类器的求解程序会无限循环，永远也解不出来。这必然使得它的适用范围大大缩小，而它的很多优点我们实在不原意放弃，怎么办呢？是否有某种方法，让线性不可分的数据变得线性可分呢？</p>
+<p>有！其思想说来也简单，来用一个二维平面中的分类问题作例子，你一看就会明白。事先声明，下面这个例子是网络早就有的，我一时找不到原作者的正确信息，在此借用，并加进了我自己的解说而已。</p>
+<p>例子是下面这张图：</p>
+<p><img src="http://www.blogjava.net/images/blogjava_net/zhenandaci/WindowsLiveWriter/SVM_10595/clip_image001_thumb.jpg" alt=""></p>
+<p>我们把横轴上端点a和b之间红色部分里的所有点定为正类，两边的黑色部分里的点定为负类。试问能找到一个线性函数把两类正确分开么？不能，因为二维空间里的线性函数就是指直线，显然找不到符合条件的直线。</p>
+<p>但我们可以找到一条曲线，例如下面这一条：<br><img src="http://www.blogjava.net/images/blogjava_net/zhenandaci/WindowsLiveWriter/SVM_10595/clip_image002_thumb.gif" alt=""></p>
+<p>显然通过点在这条曲线的上方还是下方就可以判断点所属的类别（你在横轴上随便找一点，算算这一点的函数值，会发现负类的点函数值一定比0大，而正类的一定比0小）。这条曲线就是我们熟知的二次曲线，它的函数表达式可以写为：</p>
+<p><img src="http://www.blogjava.net/images/blogjava_net/zhenandaci/WindowsLiveWriter/SVM_10595/clip_image002%5B5%5D_thumb.gif" alt=""></p>
+<p>问题只是它不是一个线性函数，但是，下面要注意看了，新建一个向量y和a：</p>
+<p><img src="http://www.blogjava.net/images/blogjava_net/zhenandaci/WindowsLiveWriter/SVM_10595/clip_image002%5B7%5D_thumb.gif" alt=""></p>
+<p>这样g(x)就可以转化为f(y)=&lt;a,y&gt;，你可以把y和a分别回带一下，看看等不等于原来的g(x)。用内积的形式写你可能看不太清楚，实际上f(y)的形式就是：</p>
+<p>g(x)=f(y)=ay</p>
+<p>在任意维度的空间中，这种形式的函数都是一个线性函数（只不过其中的a和y都是多维向量罢了），因为自变量y的次数不大于1。</p>
+<p>看出妙在哪了么？原来在二维空间中一个线性不可分的问题，映射到四维空间后，变成了线性可分的！因此这也形成了我们最初想解决线性不可分问题的基本思路——向高维空间转化，使其变得线性可分。</p>
+<p>而转化最关键的部分就在于找到x到y的映射方法。遗憾的是，如何找到这个映射，没有系统性的方法（也就是说，纯靠猜和凑）。具体到我们的文本分类问题，文本被表示为上千维的向量，即使维数已经如此之高，也常常是线性不可分的，还要向更高的空间转化。其中的难度可想而知。</p>
+<p>小Tips:为什么说f(y)=ay是四维空间里的函数?</p>
+<blockquote>
+<p>大家可能一时没看明白。回想一下我们二维空间里的函数定义<br>g(x)=ax+b<br>变量x是一维的，为什么说它是二维空间里的函数呢？因为还有一个变量我们没写出来，它的完整形式其实是<br>y=g(x)=ax+b<br>即<br>y=ax+b<br>看看，有几个变量？两个。那是几维空间的函数？（作者五岁的弟弟答：五维的。作者：……）<br>再看看<br>f(y)=ay<br>里面的y是三维的变量，那f(y)是几维空间里的函数？（作者五岁的弟弟答：还是五维的。作者：……）</p>
+</blockquote>
+<p>用一个具体文本分类的例子来看看这种向高维空间映射从而分类的方法如何运作，想象一下，我们文本分类问题的原始空间是1000维的（即每个要被分类的文档被表示为一个1000维的向量），在这个维度上问题是线性不可分的。现在我们有一个2000维空间里的线性函数</p>
+<pre><code>f(x’)=&lt;w’,x’&gt;+b
+</code></pre><p>注意向量的右上角有个 ’哦。它能够将原问题变得可分。式中的 w’和x’都是2000维的向量，只不过w’是定值，而x’是变量（好吧,严格说来这个函数是2001维的,哈哈），现在我们的输入呢，是一个1000维的向量x，分类的过程是先把x变换为2000维的向量x’，然后求这个变换后的向量x’与向量w’的内积，再把这个内积的值和b相加，就得到了结果，看结果大于阈值还是小于阈值就得到了分类结果。</p>
+<p>你发现了什么？我们其实只关心那个高维空间里内积的值，那个值算出来了，分类结果就算出来了。而从理论上说， x’是经由x变换来的，因此广义上可以把它叫做x的函数（有一个x，就确定了一个x’，对吧，确定不出第二个），而w’是常量，它是一个低维空间里的常量w经过变换得到的，所以给了一个w 和x的值，就有一个确定的f(x’)值与其对应。这让我们幻想，是否能有这样一种函数K(w,x),他接受低维空间的输入值，却能算出高维空间的内积值&lt;w’,x’&gt;？</p>
+<p>如果有这样的函数，那么当给了一个低维空间的输入x以后，</p>
+<pre><code>g(x)=K(w,x)+b
+
+f(x’)=&lt;w’,x’&gt;+b
+</code></pre><p>这两个函数的计算结果就完全一样，我们也就用不着费力找那个映射关系，直接拿低维的输入往g(x)里面代就可以了（再次提醒，这回的g(x)就不是线性函数啦，因为你不能保证K(w,x)这个表达式里的x次数不高于1哦）。</p>
+<p>万幸的是，这样的K(w,x)确实存在（发现凡是我们人类能解决的问题，大都是巧得不能再巧，特殊得不能再特殊的问题，总是恰好有些能投机取巧的地方才能解决，由此感到人类的渺小），它被称作核函数（核，kernel），而且还不止一个，事实上，只要是满足了Mercer条件的函数，都可以作为核函数。核函数的基本作用就是接受两个低维空间里的向量，能够计算出经过某个变换后在高维空间里的向量内积值。几个比较常用的核函数，俄，教课书里都列过，我就不敲了（懒！）。</p>
+<p>回想我们上节说的求一个线性分类器，它的形式应该是：</p>
+<p><img src="http://www.blogjava.net/images/blogjava_net/zhenandaci/WindowsLiveWriter/SVM_10595/clip_image002%5B9%5D_thumb.gif" alt=""></p>
+<p>现在这个就是高维空间里的线性函数（为了区别低维和高维空间里的函数和向量，我改了函数的名字，并且给w和x都加上了 ’），我们就可以用一个低维空间里的函数（再一次的，这个低维空间里的函数就不再是线性的啦）来代替，</p>
+<p><img src="http://www.blogjava.net/images/blogjava_net/zhenandaci/WindowsLiveWriter/SVM_10595/clip_image002%5B11%5D_thumb.gif" alt=""></p>
+<p>又发现什么了？f(x’) 和g(x)里的α，y，b全都是一样一样的！这就是说，尽管给的问题是线性不可分的，但是我们就硬当它是线性问题来求解，只不过求解过程中，凡是要求内积的时候就用你选定的核函数来算。这样求出来的α再和你选定的核函数一组合，就得到分类器啦！</p>
+<p>明白了以上这些，会自然的问接下来两个问题：</p>
+<p>1． 既然有很多的核函数，针对具体问题该怎么选择？</p>
+<p>2． 如果使用核函数向高维空间映射后，问题仍然是线性不可分的，那怎么办？</p>
+<p>第一个问题现在就可以回答你：对核函数的选择，现在还缺乏指导原则！各种实验的观察结果（不光是文本分类）的确表明，某些问题用某些核函数效果很好，用另一些就很差，但是一般来讲，径向基核函数是不会出太大偏差的一种，首选。（我做文本分类系统的时候，使用径向基核函数，没有参数调优的情况下，绝大部分类别的准确和召回都在85%以上，可见。虽然libSVM的作者林智仁认为文本分类用线性核函数效果更佳，待考证）</p>
+<p>对第二个问题的解决则引出了我们下一节的主题：松弛变量。</p>
+<p>注：转载自Jasper’s Java Jacal的博客<a href="http://www.blogjava.net/zhenandaci/archive/2009/03/06/258288.html" target="_blank" rel="noopener">http://www.blogjava.net/zhenandaci/archive/2009/03/06/258288.html</a></p>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
   </section>
 
   
@@ -1465,7 +1495,7 @@ else
           
             <div class="site-state-item site-state-posts">
               <a href="/archives">
-                <span class="site-state-item-count">88</span>
+                <span class="site-state-item-count">87</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
